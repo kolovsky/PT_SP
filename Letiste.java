@@ -1,0 +1,3 @@
+class Letiste extends Proces{
+	
+}

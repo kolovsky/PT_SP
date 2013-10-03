@@ -1,0 +1,3 @@
+class LetisteUzel extends Uzel{
+	
+}
