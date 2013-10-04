@@ -1,16 +1,18 @@
 /* Soubor je ulozen v kodovani UTF-8.
  * Kontrola kódování: Pøíliš luouèkı kùò úpìl ïábelské ódy. */
 
+
+
 /*******************************************************************************
- * Instance tøídy {@code Calendar} pøedstavují ...
+ * Instance tøídy {@code Queue} pøedstavují ...
  *
  * @author    jméno autora
  * @version   0.00.000
  */
-public class Calendar
+public class Queue
 {
     //== KONSTANTNÍ ATRIBUTY TØÍDY =============================================
-    //== PROMÌNNÉ ATRIBUTY TØÍDY ===============================================    
+    //== PROMÌNNÉ ATRIBUTY TØÍDY ===============================================
     //== STATICKİ INICIALIZAÈNÍ BLOK - STATICKİ KONSTRUKTOR ====================
     //== KONSTANTNÍ ATRIBUTY INSTANCÍ ==========================================
     //== PROMÌNNÉ ATRIBUTY INSTANCÍ ============================================
@@ -23,7 +25,7 @@ public class Calendar
     /***************************************************************************
      *
      */
-    public Calendar()
+    public Queue()
     {
     }
 
@@ -42,7 +44,7 @@ public class Calendar
     //      */
     //     public static void test()
     //     {
-    //         Calendar instance = new Calendar();
+    //         Queue instance = new Queue();
     //     }
     //     /** @param args Parametry pøíkazového øádku - nepouívané. */
     //     public static void main(String[] args)  {  test();  }

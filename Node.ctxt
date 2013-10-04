@@ -1,2 +1,11 @@
 #BlueJ class context
-numComments=0
+comment0.params=id
+comment0.target=Node(java.lang.String)
+comment0.text=\r\n\ Konstruktor\ objekt\u016F\ t\u0159\u00EDdy\ {@code\ Node}.\r\n\ \r\n\ @param\ id\ Jm\u00E9no\ nov\u00E9ho\ vrcholu\r\n
+comment1.params=newId
+comment1.target=void\ setId(java.lang.String)
+comment1.text=\r\n\ Nastavuje\ parametr\ id.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getId()
+comment2.text=\r\n\ Vrac\u00ED\ parametr\ id.\r\n\ \r\n\ @return\ {@code\ String}\ ID\ vrcholu\r\n
+numComments=3

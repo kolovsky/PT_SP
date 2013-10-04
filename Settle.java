@@ -1,3 +1,7 @@
-class Settle extends Node{
-	
+public class Settle extends Process
+{
+    public Settle()
+    {
+        super();
+    }
 }
