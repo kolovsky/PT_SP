@@ -1,3 +1,3 @@
-class Car extends Proces{
+class Car extends Process{
 	
 }

@@ -1,0 +1,3 @@
+class Settle extends Node{
+	
+}

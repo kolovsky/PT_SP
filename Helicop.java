@@ -1,3 +1,3 @@
-class Helicop extends Proces{
+class Helicop extends Process{
 	
 }

@@ -1,3 +1,0 @@
-class Sidlo extends Uzel{
-	
-}

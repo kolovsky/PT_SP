@@ -1,3 +1,6 @@
-class Menu extends Parent implements Interface {
+import java.awt.*;
+import javax.swing.*;
+
+class Menu extends JFrame{
 	
 }

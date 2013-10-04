@@ -1,0 +1,3 @@
+class AirportNode extends Node{
+	
+}
