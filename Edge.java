@@ -1,29 +1,21 @@
-/* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kódování: Pøíliš luouèkı kùò úpìl ïábelské ódy. */
 
-/*******************************************************************************
- * Instance tøídy {@code Edge} pøedstavují hrany grafu.
- *
- * @author    jmacura
- * @version   1.01.000
- */
 public class Edge
 {
     /**
-     * Poøadí vrcholu, na nìj hrana ukazuje, v poli vrcholù
-     * {@code nodes[]} tøídy {@code Graph}.
+     * Poradi vrcholu, na nijÅ¾ hrana ukazuje, v poli vrcholu
+     * {@code nodes[]} tridy {@code Graph}.
      */
     public int node;
     /**
-     * Další hrana v seznamu.
+     * DalsÃ­ hrana v seznamu.
      */
     public Edge nxt;
     
     /**
-     * Konstruktor objektù tøídy Edge
+     * Konstruktor objektÃ¹ tÅ™Ã­dy Edge
      * 
-     * @param v Index vrcholu, na kterı hrana vede, v poli
-     * vrcholù tøídy {@code Graph}
+     * @param v Index vrcholu, na kterÃ½ hrana vede, v poli
+     * vrcholu trÅ™dy {@code Graph}
      */
     public Edge(int v)
     {

@@ -1,48 +1,44 @@
-/* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kódování: Pøíliš luouèkı kùò úpìl ïábelské ódy. */
 
-/*******************************************************************************
- * Instance tøídy {@code Node} pøedstavují vrcholy grafu.
- *
- * @author    jmacura
- * @version   2.01.000
- */
 public class Node
 {
     /**
-     * Jméno vrcholu.
+     * Jmeo vrcholu.
      */
-    private String id;
+    private int id;
+    public int x;
+    public int y;
     /**
      * Seznam hran.
      */
     public Edge edges;
 
     /**
-     * Konstruktor objektù tøídy {@code Node}.
+     * Konstruktor objekt? t??y {@code Node}.
      * 
-     * @param id Jméno nového vrcholu
+     * @param id Jm?o nov?o vrcholu
      */
-    public Node(String id)
+    public Node(int id, int x, int y)
     {
         setId(id);
         edges = null;
+        this.x = x;
+        this.y = y;
     }
     
     /**
      * Nastavuje parametr id.
      */
-    public void setId(String newId)
+    public void setId(int newId)
     {
         this.id = newId;
     }
     
     /**
-     * Vrací parametr id.
+     * Vrac?parametr id.
      * 
      * @return {@code String} ID vrcholu
      */
-    public String getId()
+    public int getId()
     {
         return this.id;
     }

@@ -1,12 +1,4 @@
-/* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kódování: Pøíliš luouèkı kùò úpìl ïábelské ódy. */
 
-/*******************************************************************************
- * Instance tøídy {@code AirportNode} pøedstavují letištì v grafu.
- *
- * @author    jmacura
- * @version   0.00.000
- */
 class AirportNode extends Node
 {    
 	public AirportNode(String id)

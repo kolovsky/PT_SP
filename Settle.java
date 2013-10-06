@@ -1,7 +1,7 @@
 public class Settle extends Process
 {
-    public Settle()
+    public Settle(int id, int x, int y)
     {
-        super();
+        super(id,x,y);
     }
 }
