@@ -10,7 +10,7 @@ public class Node
     /**
      * Seznam hran.
      */
-    public Edge edges;
+    public Edge edges[];
 
     /**
      * Konstruktor objekt? t??y {@code Node}.
