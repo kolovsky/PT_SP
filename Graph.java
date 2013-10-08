@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Graph
 {
@@ -23,29 +24,6 @@ public class Graph
         Random r = new Random(); //random
         boolean isGood;
         int distance, x,y,xx,yy,i;
-        
-            /*while (true) {
-                /*x = r.nextInt(500000);
-                y = r.nextInt(500000);
-                //System.out.print(x);
-                //System.out.println(y);
-                isGood = true;
-                for (int j = 1;j<i ;j++ ) {
-                    distance = (int) Math.sqrt((nodes[j].x-x)*(nodes[j].x-x)+(nodes[j].y-y)*(nodes[j].y-y));
-                    if (distance < 50) {
-
-                        isGood = false;
-                        break;
-                    }
-                }
-                if (isGood) {
-                    break;
-                }
-                
-
-                                
-            }
-            nodes[i] = new SettleNode(i,x,y); */
             
         i = 1;
         for (x = 2000;x<498000 ;x+=9050 ) {
@@ -67,21 +45,42 @@ public class Graph
                 
             
         }
+        nodes[3001] = new AirportNode(3001,40000,40000);
+        nodes[3002] = new AirportNode(3002,40000,460000);
+        nodes[3003] = new AirportNode(3003,460000,460000);
+        nodes[3004] = new AirportNode(3004,460000,40000);
+        nodes[3005] = new AirportNode(3005,40000,250000);
 
     }
     public void load(String filename){
 
     }
-    public void save(String filename){
+    public void save(String filename) throws Exception{
+        FileWriter out = new FileWriter(filename);
+        for (int i = 1;i<nodes.length ;i++ ) {
+            if (nodes[i] != null) {
+                out.write(nodes[i].id+" ");
+                out.write(nodes[i].x+" ");
+                out.write(nodes[i].y+" ");
+                for (int j = 0;j<nodes[i].edges.length ;j++ ) {
+                    out.write(nodes[i].edges[j].node.id+" ");
+                    out.write(nodes[i].edges[j].cost+" ");
+                }
+                out.write("\n");
+            }
+        }
+        out.close();
 
     }
     public void createEdge(){
         long distance;
-        int distances[] = new int[3001];
+        int distances[] = new int[3006];
         int distancesCopy[];
-        for (int i = 1;i<nodes.length - 5 ;i++ ) {
-            System.out.println(i);
-            for (int j = 1;j<nodes.length -5;j++ ) {
+        int ppZarazka = 0;
+        int r = 0;
+        for (int i = 1;i<nodes.length ;i++ ) {
+            //System.out.println(i);
+            for (int j = 1;j<nodes.length;j++ ) {
                 if (j != i) {
                     //System.out.println(nodes[j].x);
                     distance = (long) Math.sqrt(((long)(nodes[j].x-nodes[i].x)*(nodes[j].x-nodes[i].x))+((long)(nodes[j].y-nodes[i].y)*(nodes[j].y-nodes[i].y)));
@@ -96,14 +95,23 @@ public class Graph
             //distancesCopy = null;
             distancesCopy = Arrays.copyOf(distances,distances.length);
             Arrays.sort(distancesCopy);
-            int r = distancesCopy[11];
+            if (i<3001) {
+               r = distancesCopy[11];
+               ppZarazka = 10;
+            }
+            else {
+                 r = distancesCopy[61];
+                 ppZarazka = 60;
+            }
+                
+            //int r = distancesCopy[11];
             int pp = 0;
-            for (int j = 1; j<3001;j++ ) {
+            for (int j = 1; j<nodes.length;j++ ) {
                 if (r >= distances[j] && distances[j] != 0) {
                     //System.out.println(distancesCopy[pp+2]);
                     nodes[i].edges[pp] = new Edge(nodes[j],distances[j]);
                     pp++;
-                    if (pp == 10) {
+                    if (pp == ppZarazka) {
                         break;
                     }
                 }
@@ -112,5 +120,9 @@ public class Graph
             
         }
 
+    }
+    public void generatePeople(){
+         Random fRandom = new Random();
+         double c =   5000 + fRandom.nextGaussian() * 10000;
     }
 }

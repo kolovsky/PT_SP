@@ -4,7 +4,7 @@ public class Node
     /**
      * Jmeo vrcholu.
      */
-    private int id;
+    public int id;
     public int x;
     public int y;
     /**
