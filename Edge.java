@@ -2,20 +2,20 @@
 public class Edge
 {
     /**
-     * Poradi vrcholu, na nijž hrana ukazuje, v poli vrcholu
+     * Poradi vrcholu, na nejz hrana ukazuje, v poli vrcholu
      * {@code nodes[]} tridy {@code Graph}.
      */
     public int node;
     /**
-     * Dalsí hrana v seznamu.
+     * Dalsi hrana v seznamu.
      */
     public Edge nxt;
     
     /**
-     * Konstruktor objektù třídy Edge
+     * Konstruktor objektu tridy Edge
      * 
-     * @param v Index vrcholu, na který hrana vede, v poli
-     * vrcholu trřdy {@code Graph}
+     * @param v Index vrcholu, na ktery hrana vede, v poli
+     * vrcholu tridy {@code Graph}
      */
     public Edge(int v)
     {

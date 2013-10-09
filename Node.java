@@ -2,7 +2,7 @@
 public class Node
 {
     /**
-     * Jmeo vrcholu.
+     * Jmeno vrcholu.
      */
     private int id;
     public int x;
@@ -13,9 +13,9 @@ public class Node
     public Edge edges;
 
     /**
-     * Konstruktor objekt? t??y {@code Node}.
+     * Konstruktor objektu tridy {@code Node}.
      * 
-     * @param id Jm?o nov?o vrcholu
+     * @param id Jmeno noveho vrcholu
      */
     public Node(int id, int x, int y)
     {
@@ -34,9 +34,9 @@ public class Node
     }
     
     /**
-     * Vrac?parametr id.
+     * Vraci parametr id.
      * 
-     * @return {@code String} ID vrcholu
+     * @return {@code int} ID vrcholu
      */
     public int getId()
     {
