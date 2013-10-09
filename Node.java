@@ -7,6 +7,8 @@ public class Node
     public int id;
     public int x;
     public int y;
+    public int people;
+    public boolean isSimple;
     /**
      * Seznam hran.
      */

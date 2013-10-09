@@ -60,11 +60,14 @@ public class Graph
         for (int i = 1;i<nodes.length ;i++ ) {
             if (nodes[i] != null) {
                 out.write(nodes[i].id+" ");
+                out.write(nodes[i].people+" ");
                 out.write(nodes[i].x+" ");
                 out.write(nodes[i].y+" ");
                 for (int j = 0;j<nodes[i].edges.length ;j++ ) {
-                    out.write(nodes[i].edges[j].node.id+" ");
-                    out.write(nodes[i].edges[j].cost+" ");
+                    if (nodes[i].edges[j] != null) {
+                        out.write(nodes[i].edges[j].node.id+" ");
+                        out.write(nodes[i].edges[j].cost+" ");
+                    }
                 }
                 out.write("\n");
             }
@@ -80,49 +83,78 @@ public class Graph
         int r = 0;
         for (int i = 1;i<nodes.length ;i++ ) {
             //System.out.println(i);
-            for (int j = 1;j<nodes.length;j++ ) {
-                if (j != i) {
-                    //System.out.println(nodes[j].x);
-                    distance = (long) Math.sqrt(((long)(nodes[j].x-nodes[i].x)*(nodes[j].x-nodes[i].x))+((long)(nodes[j].y-nodes[i].y)*(nodes[j].y-nodes[i].y)));
-                    //System.out.println(distance);
-                    distances[j] = (int) distance;
-                    
-                }
-                else {
-                    distances[j] = 0;
-                }
-            }
-            //distancesCopy = null;
-            distancesCopy = Arrays.copyOf(distances,distances.length);
-            Arrays.sort(distancesCopy);
-            if (i<3001) {
-               r = distancesCopy[11];
-               ppZarazka = 10;
-            }
-            else {
-                 r = distancesCopy[61];
-                 ppZarazka = 60;
-            }
+            if (!nodes[i].isSimple) {
                 
-            //int r = distancesCopy[11];
-            int pp = 0;
-            for (int j = 1; j<nodes.length;j++ ) {
-                if (r >= distances[j] && distances[j] != 0) {
-                    //System.out.println(distancesCopy[pp+2]);
-                    nodes[i].edges[pp] = new Edge(nodes[j],distances[j]);
-                    pp++;
-                    if (pp == ppZarazka) {
-                        break;
+                for (int j = 1;j<nodes.length;j++ ) {
+                    if (j != i) {
+                        //System.out.println(nodes[j].x);
+                        distance = (long) Math.sqrt(((long)(nodes[j].x-nodes[i].x)*(nodes[j].x-nodes[i].x))+((long)(nodes[j].y-nodes[i].y)*(nodes[j].y-nodes[i].y)));
+                        if (nodes[j].isSimple) {
+                            distance = Integer.MAX_VALUE;
+                        }
+                        distances[j] = (int) distance;
+
+                        
+                    }
+                    else {
+                        distances[j] = 0;
                     }
                 }
+                //distancesCopy = null;
+                distancesCopy = Arrays.copyOf(distances,distances.length);
+                Arrays.sort(distancesCopy);
+                if (i<3001) {
+                   r = distancesCopy[11];
+                   ppZarazka = 10;
+                }
+                else {
+                     r = distancesCopy[61];
+                     ppZarazka = 60;
+                }
+                    
+                int pp = 0;
+                for (int j = 1; j<nodes.length;j++ ) {
+                    if (r >= distances[j] && distances[j] != 0) {
+                        //System.out.println(distancesCopy[pp+2]);
+                        nodes[i].edges[pp] = new Edge(nodes[j],distances[j]);
+                        pp++;
+                        if (pp == ppZarazka) {
+                            break;
+                        }
+                    }
+                }
+            
             }
-            
-            
         }
 
     }
     public void generatePeople(){
          Random fRandom = new Random();
-         double c =   5000 + fRandom.nextGaussian() * 10000;
+         int pp = 0;
+         for (int i = 1;i<nodes.length-5 ;i++) {
+             int c =  (int) (fRandom.nextGaussian() *1900)+5500;
+
+             if (c < 0) {
+                 c = 10;
+             }
+             if (c<2000) {
+                 pp++;
+             }
+             nodes[i].people = c;
+             
+         }
+         int p = 0;
+         System.out.println(pp*0.3);
+         for (int j = 1;j< nodes.length-5 ;j++ ) {
+             if (nodes[j].people < 2000) {
+                 if (j%3 == 0) {
+                     nodes[j].isSimple = true;
+                     p++;
+                 }
+                 if (p >= pp*0.3) {
+                    break; 
+                 }
+             }
+         }
     }
 }
