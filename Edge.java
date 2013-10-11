@@ -1,12 +1,25 @@
 
 public class Edge
 {
-    public int cost;
-    public Node node;
-
-    public Edge(Node node,int cost)
+    /**
+     * Poradi vrcholu, na nijž hrana ukazuje, v poli vrcholu
+     * {@code nodes[]} tridy {@code Graph}.
+     */
+    public int node;
+    /**
+     * Dalsí hrana v seznamu.
+     */
+    public Edge nxt;
+    
+    /**
+     * Konstruktor objektù třídy Edge
+     * 
+     * @param v Index vrcholu, na který hrana vede, v poli
+     * vrcholu trřdy {@code Graph}
+     */
+    public Edge(int v)
     {
-        this.cost = cost;
-        this.node = node;
+        node = v;
+        nxt = null;
     }
 }
