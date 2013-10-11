@@ -1,8 +1,8 @@
 
 class AirportNode extends Node
 {    
-	public AirportNode(int id, int x, int y)
+	public AirportNode(String id)
 	{
-	    super(id, x, y);
+	    super(id);
 	}
 }
