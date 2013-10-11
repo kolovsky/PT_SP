@@ -18,6 +18,7 @@ public class Graph
     public void addNode()
     {
     }
+    
     public void generate(){
         nodes = new Node[3005]; //3000 settle and 5 aiport, index 0 is NULL
         Random r = new Random(); //random
