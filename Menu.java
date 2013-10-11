@@ -3,4 +3,8 @@ import javax.swing.*;
 
 class Menu extends JFrame{
 	
+	public Menu()
+	{
+	}
+	
 }
