@@ -3,8 +3,11 @@ class Core{
 	static Graph g = new Graph();
 	public static void main(String[] args) throws Exception {
 		g.generate();
+		System.out.println("1");
 		g.generatePeople();
+		System.out.println("2");
 		g.createEdge();
+		System.out.println("3");
 
 		
 		

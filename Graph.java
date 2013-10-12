@@ -6,24 +6,32 @@ public class Graph
     /**
      * Asociativni pole vrcholu.
      */
-    public Node[] nodes;
+    //public Node[] nodes;
+    public Node firstNode = null;
+    public Node lastNode = null;
     
     /**
      * Konstruktor objektu tridy Graph
      */
     public Graph()
     {
-        nodes = new Node[0];
+        //nodes = new Node[0];
     }
     
-    public void addNode()
-    {
+    public void addNode(Node newNode){
+        if (firstNode == null) {
+            firstNode = newNode;
+            lastNode = newNode;    
+        }
+        else {
+            lastNode.next = newNode;
+            lastNode = newNode;
+        }
     }
     public void generate(){
-        nodes = new Node[3006]; //3000 settle and 5 aiport, index 0 is NULL
+        //nodes = new Node[3006]; //3000 settle and 5 aiport, index 0 is NULL
         Random r = new Random(); //random
-        boolean isGood;
-        int distance, x,y,xx,yy,i;
+        int x,y,xx,yy,i;
             
         i = 1;
         for (x = 2000;x<498000 ;x+=9050 ) {
@@ -31,8 +39,9 @@ public class Graph
                 xx  = r.nextInt(4000) - 2000;
                 yy = r.nextInt(4000) - 2000;
 
-                nodes[i] = new SettleNode(i,x+xx,y+yy);
+                //nodes[i] = new SettleNode(i,x+xx,y+yy);
                 //System.out.print(i);
+                addNode(new SettleNode(i,x+xx,y+yy));
                 i++;
                 if (i == 3001) {
                     //System.out.print(x);
@@ -45,11 +54,11 @@ public class Graph
                 
             
         }
-        nodes[3001] = new AirportNode(3001,40000,40000);
-        nodes[3002] = new AirportNode(3002,40000,460000);
-        nodes[3003] = new AirportNode(3003,460000,460000);
-        nodes[3004] = new AirportNode(3004,460000,40000);
-        nodes[3005] = new AirportNode(3005,40000,250000);
+        addNode(new AirportNode(3001,40000,40000));
+        addNode(new AirportNode(3002,40000,460000));
+        addNode(new AirportNode(3003,460000,460000));
+        addNode(new AirportNode(3004,460000,40000));
+        addNode(new AirportNode(3005,40000,250000));
 
     }
     public void load(String filename){
@@ -57,19 +66,21 @@ public class Graph
     }
     public void save(String filename) throws Exception{
         FileWriter out = new FileWriter(filename);
-        for (int i = 1;i<nodes.length ;i++ ) {
-            if (nodes[i] != null) {
-                out.write(nodes[i].id+" ");
-                out.write(nodes[i].people+" ");
-                out.write(nodes[i].x+" ");
-                out.write(nodes[i].y+" ");
-                for (int j = 0;j<nodes[i].edges.length ;j++ ) {
-                    if (nodes[i].edges[j] != null) {
-                        out.write(nodes[i].edges[j].node.id+" ");
-                        out.write(nodes[i].edges[j].cost+" ");
+        Node node = firstNode;
+        for (int i = 1;node != null ;i++ ) {
+            if (node != null) {
+                out.write(node.id+" ");
+                out.write(node.people+" ");
+                out.write(node.x+" ");
+                out.write(node.y+" ");
+                for (int j = 0;j<node.edges.length ;j++ ) {
+                    if (node.edges[j] != null) {
+                        out.write(node.edges[j].node.id+" ");
+                        out.write(node.edges[j].cost+" ");
                     }
                 }
                 out.write("\n");
+                node = node.next;
             }
         }
         out.close();
@@ -81,15 +92,17 @@ public class Graph
         int distancesCopy[];
         int ppZarazka = 0;
         int r = 0;
-        for (int i = 1;i<nodes.length ;i++ ) {
+        Node node = firstNode;
+        
+        while(node != null) { // i = node
             //System.out.println(i);
-            if (!nodes[i].isSimple) {
-                
-                for (int j = 1;j<nodes.length;j++ ) {
-                    if (j != i) {
+            if (!node.isSimple) { 
+                Node node2 = firstNode;
+                for(int j = 1;node2 != null;j++) {
+                    if (node != node2) {
                         //System.out.println(nodes[j].x);
-                        distance = (long) Math.sqrt(((long)(nodes[j].x-nodes[i].x)*(nodes[j].x-nodes[i].x))+((long)(nodes[j].y-nodes[i].y)*(nodes[j].y-nodes[i].y)));
-                        if (nodes[j].isSimple) {
+                        distance = (long) Math.sqrt(((long)(node2.x-node.x)*(node2.x-node.x))+((long)(node2.y-node.y)*(node2.y-node.y)));
+                        if (node2.isSimple) {
                             distance = Integer.MAX_VALUE;
                         }
                         distances[j] = (int) distance;
@@ -99,11 +112,12 @@ public class Graph
                     else {
                         distances[j] = 0;
                     }
+                    node2 = node2.next;
                 }
                 //distancesCopy = null;
                 distancesCopy = Arrays.copyOf(distances,distances.length);
                 Arrays.sort(distancesCopy);
-                if (i<3001) {
+                if (node instanceof SettleNode) {
                    r = distancesCopy[11];
                    ppZarazka = 10;
                 }
@@ -113,48 +127,60 @@ public class Graph
                 }
                     
                 int pp = 0;
-                for (int j = 1; j<nodes.length;j++ ) {
+                Node node3 = firstNode;
+                for (int j = 1; node3 != null;j++ ) {
                     if (r >= distances[j] && distances[j] != 0) {
                         //System.out.println(distancesCopy[pp+2]);
-                        nodes[i].edges[pp] = new Edge(nodes[j],distances[j]);
+                        node.edges[pp] = new Edge(node3,distances[j]);
                         pp++;
                         if (pp == ppZarazka) {
                             break;
                         }
                     }
+                    node3 = node3.next;
                 }
             
             }
+            node = node.next;
         }
 
     }
     public void generatePeople(){
          Random fRandom = new Random();
          int pp = 0;
-         for (int i = 1;i<nodes.length-5 ;i++) {
-             int c =  (int) (fRandom.nextGaussian() *1900)+5500;
+         Node node = firstNode;
+         while(node != null) {
+            if(node instanceof SettleNode){
+                 int c =  (int) (fRandom.nextGaussian() *1900)+5500;
 
-             if (c < 0) {
-                 c = 10;
+                 if (c < 0) {
+                     c = 10;
+                 }
+                 if (c<2000) {
+                     pp++;
+                 }
+                 node.people = c;
              }
-             if (c<2000) {
-                 pp++;
-             }
-             nodes[i].people = c;
-             
+             node = node.next;
          }
          int p = 0;
-         System.out.println(pp*0.3);
-         for (int j = 1;j< nodes.length-5 ;j++ ) {
-             if (nodes[j].people < 2000) {
-                 if (j%3 == 0) {
-                     nodes[j].isSimple = true;
-                     p++;
+         //System.out.println(pp*0.3);
+         node = firstNode;
+         int ppp = 0;
+         for(int j = 1;node != null;j++) {
+            if (node instanceof SettleNode){
+                 if (node.people < 2000) {
+                     if (ppp%3 == 0) {
+                         node.isSimple = true;
+                         p++;
+                     }
+                     if (p >= pp*0.3) {
+                        break; 
+                     }
+                     ppp++;
                  }
-                 if (p >= pp*0.3) {
-                    break; 
-                 }
-             }
+            }
+            node = node.next;
          }
     }
 }

@@ -9,6 +9,8 @@ public class Node
     public int y;
     public int people;
     public boolean isSimple;
+    public Node next = null;
+
     /**
      * Seznam hran.
      */
