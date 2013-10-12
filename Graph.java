@@ -141,8 +141,26 @@ public class Graph
                 }
             
             }
+            if (node.isSimple) {
+                Node node2 = firstNode;
+                int minDis = Integer.MAX_VALUE;
+                Node minNode = null;
+                for(;node2 != null;) {
+                    if(node2.isHeliport){
+                        distance = (long) Math.sqrt(((long)(node2.x-node.x)*(node2.x-node.x))+((long)(node2.y-node.y)*(node2.y-node.y)));
+                        if (minDis > distance) {
+                            minDis = (int)distance;
+                            minNode = node2;
+                        }
+                    }
+                    node2 = node2.next;
+                }
+                node.edges[0] = new Edge(minNode,minDis);
+                node.edges[0].isRoad = false;
+            }
             node = node.next;
         }
+
 
     }
     public void generatePeople(){
@@ -160,6 +178,9 @@ public class Graph
                      pp++;
                  }
                  node.people = c;
+                 if (node.people > 10000) {
+                     node.isHeliport = true;
+                 }
              }
              node = node.next;
          }

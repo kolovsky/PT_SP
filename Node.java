@@ -4,12 +4,19 @@ public class Node
     /**
      * Jmeo vrcholu.
      */
+    //vlastnosti
     public int id;
     public int x;
     public int y;
     public int people;
     public boolean isSimple;
+    public boolean isHeliport = false;
+
+    //vnitrni propojeni a promene pro algoritmy
     public Node next = null;
+    public boolean isCloud = false;
+    public int cost; //[minutes:time]
+    public Node prev;
 
     /**
      * Seznam hran.
