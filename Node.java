@@ -4,13 +4,15 @@ public class Node
     /**
      * Jmeo vrcholu.
      */
-    private int id;
+    public int id;
     public int x;
     public int y;
+    public int people;
+    public boolean isSimple;
     /**
      * Seznam hran.
      */
-    public Edge edges;
+    public Edge edges[];
 
     /**
      * Konstruktor objekt? t??y {@code Node}.
