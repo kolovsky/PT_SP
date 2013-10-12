@@ -1,24 +1,24 @@
 /* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kÛdov·nÌ: P¯Ìliö ûluùouËk˝ k˘Ú ˙pÏl Ô·belskÈ Ûdy. */
+ * Kontrola kodovani: Prilis zlutoucky kun upel dabelske ody. */
 
 /*******************************************************************************
- * Instance t¯Ìdy {@code Calendar} p¯edstavujÌ ...
+ * Instance tridy {@code Calendar} predstavuji prioritni frontu (?)
  *
- * @author    jmÈno autora
+ * @author    jmeno autora
  * @version   0.00.000
  */
 public class Calendar
 {
-    //== KONSTANTNÕ ATRIBUTY TÿÕDY =============================================
-    //== PROMÃNN… ATRIBUTY TÿÕDY ===============================================    
-    //== STATICK› INICIALIZA»NÕ BLOK - STATICK› KONSTRUKTOR ====================
-    //== KONSTANTNÕ ATRIBUTY INSTANCÕ ==========================================
-    //== PROMÃNN… ATRIBUTY INSTANCÕ ============================================
-    //== PÿÕSTUPOV… METODY VLASTNOSTÕ TÿÕDY ====================================
-    //== OSTATNÕ NESOUKROM… METODY TÿÕDY =======================================
+    //== KONSTANTNi ATRIBUTY TriDY =============================================
+    //== PROMeNNe ATRIBUTY TriDY ===============================================    
+    //== STATICKy INICIALIZAcNi BLOK - STATICKy KONSTRUKTOR ====================
+    //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
+    //== PROMeNNe ATRIBUTY INSTANCi ============================================
+    //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
+    //== OSTATNi NESOUKROMe METODY TriDY =======================================
     
     //##########################################################################
-    //== KONSTRUKTORY A TOV¡RNÕ METODY =========================================
+    //== KONSTRUKTORY A TOVaRNi METODY =========================================
 
     /***************************************************************************
      *
@@ -29,21 +29,30 @@ public class Calendar
 
 
 
-    //== ABSTRAKTNÕ METODY =====================================================
-    //== PÿÕSTUPOV… METODY VLASTNOSTÕ INSTANCÕ =================================
-    //== OSTATNÕ NESOUKROM… METODY INSTANCÕ ====================================
-    //== SOUKROM… A POMOCN… METODY TÿÕDY =======================================
-    //== SOUKROM… A POMOCN… METODY INSTANCÕ ====================================
-    //== INTERNÕ DATOV… TYPY ===================================================
-    //== TESTOVACÕ METODY A TÿÕDY ==============================================
+    //== ABSTRAKTNi METODY =====================================================
+    //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================
+    //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
+    public void start()
+    {
+        //TODO
+    }
+    
+    public void stop()
+    {
+        //TODO
+    }
+    //== SOUKROMe A POMOCNe METODY TriDY =======================================
+    //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
+    //== INTERNi DATOVe TYPY ===================================================
+    //== TESTOVACi METODY A TriDY ==============================================
     //
     //     /********************************************************************
-    //      * TestovacÌ metoda.
+    //      * Testovaci metoda.
     //      */
     //     public static void test()
     //     {
     //         Calendar instance = new Calendar();
     //     }
-    //     /** @param args Parametry p¯ÌkazovÈho ¯·dku - nepouûÌvanÈ. */
+    //     /** @param args Parametry prikazoveho radku - nepouzivane. */
     //     public static void main(String[] args)  {  test();  }
 }
