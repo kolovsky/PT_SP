@@ -17,11 +17,11 @@ import javax.swing.*;
 
 public class GUI_menu extends JFrame {
 
-    private JMenuBar menuBar;
     private JButton button1;
     private JButton button2;
     private JButton button3;
     private JButton button4;
+    private JButton button5;
     private JLabel label1;
     private JLabel label2;
 
@@ -38,7 +38,7 @@ public class GUI_menu extends JFrame {
 
 
         button1 = new JButton();
-        button1.setBounds(51,100,188,36);
+        button1.setBounds(50,100,190,40);
         button1.setBackground(new Color(214,217,223));
         button1.setForeground(new Color(0,0,0));
         button1.setEnabled(true);
@@ -55,7 +55,7 @@ public class GUI_menu extends JFrame {
 
 
         button2 = new JButton();
-        button2.setBounds(52,213,187,41);
+        button2.setBounds(50,195,190,40);
         button2.setBackground(new Color(214,217,223));
         button2.setForeground(new Color(0,0,0));
         button2.setEnabled(true);
@@ -72,7 +72,7 @@ public class GUI_menu extends JFrame {
 
 
         button3 = new JButton();
-        button3.setBounds(55,255,182,39);
+        button3.setBounds(50,240,190,40);
         button3.setBackground(new Color(214,217,223));
         button3.setForeground(new Color(0,0,0));
         button3.setEnabled(true);
@@ -89,7 +89,7 @@ public class GUI_menu extends JFrame {
 
 
         button4 = new JButton();
-        button4.setBounds(51,141,189,36);
+        button4.setBounds(50,145,190,40);
         button4.setBackground(new Color(214,217,223));
         button4.setForeground(new Color(0,0,0));
         button4.setEnabled(false);
@@ -98,7 +98,7 @@ public class GUI_menu extends JFrame {
         button4.setVisible(true);
         //Set action for button click
         //Call defined method
-        button3.addActionListener(new ActionListener() {
+        button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try
                 {
@@ -109,9 +109,25 @@ public class GUI_menu extends JFrame {
                 };
             }
         });
+        
+        button5 = new JButton();
+        button5.setBounds(50,290,190,40);
+        button5.setBackground(new Color(214,217,223));
+        button5.setForeground(new Color(0,0,0));
+        button5.setEnabled(true);
+        button5.setFont(new Font("sansserif",0,12));
+        button5.setText("Add new settlement");
+        button5.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                addNode(evt);
+            }
+        });
 
         label1 = new JLabel();
-        label1.setBounds(102,56,90,35);
+        label1.setBounds(115,60,90,40);
         label1.setBackground(new Color(214,217,223));
         label1.setForeground(new Color(0,0,0));
         label1.setEnabled(true);
@@ -120,7 +136,7 @@ public class GUI_menu extends JFrame {
         label1.setVisible(true);
 
         label2 = new JLabel();
-        label2.setBounds(116,10,45,32);
+        label2.setBounds(125,10,45,40);
         label2.setBackground(new Color(214,217,223));
         label2.setForeground(new Color(0,0,0));
         label2.setEnabled(true);
@@ -133,6 +149,7 @@ public class GUI_menu extends JFrame {
         contentPane.add(button2);
         contentPane.add(button3);
         contentPane.add(button4);
+        contentPane.add(button5);
         contentPane.add(label1);
         contentPane.add(label2);
 
@@ -146,26 +163,35 @@ public class GUI_menu extends JFrame {
 
     //Method actionPerformed for button1
     private void generate (ActionEvent evt) {
-            Core.generateNew();
-            button4.setEnabled(true);
+        Core.generateNew();
+        button4.setEnabled(true);
     }
 
     //Method actionPerformed for button2
     private void start (ActionEvent evt) {
-            Core.start();
+        Core.start();
     }
 
     //Method actionPerformed for button3
     private void stop (ActionEvent evt) {
-            Core.stop();
+        Core.stop();
     }
 
     //Method actionPerformed for button4
-	private void save (ActionEvent evt) throws Exception{
-			Core.save();
-	}
+    private void save (ActionEvent evt) throws Exception{
+        Core.save();
+    }
+    
+    private void addNode (ActionEvent evt) {
+        int id = 1; //pracovne
+        int x = 1; //pracovne
+        int y = 1; //pracovne
+        SettleNode n = new SettleNode(id, x, y);
+        Core.g.addNode(n);
+        
+    }
 
-	
+    
     /* public static void main(String[] args){
         System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

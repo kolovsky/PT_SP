@@ -14,6 +14,8 @@ public class Calendar
     //== STATICKy INICIALIZAcNi BLOK - STATICKy KONSTRUKTOR ====================
     //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
     //== PROMeNNe ATRIBUTY INSTANCi ============================================
+    public long time; //cas simulace v minutach;
+    
     //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
     //== OSTATNi NESOUKROMe METODY TriDY =======================================
     
@@ -25,6 +27,7 @@ public class Calendar
      */
     public Calendar()
     {
+        time = 0;
     }
 
 
@@ -34,6 +37,9 @@ public class Calendar
     //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
     public void start()
     {
+        System.out.println("START!");
+        test(); //pro testovani
+        
         //TODO
     }
     
@@ -46,13 +52,10 @@ public class Calendar
     //== INTERNi DATOVe TYPY ===================================================
     //== TESTOVACi METODY A TriDY ==============================================
     //
-    //     /********************************************************************
-    //      * Testovaci metoda.
-    //      */
-    //     public static void test()
-    //     {
-    //         Calendar instance = new Calendar();
-    //     }
-    //     /** @param args Parametry prikazoveho radku - nepouzivane. */
-    //     public static void main(String[] args)  {  test();  }
+         /********************************************************************
+          * Testovaci metoda.
+          */
+         public static void test()
+         {
+         }
 }

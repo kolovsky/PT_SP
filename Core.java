@@ -39,7 +39,10 @@ class Core{
         //save();
         //System.out.print(Arrays.toString(g.nodes));
         
-        System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"   );
+        g = new Graph();
+        g.load("graph.txt");
+        
+        System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         javax.swing.SwingUtilities.invokeLater(new Runnable()
         {
             public void run() {
