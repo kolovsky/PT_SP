@@ -187,8 +187,14 @@ public class GUI_menu extends JFrame {
         int x = 1; //pracovne
         int y = 1; //pracovne
         SettleNode n = new SettleNode(id, x, y);
+        //JOptionPane msg = new JOptionPane();
+        //msg.setMessageType(JOptionPane.QUESTION_MESSAGE);
+        //msg.setMessage("hello");
+        //msg.setName("Adding new settlement");
+        String pop = JOptionPane.showInputDialog(this, new JOptionPane(), "Adding new settlement", JOptionPane.QUESTION_MESSAGE);
+        System.out.println(pop);
+        n.people = Integer.parseInt(pop);
         Core.g.addNode(n);
-        
     }
 
     

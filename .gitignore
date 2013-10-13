@@ -2,4 +2,6 @@
 *.ctxt
 *.bluej
 
+graph.txt
+
 /doc
