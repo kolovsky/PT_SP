@@ -18,13 +18,15 @@ class Core{
     
     public static void save() throws Exception
     {
-        g.save("graph.txt");
+        //g.save("graph.txt");
+        System.out.println(Arrays.toString(g.dijkstra(g.firstNode,g.lastNode)));
     }
     
     public static void start()
     {
         c = new Calendar();
         c.start();
+
     }
     
     public static void stop()

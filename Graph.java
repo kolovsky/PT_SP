@@ -204,4 +204,64 @@ public class Graph
             node = node.next;
          }
     }
+    public Node[] dijkstra(Node from, Node to){
+        dijkstra(from);
+        Node node = to;
+        //System.out.println(node.id);
+        int i;
+        for (i = 0;node != null;i++) {
+            node = node.prev;
+            //System.out.println("aa");   
+        }   
+        Node [] arrayNode = new Node[i];
+        node = to;
+        for (int j = 0;node != null;j++) {
+            arrayNode[j] = node;
+            node = node.prev;
+            //System.out.println(node.id);  
+        }
+        return arrayNode;
+
+    }
+    public boolean dijkstra(Node from){
+        from.isCloud = true;
+        Node node = from;
+        node.cost = 0;
+        while (node != null) {
+            for (int i = 0;i<node.edges.length ;i++ ) {
+               if (node.edges != null) {
+                    if (node.edges[i].node.cost > node.cost+node.edges[i].cost) {
+                        node.edges[i].node.cost = node.cost+node.edges[i].cost;
+                        node.edges[i].node.prev = node;
+                    }
+                } 
+            }
+            //System.out.println(node.cost);
+            node = addToCloud();
+
+
+        }
+        //System.out.println("HHHHHH");
+        return true;
+    }
+    private Node addToCloud(){
+        Node minCost = new Node(1,1,1);
+        minCost.cost = Integer.MAX_VALUE;
+        Node node = firstNode;
+        while (node != null) {
+            if (node.isCloud == false) {
+                if (node.cost < minCost.cost) {
+                    minCost = node;
+                }
+            }
+
+            node = node.next;
+        }
+        minCost.isCloud = true;
+        if (minCost.cost == Integer.MAX_VALUE) {
+            return null;
+        }
+        return minCost;
+
+    }
 }
