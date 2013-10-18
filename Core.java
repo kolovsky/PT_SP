@@ -4,6 +4,7 @@ import java.io.*;
 class Core{
     static Graph g;
     static Calendar c;
+    static LogWindow lw;
     
     public static void generateNew()
     {
@@ -23,6 +24,7 @@ class Core{
     
     public static void start()
     {
+        lw = new LogWindow();
         c = new Calendar();
         c.start();
     }
@@ -30,6 +32,11 @@ class Core{
     public static void stop()
     {
         c.stop();
+    }
+    
+    public static void log(String s)
+    {
+        lw.log(s);
     }
     
     public static void main(String[] args) throws Exception {

@@ -37,7 +37,8 @@ public class Calendar
     //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
     public void start()
     {
-        System.out.println("START!");
+        //System.out.println("START!");
+        Core.log("START!");
         test(); //pro testovani
         
         //TODO
@@ -45,6 +46,8 @@ public class Calendar
     
     public void stop()
     {
+        Core.log("STOP!");
+        
         //TODO
     }
     //== SOUKROMe A POMOCNe METODY TriDY =======================================
