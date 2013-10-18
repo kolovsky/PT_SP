@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Node
 {
@@ -15,8 +16,10 @@ public class Node
     //vnitrni propojeni a promene pro algoritmy
     public Node next = null;
     public boolean isCloud = false;
-    public int cost; //[minutes:time]
-    public Node prev;
+    public int cost = Integer.MAX_VALUE; //[minutes:time]
+    public Node prev = null;
+    public Airport suppliedFrom = null; //prislusnost k letisti
+    public int costToAir; //[min]
 
     /**
      * Seznam hran.
