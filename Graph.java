@@ -9,7 +9,7 @@ public class Graph
     //public Node[] nodes;
     public Node firstNode = null;
     public Node lastNode = null;
-    
+    public AirportNode [] arrayAirport = new AirportNode[5];
     /**
      * Konstruktor objektu tridy Graph
      */
@@ -54,11 +54,21 @@ public class Graph
                 
             
         }
-        addNode(new AirportNode(3001,40000,40000));
-        addNode(new AirportNode(3002,40000,460000));
-        addNode(new AirportNode(3003,460000,460000));
-        addNode(new AirportNode(3004,460000,40000));
-        addNode(new AirportNode(3005,40000,250000));
+        AirportNode a = new AirportNode(3001,40000,40000);
+        addNode(a);
+        arrayAirport[0] = a;
+        AirportNode b = new AirportNode(3002,40000,460000);
+        addNode(b);
+        arrayAirport[1] = b;
+        AirportNode c = new AirportNode(3003,460000,460000);
+        addNode(c);
+        arrayAirport[2] = c;
+        AirportNode d = new AirportNode(3004,460000,40000);
+        addNode(d);
+        arrayAirport[3] = d;
+        AirportNode e = new AirportNode(3005,40000,250000);
+        addNode(e);
+        arrayAirport[4] = e;
 
     }
     public void load(String filename){
@@ -157,6 +167,13 @@ public class Graph
                 }
                 node.edges[0] = new Edge(minNode,minDis);
                 node.edges[0].isRoad = false;
+                if (minNode instanceof SettleNode) {
+                    minNode.edges[10] = new Edge(node,minDis);
+                }
+                else {
+                    minNode.edges[60] = new Edge(node,minDis);
+                    System.out.print("a");
+                }
             }
             node = node.next;
         }
@@ -224,12 +241,13 @@ public class Graph
 
     }
     public boolean dijkstra(Node from){
+        cleanGraph();
         from.isCloud = true;
         Node node = from;
         node.cost = 0;
         while (node != null) {
             for (int i = 0;i<node.edges.length ;i++ ) {
-               if (node.edges != null) {
+               if (node.edges[i] != null) {
                     if (node.edges[i].node.cost > node.cost+node.edges[i].cost) {
                         node.edges[i].node.cost = node.cost+node.edges[i].cost;
                         node.edges[i].node.prev = node;
@@ -263,5 +281,95 @@ public class Graph
         }
         return minCost;
 
+    }
+    public void cleanGraph(){
+        Node node = firstNode;
+        while (node != null) {
+
+            node.cost = Integer.MAX_VALUE;
+            node.isCloud = false;
+            node.prev = null;
+
+            node = node.next;
+            
+        }
+
+    }
+    public String statistic(){
+        int sumaP = 0;
+        int sumaSimple = 0;
+        int suma10 = 0;
+        Node node = firstNode;
+        int l1 = 0,l2 = 0,l3 = 0,l4 = 0,l5 = 0,ost = 0;
+        while (node != null) {
+            sumaP += node.people;
+            if (node.people > 10000) {
+                suma10++;
+            }
+            if (node.isSimple) {
+                sumaSimple++;
+            }
+            if (arrayAirport[0] == node.suppliedFrom) {
+               l1++; 
+            }
+            else if (arrayAirport[1] == node.suppliedFrom) {
+               l2++; 
+            }
+            else if (arrayAirport[2] == node.suppliedFrom) {
+               l3++; 
+            }
+            else if (arrayAirport[3] == node.suppliedFrom) {
+               l4++; 
+            }
+            else if (arrayAirport[4] == node.suppliedFrom) {
+               l5++; 
+            }
+            else {
+                ost++;
+                System.out.println(node.id);
+                
+                for (int i = 0; i<11 ;i++ ) {
+                   System.out.print( node.edges[0].node.edges[i].node.id+" ");
+                }
+            }
+            node = node.next;   
+        }
+        return "people: "+sumaP+"\n" + "city without roads: "+sumaSimple+"\n"+ "city > 10000: "+suma10+"\n" + " l1: "+ l1
+         + " l2: "+ l2 + " l3: "+ l3 + " l4: "+ l4 + " l5: "+ l5+"\n"+" ost: " + ost;
+    }
+    public void createSupplied(){
+        Node node;
+        int min = Integer.MAX_VALUE;
+        AirportNode minNode = null;
+        for (int i = 0;i<arrayAirport.length ;i++ ) {
+            dijkstra(arrayAirport[i]);
+
+            node = firstNode;
+            while (node != null) {
+                if (node instanceof SettleNode) {
+                    node.costToAirAll[i] = node.cost;
+                    
+                }
+                node = node.next; 
+            }
+        }
+        node = firstNode;
+        while (node != null) {
+            if (node instanceof SettleNode) {
+                min = Integer.MAX_VALUE;
+                minNode = null;
+                for (int j = 0;j<node.costToAirAll.length ;j++ ) {
+                    if (min > node.costToAirAll[j]) {
+                        min = node.costToAirAll[j];
+                        minNode = arrayAirport[j];
+                    }
+                }
+                node.costToAir = min;
+                node.suppliedFrom = minNode;
+                
+                      
+            }
+            node = node.next;  
+        }
     }
 }

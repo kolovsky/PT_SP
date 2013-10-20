@@ -15,6 +15,8 @@ class Core{
         System.out.println("2");
         g.createEdge();
         System.out.println("3");
+        g.createSupplied();
+        System.out.print(g.statistic());
     }
     
     public static void save() throws Exception

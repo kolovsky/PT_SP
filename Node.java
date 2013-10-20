@@ -15,10 +15,15 @@ public class Node
 
     //vnitrni propojeni a promene pro algoritmy
     public Node next = null;
+    // for dijkstra
     public boolean isCloud = false;
     public int cost = Integer.MAX_VALUE; //[minutes:time]
     public Node prev = null;
-    public Airport suppliedFrom = null; //prislusnost k letisti
+    //ceny do jednotlivich letist
+    public int [] costToAirAll;
+
+    // nalezi ke grafu
+    public AirportNode suppliedFrom = null; //prislusnost k letisti
     public int costToAir; //[min]
 
     /**
