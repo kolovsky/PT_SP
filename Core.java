@@ -54,15 +54,16 @@ class Core{
         g = new Graph();
         g.load("graph.txt");
         
-        System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        //System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         javax.swing.SwingUtilities.invokeLater(new Runnable()
         {
             public void run() {
                 new GUI_menu();
-                new LogWindow();
             }
         }
         );
+        
+        lw = new LogWindow();
         
     }
     
