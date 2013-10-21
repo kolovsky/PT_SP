@@ -29,7 +29,20 @@ public class Node
     /**
      * Seznam hran.
      */
-    public Edge edges[];
+    //public Edge edges[];
+    public Edge firstEdge = null;
+    public Edge lastEdge = null;
+
+    public void addEdge(Edge newEdge){
+        if (firstEdge == null) {
+            firstEdge = newEdge;
+            lastEdge = newEdge;    
+        }
+        else {
+            lastEdge.next = newEdge;
+            lastEdge = newEdge;
+        }
+    }
 
     /**
      * Konstruktor objekt? t??y {@code Node}.
@@ -39,7 +52,7 @@ public class Node
     public Node(int id, int x, int y)
     {
         setId(id);
-        edges = null;
+        //edges = null;
         this.x = x;
         this.y = y;
     }

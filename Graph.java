@@ -83,11 +83,13 @@ public class Graph
                 out.write(node.people+" ");
                 out.write(node.x+" ");
                 out.write(node.y+" ");
-                for (int j = 0;j<node.edges.length ;j++ ) {
-                    if (node.edges[j] != null) {
-                        out.write(node.edges[j].node.id+" ");
-                        out.write(node.edges[j].cost+" ");
-                    }
+                Edge edge = node.firstEdge;
+                for (int j = 0;edge != null ;j++ ) {
+                    
+                    out.write(edge.node.id+" ");
+                    out.write(edge.cost+" ");
+                    edge = edge.next;
+                    
                 }
                 out.write("\n");
                 node = node.next;
@@ -141,7 +143,8 @@ public class Graph
                 for (int j = 1; node3 != null;j++ ) {
                     if (r >= distances[j] && distances[j] != 0) {
                         //System.out.println(distancesCopy[pp+2]);
-                        node.edges[pp] = new Edge(node3,distances[j]);
+                        //node.edges[pp] = new Edge(node3,distances[j]);
+                        node.addEdge(new Edge(node3,distances[j]));
                         pp++;
                         if (pp == ppZarazka) {
                             break;
@@ -165,15 +168,16 @@ public class Graph
                     }
                     node2 = node2.next;
                 }
-                node.edges[0] = new Edge(minNode,minDis);
-                node.edges[0].isRoad = false;
-                if (minNode instanceof SettleNode) {
-                    minNode.edges[10] = new Edge(node,minDis);
-                }
-                else {
-                    minNode.edges[60] = new Edge(node,minDis);
-                    System.out.print("a");
-                }
+                //node.edges[0] = new Edge(minNode,minDis);
+                //node.edges[0].isRoad = false;
+                
+                node.addEdge(new Edge(minNode,minDis));
+                node.lastEdge.isRoad = false;
+
+                minNode.addEdge(new Edge(node,minDis));
+                minNode.lastEdge.isRoad = false;
+
+                
             }
             node = node.next;
         }
@@ -243,16 +247,19 @@ public class Graph
     public boolean dijkstra(Node from){
         cleanGraph();
         from.isCloud = true;
+        Edge edge;
         Node node = from;
         node.cost = 0;
         while (node != null) {
-            for (int i = 0;i<node.edges.length ;i++ ) {
-               if (node.edges[i] != null) {
-                    if (node.edges[i].node.cost > node.cost+node.edges[i].cost) {
-                        node.edges[i].node.cost = node.cost+node.edges[i].cost;
-                        node.edges[i].node.prev = node;
-                    }
-                } 
+            edge = node.firstEdge;
+            for (int i = 0;edge != null ;i++ ) {
+               
+                if (edge.node.cost > node.cost+edge.cost) {
+                    edge.node.cost = node.cost+edge.cost;
+                    edge.node.prev = node;
+                }
+                edge = edge.next;
+                 
             }
             //System.out.println(node.cost);
             node = addToCloud();
@@ -326,11 +333,16 @@ public class Graph
             }
             else {
                 ost++;
-                System.out.println(node.id);
+                /*System.out.println(node.id);
+                System.out.println(node.edges[0].node.people);
                 
-                for (int i = 0; i<11 ;i++ ) {
-                   System.out.print( node.edges[0].node.edges[i].node.id+" ");
-                }
+                for (int i = 0; i<node.edges[0].node.edges.length;i++ ) {
+                    if (node.edges[0].node.edges[i] != null) {
+                       System.out.print( node.edges[0].node.edges[i].node.id+" ");
+
+                    }
+                   
+                }*/
             }
             node = node.next;   
         }
