@@ -4,7 +4,7 @@ import java.io.*;
 class Core{
     static Graph g;
     static Calendar c;
-    static LogWindow lw = new LogWindow();
+    static LogWindow lw;
     
     public static void generateNew()
     {
@@ -59,6 +59,7 @@ class Core{
         {
             public void run() {
                 new GUI_menu();
+                new LogWindow();
             }
         }
         );
