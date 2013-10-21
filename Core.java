@@ -4,19 +4,20 @@ import java.io.*;
 class Core{
     static Graph g;
     static Calendar c;
-    static LogWindow lw;
+    static LogWindow lw = new LogWindow();
     
     public static void generateNew()
     {
         g = new Graph();
         g.generate();
-        System.out.println("1");
+        //System.out.println("1");
         g.generatePeople();
-        System.out.println("2");
+        //System.out.println("2");
         g.createEdge();
-        System.out.println("3");
+        //System.out.println("3");
         g.createSupplied();
-        System.out.print(g.statistic());
+        //System.out.print(g.statistic());
+        lw.log(g.statistic());
     }
     
     public static void save() throws Exception
@@ -27,7 +28,7 @@ class Core{
     
     public static void start()
     {
-        lw = new LogWindow();
+        //lw = new LogWindow();
         c = new Calendar();
         c.start();
 

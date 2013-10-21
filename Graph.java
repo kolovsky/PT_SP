@@ -142,8 +142,7 @@ public class Graph
                 Node node3 = firstNode;
                 for (int j = 1; node3 != null;j++ ) {
                     if (r >= distances[j] && distances[j] != 0) {
-                        //System.out.println(distancesCopy[pp+2]);
-                        //node.edges[pp] = new Edge(node3,distances[j]);
+                        
                         node.addEdge(new Edge(node3,distances[j]));
                         pp++;
                         if (pp == ppZarazka) {
@@ -190,7 +189,7 @@ public class Graph
          Node node = firstNode;
          while(node != null) {
             if(node instanceof SettleNode){
-                 int c =  (int) (fRandom.nextGaussian() *1900)+5500;
+                 int c =  (int) (fRandom.nextGaussian() *1900)+5300;
 
                  if (c < 0) {
                      c = 10;
