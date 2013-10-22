@@ -12,6 +12,7 @@ public class Node
     public int people;
     public boolean isSimple;
     public boolean isHeliport = false;
+    public Process proces;
 
     //vnitrni propojeni a promene pro algoritmy
     public Node next = null;
@@ -24,7 +25,7 @@ public class Node
 
     // nalezi ke grafu
     public AirportNode suppliedFrom = null; //prislusnost k letisti
-    public int costToAir; //[min]
+    public int costToAir; //[min] jak dlouho trva cesta z letiste
 
     /**
      * Seznam hran.

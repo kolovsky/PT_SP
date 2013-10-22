@@ -29,7 +29,7 @@ class Core{
     public static void start()
     {
         //lw = new LogWindow();
-        c = new Calendar();
+        c = new Calendar(g);
         c.start();
 
     }

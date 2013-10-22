@@ -1,3 +1,4 @@
+import java.util.*;
 /* Soubor je ulozen v kodovani UTF-8.
  * Kontrola kodovani: Prilis zlutoucky kun upel dabelske ody. */
 
@@ -9,36 +10,30 @@
  */
 public class Calendar
 {
-    //== KONSTANTNi ATRIBUTY TriDY =============================================
-    //== PROMeNNe ATRIBUTY TriDY ===============================================    
-    //== STATICKy INICIALIZAcNi BLOK - STATICKy KONSTRUKTOR ====================
-    //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
-    //== PROMeNNe ATRIBUTY INSTANCi ============================================
+    
     public long time; //cas simulace v minutach;
+    public static PriorityQueue<Process> q = new PriorityQueue<Process>(3000, new MyComparator());
+    public Graph g;
     
-    //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
-    //== OSTATNi NESOUKROMe METODY TriDY =======================================
     
-    //##########################################################################
-    //== KONSTRUKTORY A TOVaRNi METODY =========================================
 
     /***************************************************************************
      *
      */
-    public Calendar()
+    public Calendar(Graph g)
     {
         time = 0;
+        this.g = g;
     }
 
 
 
-    //== ABSTRAKTNi METODY =====================================================
-    //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================
-    //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
+    
     public void start()
     {
         //System.out.println("START!");
         Core.log("START!");
+        addAllNodeToQ();
         test(); //pro testovani
         
         //TODO
@@ -50,15 +45,29 @@ public class Calendar
         
         //TODO
     }
-    //== SOUKROMe A POMOCNe METODY TriDY =======================================
-    //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
-    //== INTERNi DATOVe TYPY ===================================================
-    //== TESTOVACi METODY A TriDY ==============================================
-    //
+    
          /********************************************************************
           * Testovaci metoda.
           */
          public static void test()
          {
+            while (q.size() != 0) {
+                System.out.println(q.poll().time);
+            }
          }
+    public void addAllNodeToQ(){
+        Random r = new Random();
+        Node node = g.firstNode;
+        while (node != null) {
+            if (node instanceof SettleNode) {
+                node.proces = new Settle(r.nextInt(1000));
+            }
+            if (node instanceof AirportNode) {
+                node.proces = new Airport(r.nextInt(1000));
+            }
+            node.proces.node = node;
+            q.add(node.proces);
+            node = node.next;
+        }
+    }
 }
