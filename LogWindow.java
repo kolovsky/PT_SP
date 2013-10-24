@@ -56,7 +56,6 @@ public class LogWindow extends JFrame
 		content.add(jsp);*/
 		
 		ta = new JTextArea("EVENTS:");
-		ta.setPreferredSize(new Dimension(500,300));
 		ta.setBackground(new Color(250,250,250));
 		ta.setForeground(new Color(0,0,0));
 		ta.setFont(new Font("couriernew",0,10));
@@ -65,7 +64,8 @@ public class LogWindow extends JFrame
 		ta.setEnabled(true);
 		ta.setVisible(true);
 		
-		JScrollPane jsp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane jsp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jsp.setPreferredSize(new Dimension(500,300));
 		//content.add(ta);
 		
         //this.add(ta);
