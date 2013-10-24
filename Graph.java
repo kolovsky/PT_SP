@@ -240,6 +240,10 @@ public class Graph
             node = node.prev;
             //System.out.println(node.id);  
         }
+        Node[] pp = Arrays.copyOf(arrayNode, arrayNode.length);
+        for (int x = 0 ; x<pp.length ;x++ ) {
+            arrayNode[x] = pp[pp.length-1-x];
+        }
         return arrayNode;
 
     }
