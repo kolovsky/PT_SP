@@ -42,6 +42,7 @@ class Core{
     public static void log(String s)
     {
         lw.log(s);
+        System.out.println(s);
     }
     
     public static void main(String[] args) throws Exception {
