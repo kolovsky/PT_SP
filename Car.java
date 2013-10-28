@@ -1,4 +1,5 @@
 class Car extends Process{
+
 	Node [] path;
 	int id;
 	int kolik;
