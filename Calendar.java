@@ -56,22 +56,29 @@ public class Calendar
                 if (q.peek().time == time) {
                     proc = q.poll();
                     proc.go();
-                    //System.out.println(q.size());
+                    //System.out.println("peak time "+q.peek().time);
+                    //System.out.println(proc.time);
+                    //System.out.println(((Airport)proc.node.suppliedFrom.proces).actualFood);
                 }
                 else {
                     time++;
-                    System.out.println(time);
+                    Core.lw.log("======"+time+"======");
                 }
-                if (time == 1000) {
+                if (time == 7000) {
                    break; 
                 }
-                //System.out.println(q.peek().time);
+                //System.out.println("peak time "+q.peek().time);
             }
          }
     public void addAllNodeToQ(){
         Random r = new Random();
         Node node = g.firstNode;
         int pp = 0;
+        for (int i = 0;i<g.arrayAirport.length ;i++ ) {
+            g.arrayAirport[i].proces = new Airport(60);
+            g.arrayAirport[i].proces.node = g.arrayAirport[i];
+            q.add(g.arrayAirport[i].proces);
+        }
         while (node != null) {
             if (node instanceof SettleNode) {
                 node.proces = new Settle(0);
@@ -84,7 +91,7 @@ public class Calendar
                 //node.proces = new Airport(r.nextInt(1000));
             }
             node = node.next;
-            if (pp == 100) {
+            if (pp == 30) {
                 break;
             }
             
