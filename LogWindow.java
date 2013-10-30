@@ -84,6 +84,7 @@ public class LogWindow extends JFrame
     public void log(String s)
     {
         ta.append("\n" + s);
+        ta.updateUI();
         //editable.setText(editable.getText()+"\n"+s);
         //editable.setBounds(1,1,499,50+cl);
         //cl+=14;

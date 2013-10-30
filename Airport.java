@@ -7,7 +7,7 @@ class Airport extends Process{
 		actualFood += 500000;
 		time = Calendar.time + 60;
 		Calendar.q.add(this);
-		Core.lw.log("Nove jidlo");
+		Core.log("Nove jidlo");
 
 	}
 	

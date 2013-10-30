@@ -36,7 +36,7 @@ class Core{
     
     public static void stop()
     {
-        c.stop();
+        c.end();
     }
     
     public static void log(String s)
@@ -64,7 +64,14 @@ class Core{
         }
         );
         
-        lw = new LogWindow();
+        Thread t2 = new Thread(new Runnable()
+        {
+            public void run() {
+                lw = new LogWindow();
+            }
+        }, "GUI");
+        t2.start();
+        t2.setPriority(Thread.NORM_PRIORITY);
         
     }
     

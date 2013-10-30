@@ -22,7 +22,7 @@ public class Settle extends Process
 				lastTime = time;
 				time = time + 60 - time%60 + 1;
 				Calendar.q.add(this);
-				Core.lw.log("precasovano");
+				Core.log("precasovano");
             	return;
             }
 			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node.firstEdge.node);
@@ -40,15 +40,15 @@ public class Settle extends Process
 				lastTime = time;
 				time = time+ 60 - time%60 + 1;
 				Calendar.q.add(this);
-				Core.lw.log("precasovano");
+				Core.log("precasovano");
             	return;
             }
 			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node);
 			Calendar.q.add(new Car(Calendar.time,path,kolik,null));
 		}
-		Core.lw.log("Settle no "+node.id);
-    	Core.lw.log("Food: "+actualFood);
-    	Core.lw.log("Stav: Obednavam jidlo " + kolik + "kg");
+		Core.log("Settle no "+node.id);
+    	Core.log("Food: "+actualFood);
+    	Core.log("Stav: Obednavam jidlo " + kolik + "kg");
 
 
     	( (Airport) node.suppliedFrom.proces).actualFood = ((Airport) node.suppliedFrom.proces).actualFood - kolik;
@@ -56,7 +56,7 @@ public class Settle extends Process
     	lastTime = time;
 
 		time = (int) (Calendar.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
-		Core.lw.log("priste: "+time);
+		Core.log("priste: "+time);
 		Calendar.q.add(this);
 
     	

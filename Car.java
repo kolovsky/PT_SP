@@ -37,8 +37,8 @@ class Car extends Process{
     		
     	}
         if (nextWork == 2*path.length-1) {
-           Core.lw.log("Vozidlo cíl "+ path[path.length-1].id);
-           Core.lw.log("Dojelo!");
+           Core.log("Vozidlo cil "+ path[path.length-1].id);
+           Core.log("Dojelo!");
            return;
         }
         if (nextWork >= path.length) {
@@ -63,8 +63,8 @@ class Car extends Process{
     }
     public void deal(){
         time = (int)((kolik/1000.0)*30.0) + Calendar.time; //nakladka 30min na tunu
-        Core.lw.log("Vozidlo cíl "+ path[path.length-1].id);
-        Core.lw.log("Nakladam/vykladam do casu "+ time);
+        Core.log("Vozidlo cil "+ path[path.length-1].id);
+        Core.log("Nakladam/vykladam do casu "+ time);
         Calendar.q.add(this);
     }
     public void shift(int nextWork){
@@ -75,9 +75,9 @@ class Car extends Process{
             }
             edge = edge.next;
         }
-        Core.lw.log("Vozidlo cíl "+ path[path.length-1].id);
-        Core.lw.log("Jedu do uzlu id = "+ path[nextWork+1].id);
-        Core.lw.log("Budu tam v "+time);
+        Core.log("Vozidlo cil "+ path[path.length-1].id);
+        Core.log("Jedu do uzlu id = "+ path[nextWork+1].id);
+        Core.log("Budu tam v "+time);
         Calendar.q.add(this);
     }
 }

@@ -8,7 +8,7 @@ import java.util.*;
  * @author    jmeno autora
  * @version   0.00.000
  */
-public class Calendar
+public class Calendar extends Thread
 {
     
     public static int time; //cas simulace v minutach;
@@ -39,10 +39,10 @@ public class Calendar
         //TODO
     }
     
-    public void stop()
+    public void end()
     {
         Core.log("STOP!");
-        
+        super.stop();
         //TODO
     }
     
@@ -62,7 +62,7 @@ public class Calendar
                 }
                 else {
                     time++;
-                    Core.lw.log("======"+time+"======");
+                    Core.log("======"+time+"======");
                 }
                 if (time == 7000) {
                    break; 

@@ -19,8 +19,8 @@ class Helicop extends Process{
     		return;
     	}
     	if (nextWork == 4) {
-    		Core.lw.log("Vrtulník cíl "+ end.id);
-    		Core.lw.log("Ukol zplnen!");
+    		Core.log("Vrtulnik cil "+ end.id);
+    		Core.log("Ukol zplnen!");
     		return;
     		
     	}
@@ -49,8 +49,8 @@ class Helicop extends Process{
     }
     public void deal(){
     	time = (int)((kolik/1000.0)*30.0) + Calendar.time;
-		Core.lw.log("Vrtulník cíl "+ end.id);
-		Core.lw.log("Nakladam/vykladam do casu "+time);
+		Core.log("Vrtulnik cil "+ end.id);
+		Core.log("Nakladam/vykladam do casu "+time);
 		Calendar.q.add(this);
     }
     public void shift(Node from, Node to){
@@ -61,9 +61,9 @@ class Helicop extends Process{
 			}
 			edge = edge.next;
 		}
-		Core.lw.log("Vrtulnik cíl "+ end.id);
-		Core.lw.log("Letim do uzlu id = "+ to.id);
-		Core.lw.log("Budu tam v "+time);
+		Core.log("Vrtulnik cil "+ end.id);
+		Core.log("Letim do uzlu id = "+ to.id);
+		Core.log("Budu tam v "+time);
 		Calendar.q.add(this);
     }
 }
