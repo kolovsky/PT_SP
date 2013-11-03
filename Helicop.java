@@ -37,7 +37,7 @@ class Helicop extends Process{
     		
     	}
     	if (nextWork == 3) { //let zpet
-    		((Settle)end.proces).actualFood += kolik;
+    		((Settle)end.proces).addFood(kolik);
     		shift(end,start);
     		nextWork = 4;
     		return;

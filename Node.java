@@ -26,6 +26,8 @@ public class Node
     // nalezi ke grafu
     public AirportNode suppliedFrom = null; //prislusnost k letisti
     public int costToAir; //[min] jak dlouho trva cesta z letiste
+    //zaznamy a statistiky 
+    public String log = "";
 
     /**
      * Seznam hran.

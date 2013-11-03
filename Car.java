@@ -44,7 +44,7 @@ class Car extends Process{
         if (nextWork >= path.length) {
             if (nextWork == path.length) {
                 if (helicop == null) {
-                    ((Settle) path[0].proces).actualFood += kolik;
+                    ((Settle) path[0].proces).addFood(kolik);
                 }
             }
             shift(nextWork-path.length);

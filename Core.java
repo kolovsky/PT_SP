@@ -26,11 +26,12 @@ class Core{
         System.out.println(Arrays.toString(g.dijkstra(g.firstNode,g.lastNode)));
     }
     
-    public static void start()
+    public static void start() throws Exception
     {
         //lw = new LogWindow();
         c = new Calendar(g);
         c.start();
+        c.createStatistics();
 
     }
     

@@ -5,8 +5,16 @@ public class Settle extends Process
     {
         super(time);
     }
-    public void go(){
+    public void addFood(int kolik){
     	actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
+    	actualFood +=  kolik;
+    	lastTime = Calendar.time;
+    	if (kolik != 0) {
+    		node.log += Calendar.time + " "+kolik+"kg\n";
+    	}
+    }
+    public void go(){
+    	addFood(0);
     	if (actualFood < 0) {
     		actualFood = 0;
     	}
@@ -53,7 +61,7 @@ public class Settle extends Process
 
     	( (Airport) node.suppliedFrom.proces).actualFood = ((Airport) node.suppliedFrom.proces).actualFood - kolik;
 
-    	lastTime = time;
+    	
 
 		time = (int) (Calendar.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
 		Core.log("priste: "+time);
