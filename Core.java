@@ -17,13 +17,15 @@ class Core{
         //System.out.println("3");
         g.createSupplied();
         //System.out.print(g.statistic());
+
         lw.log(g.statistic());
     }
     
     public static void save() throws Exception
     {
         //g.save("graph.txt");
-        System.out.println(Arrays.toString(g.dijkstra(g.firstNode,g.lastNode)));
+        //System.out.println(Arrays.toString(g.dijkstra(g.firstNode,g.lastNode)));
+        g.save("graph.txt");
     }
     
     public static void start() throws Exception
@@ -35,15 +37,17 @@ class Core{
 
     }
     
-    public static void stop()
+    public static void stop() throws Exception
     {
-        c.end();
+        //c.end();
+        g.load("graph.txt");
+        lw.log(g.statistic());
     }
     
     public static void log(String s)
     {
         lw.log(s);
-        System.out.println(s);
+        //System.out.println(s);
     }
     
     public static void main(String[] args) throws Exception {
@@ -54,7 +58,7 @@ class Core{
         //System.out.print(Arrays.toString(g.nodes));
         
         g = new Graph();
-        g.load("graph.txt");
+        //g.load("graph.txt");
         
         //System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         javax.swing.SwingUtilities.invokeLater(new Runnable()

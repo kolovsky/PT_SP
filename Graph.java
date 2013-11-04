@@ -71,7 +71,44 @@ public class Graph
         arrayAirport[4] = e;
 
     }
-    public void load(String filename){
+    public void load(String filename)throws Exception{
+        File file = new File(filename);
+        Scanner s = new Scanner(file);
+        int air = 0;
+        for (int i = 0;s.hasNextLine();i++) {
+            String pole [] = s.nextLine().split(" ");
+
+            int id = Integer.parseInt(pole[0]);
+            int x = Integer.parseInt(pole[2]);
+            int y = Integer.parseInt(pole[3]);
+            int people = Integer.parseInt(pole[1]);
+
+
+            //addNode(new Node(id,x,y));
+            if (id>3000 && id<3006) {
+                addNode(new AirportNode(id,x,y));
+                arrayAirport[air] = (AirportNode) lastNode;
+                air++; 
+            }
+            else {
+                addNode(new SettleNode(id,x,y));
+                if (people < 2000) {
+                    
+                    lastNode.isSimple = true;
+                }
+                
+                if (people > 10000) {
+                    //addNode(new Node(id,x,y));
+                    lastNode.isHeliport = true;
+                }
+                lastNode.people = people; 
+            }
+            
+        }
+        createEdge();
+
+        
+        createSupplied();
 
     }
     public void save(String filename) throws Exception{
