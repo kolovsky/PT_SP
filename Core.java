@@ -72,22 +72,21 @@ class Core{
         //g.load("graph.txt");
         
         //System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        javax.swing.SwingUtilities.invokeLater(new Runnable()
+        /*javax.swing.SwingUtilities.invokeLater(new Runnable()
         {
             public void run() {
                 new GUI_menu();
             }
         }
         );
+        */
         
-        Thread t2 = new Thread(new Runnable()
-        {
-            public void run() {
-                lw = new LogWindow();
-            }
-        }, "GUI");
-        t2.start();
-        t2.setPriority(Thread.NORM_PRIORITY);
+        GUI_menu menu = new GUI_menu();
+        menu.run();
+       
+        lw = new LogWindow();
+        lw.run();
+        //lw.setPriority(Thread.NORM_PRIORITY);
         
     }
     

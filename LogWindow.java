@@ -10,7 +10,7 @@ import javax.swing.*;
  * @author    jmeno autora
  * @version   0.00.000
  */
-public class LogWindow extends JFrame
+public class LogWindow extends JFrame implements Runnable
 {
     //== KONSTANTNi ATRIBUTY TriDY =============================================
     //== PROMeNNe ATRIBUTY TriDY ===============================================
@@ -20,7 +20,7 @@ public class LogWindow extends JFrame
     JPanel content;
     //JEditorPane editable;
     JTextArea ta;
-    int cl = 1;
+    //int cl = 1;
     
     //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
     //== OSTATNi NESOUKROMe METODY TriDY =======================================
@@ -72,10 +72,15 @@ public class LogWindow extends JFrame
         this.add(jsp);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        //this.pack();
+        //this.setVisible(true);
+    }
+
+    public void run()
+    {
         this.pack();
         this.setVisible(true);
     }
-
 
     //== ABSTRAKTNi METODY =====================================================
     //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================

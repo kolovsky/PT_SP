@@ -43,7 +43,7 @@ public class Calendar extends Thread
     public void end()
     {
         Core.log("STOP!");
-        super.stop();
+        super.interrupt();
         //TODO
     }
     
@@ -92,7 +92,7 @@ public class Calendar extends Thread
                 //node.proces = new Airport(r.nextInt(1000));
             }
             node = node.next;
-            if (pp == 3000) {
+            if (pp == 30) {
                 break;
             }
             

@@ -15,7 +15,7 @@ import javax.swing.border.Border;
 import javax.swing.*;
 
 
-public class GUI_menu extends JFrame {
+public class GUI_menu extends JFrame implements Runnable {
 
     private JButton button1;
     private JButton button2;
@@ -66,7 +66,7 @@ public class GUI_menu extends JFrame {
         //Call defined method
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                start(evt);
+                go(evt);
             }
         });
 
@@ -157,8 +157,8 @@ public class GUI_menu extends JFrame {
         this.add(contentPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.pack();
-        this.setVisible(true);
+        //this.pack();
+        //this.setVisible(true);
     }
 
     //Method actionPerformed for button1
@@ -168,7 +168,7 @@ public class GUI_menu extends JFrame {
     }
 
     //Method actionPerformed for button2
-    private void start (ActionEvent evt) {
+    private void go (ActionEvent evt) {
         Core.start();
     }
 
@@ -197,7 +197,11 @@ public class GUI_menu extends JFrame {
         Core.g.addNode(n);
     }
 
-    
+    public void run()
+    {
+        this.pack();
+        this.setVisible(true);
+    }
     /* public static void main(String[] args){
         System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
