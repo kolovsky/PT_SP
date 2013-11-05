@@ -81,7 +81,7 @@ public class LogWindow extends JFrame
     //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================
     //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
     
-    public void log(String s)
+    public synchronized void log(String s)
     {
         ta.append("\n" + s);
         ta.updateUI();

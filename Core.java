@@ -28,23 +28,34 @@ class Core{
         g.save("graph.txt");
     }
     
-    public static void start() throws Exception
+    public static void start()
     {
         //lw = new LogWindow();
         c = new Calendar(g);
         c.start();
-        c.createStatistics();
-
+        try
+        {
+            c.createStatistics();
+        }
+        catch (Exception e)
+        {
+        }
     }
     
-    public static void stop() throws Exception
+    public static void stop()
     {
         //c.end();
-        g.load("graph.txt");
+        try
+        {
+            g.load("graph.txt");
+        }
+        catch (Exception e)
+        {
+        }
         lw.log(g.statistic());
     }
     
-    public static void log(String s)
+    public static synchronized void log(String s)
     {
         lw.log(s);
         //System.out.println(s);
