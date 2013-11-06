@@ -5,6 +5,7 @@ class Core{
     static Graph g;
     static Calendar c;
     static LogWindow lw;
+    //static GUI_menu menu;
     
     public static void generateNew()
     {
@@ -28,7 +29,7 @@ class Core{
         g.save("graph.txt");
     }
     
-    public static void start()
+    public static synchronized void start()
     {
         //lw = new LogWindow();
         c = new Calendar(g);
@@ -78,12 +79,12 @@ class Core{
                 new GUI_menu();
             }
         }
-        );
-        */
+        );*/
+        javax.swing.SwingUtilities.invokeLater(new GUI_menu());
         
-        GUI_menu menu = new GUI_menu();
-        menu.run();
-       
+        //menu = new GUI_menu();
+        //menu.run();
+
         lw = new LogWindow();
         lw.run();
         //lw.setPriority(Thread.NORM_PRIORITY);

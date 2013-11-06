@@ -19,6 +19,7 @@ public class LogWindow extends JFrame implements Runnable
     //== PROMeNNe ATRIBUTY INSTANCi ============================================
     JPanel content;
     //JEditorPane editable;
+    JScrollPane jsp;
     JTextArea ta;
     //int cl = 1;
     
@@ -64,19 +65,29 @@ public class LogWindow extends JFrame implements Runnable
 		ta.setEnabled(true);
 		ta.setVisible(true);
 		
-		JScrollPane jsp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		jsp.setPreferredSize(new Dimension(500,300));
 		//content.add(ta);
+		
+		jsp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jsp.setPreferredSize(new Dimension(500,300));
+		//jsp.setBackground(new Color(250,250,250));
+		//jsp.setForeground(new Color(0,0,0));
+		//jsp.setFont(new Font("couriernew",0,10));
+		//jsp.setAutoscrolls(true);
+		//jsp.setEnabled(true);
+		//jsp.setVisible(true);
+		//content.add(ta);
+		//content.add(jsp);
 		
         //this.add(ta);
         this.add(jsp);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.add(content);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         //this.pack();
         //this.setVisible(true);
     }
 
-    public void run()
+    public synchronized void run()
     {
         this.pack();
         this.setVisible(true);
@@ -90,6 +101,7 @@ public class LogWindow extends JFrame implements Runnable
     {
         ta.append("\n" + s);
         ta.updateUI();
+        //update(ta);
         //editable.setText(editable.getText()+"\n"+s);
         //editable.setBounds(1,1,499,50+cl);
         //cl+=14;
