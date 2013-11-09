@@ -18,7 +18,8 @@ class Airport extends Process{
 	}
 	public boolean isFood(int kolik){
 		if (pq.peek().expire < Calendar.time) {
-			pq.poll();
+			
+			allFood -= pq.poll().quant;
 		}
 		if (allFood < kolik) {
 			return false;
@@ -31,7 +32,7 @@ class Airport extends Process{
 	public int getFood(int quant){
 		//pq.peek().quant -= quant;
 		if (pq.peek().expire < Calendar.time) {
-			pq.poll();
+			allFood -= pq.poll().quant;
 		}
 		if (pq.peek().quant < quant) {
 			Supply first = pq.poll();
