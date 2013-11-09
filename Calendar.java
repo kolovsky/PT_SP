@@ -13,7 +13,7 @@ public class Calendar extends Thread
 {
     
     public static int time; //cas simulace v minutach;
-    public static PriorityQueue<Process> q = new PriorityQueue<Process>(3000, new MyComparator());
+    public static PriorityQueue<Process> q = new PriorityQueue<Process>(3000, new ProcCompare());
     public static Graph g;
     
     

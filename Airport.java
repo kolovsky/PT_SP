@@ -2,7 +2,7 @@ import java.util.*;
 
 class Airport extends Process{
 	int allFood = 500000;
-	public PriorityQueue<Supply> pq = new PriorityQueue<Supply>(10, new MyComparatorSupply());
+	public PriorityQueue<Supply> pq = new PriorityQueue<Supply>(10, new SupCompare());
 	public Airport(int time){
 		super(time);
 		pq.add(new Supply(500000,Calendar.time+2880));
