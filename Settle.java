@@ -6,28 +6,33 @@ public class Settle extends Process
         super(time);
     }
     public void addFood(int kolik){
-    	actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
+    	//actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
     	actualFood +=  kolik;
     	//lastTime = time;
     	if (kolik != 0) {
     		node.log += Calendar.time + " "+kolik+"kg\n";
     	}
     }
+    public void actualizatedFood(){
+    	actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
+    	lastTime = Calendar.time;
+    }
     public void go(){
-    	addFood(0);
+    	actualizatedFood();
     	if (actualFood < 0) {
     		actualFood = 0;
     	}
     	int kolik;
     	if (node.isSimple) {
-    		if (node.people*2*3 > 2000) {
-				kolik = 2000 - actualFood;	
+    		if (node.people*2*3 - actualFood > 2000) { // maximum co muzu objednat
+				kolik = 2000;
+
 			}
 			else {
 				kolik = node.people*2*3 - actualFood;
 			}
-			if (((Airport)node.suppliedFrom.proces).actualFood < kolik) {
-				lastTime = time;
+			if (((Airport)node.suppliedFrom.proces).isFood(kolik) == false) {
+				//lastTime = time;
 				time = time + 60 - time%60 + 1;
 				Calendar.q.add(this);
 				Core.log("precasovano");
@@ -38,14 +43,14 @@ public class Settle extends Process
     	}
     	else {
 			
-			if (node.people*2*3 > 12000) {
-				kolik = 12000 - actualFood;	
+			if (node.people*2*3 - actualFood > 12000) {
+				kolik = 12000;	
 			}
 			else {
 				kolik = node.people*2*3 - actualFood;
 			}
-			if (((Airport)node.suppliedFrom.proces).actualFood < kolik) {
-				lastTime = time;
+			if (((Airport)node.suppliedFrom.proces).isFood(kolik) == false) {
+				//lastTime = time;
 				time = time+ 60 - time%60 + 1;
 				Calendar.q.add(this);
 				Core.log("precasovano");
@@ -59,9 +64,9 @@ public class Settle extends Process
     	Core.log("Stav: Obednavam jidlo " + kolik + "kg");
 
 
-    	( (Airport) node.suppliedFrom.proces).actualFood = ((Airport) node.suppliedFrom.proces).actualFood - kolik;
+    	((Airport) node.suppliedFrom.proces).getFood(kolik);
 
-    	lastTime = time;
+    	//lastTime = time;
 
 		time = (int) (Calendar.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
 		Core.log("priste: "+time);

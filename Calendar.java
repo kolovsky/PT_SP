@@ -65,7 +65,7 @@ public class Calendar extends Thread
                     time++;
                     Core.log("======"+time+"======");
                 }
-                if (time == 720) {
+                if (time == 7200) {
                    break; 
                 }
                 //System.out.println("peak time "+q.peek().time);

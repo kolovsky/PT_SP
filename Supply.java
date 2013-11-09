@@ -1,5 +1,4 @@
-/* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kodovani: Prilis zlutoucký kun upel dabelske ody. */
+
 
 
 
@@ -14,11 +13,11 @@ public class Supply
 {
     //== KONSTANTNi ATRIBUTY TriDY =============================================
     //== PROMeNNe ATRIBUTY TriDY ===============================================
-    //== STATICKÝ INICIALIZAcNi BLOK - STATICKÝ KONSTRUKTOR ====================
+    //==  ====================
     //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
     //== PROMeNNe ATRIBUTY INSTANCi ============================================
     int quant; //mnozstvi surovin
-    int expire; //trvanlivost
+    int expire; //trvanlivost do [min]
     
     //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
     //== OSTATNi NESOUKROMe METODY TriDY =======================================
@@ -29,9 +28,9 @@ public class Supply
     /***************************************************************************
      *
      */
-    public Supply(int amount)
+    public Supply(int amount,int expiteTo)
     {
-        this.expire = 4320;
+        this.expire = expiteTo;
         this.quant = amount;
     }
 
