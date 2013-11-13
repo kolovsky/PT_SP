@@ -25,17 +25,23 @@ public class Calendar extends Thread
     {
         time = 0;
         this.g = g;
+        start();
     }
 
 
 
     
-    public void start()
+    public synchronized void run()
     {
         //System.out.println("START!");
         Core.log("START!");
         addAllNodeToQ();
         test(); //pro testovani
+        try{
+            createStatistics();
+        }
+            catch (Exception e){
+        }
         
         //TODO
     }
@@ -43,7 +49,7 @@ public class Calendar extends Thread
     public void end()
     {
         Core.log("STOP!");
-        super.interrupt();
+        //super.interrupt();
         //TODO
     }
     
@@ -116,5 +122,6 @@ public class Calendar extends Thread
         }
         out2.close();
         out1.close();
+        Core.log("Vytvorena statistika");
     }
 }

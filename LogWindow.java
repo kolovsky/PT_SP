@@ -100,7 +100,7 @@ public class LogWindow extends JFrame implements Runnable
     public synchronized void log(String s)
     {
         ta.append("\n" + s);
-        ta.updateUI();
+        //ta.updateUI();
         //update(ta);
         //editable.setText(editable.getText()+"\n"+s);
         //editable.setBounds(1,1,499,50+cl);

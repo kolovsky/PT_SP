@@ -29,18 +29,18 @@ class Core{
         g.save("graph.txt");
     }
     
-    public static synchronized void start()
+    public static void start()
     {
         //lw = new LogWindow();
         c = new Calendar(g);
-        c.start();
-        try
+        //c.startt();
+        /*try
         {
             c.createStatistics();
         }
         catch (Exception e)
         {
-        }
+        }*/
     }
     
     public static void stop()
