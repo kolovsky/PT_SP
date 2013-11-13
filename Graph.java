@@ -28,6 +28,7 @@ public class Graph
             lastNode = newNode;
         }
     }
+    
     public void generate(){
         //nodes = new Node[3006]; //3000 settle and 5 aiport, index 0 is NULL
         Random r = new Random(); //random
@@ -71,11 +72,12 @@ public class Graph
         arrayAirport[4] = e;
 
     }
-    public void load(String filename)throws Exception{
+    
+    public void load(String filename)throws IOException{
         File file = new File(filename);
         Scanner s = new Scanner(file);
         int air = 0;
-        for (int i = 0;s.hasNextLine();i++) {
+        while (s.hasNextLine()) {
             String pole [] = s.nextLine().split(" ");
 
             int id = Integer.parseInt(pole[0]);
@@ -111,30 +113,28 @@ public class Graph
         createSupplied();
 
     }
-    public void save(String filename) throws Exception{
+    
+    public void save(String filename) throws IOException{
         FileWriter out = new FileWriter(filename);
         Node node = firstNode;
-        for (int i = 1;node != null ;i++ ) {
-            if (node != null) {
-                out.write(node.id+" ");
-                out.write(node.people+" ");
-                out.write(node.x+" ");
-                out.write(node.y+" ");
-                Edge edge = node.firstEdge;
-                for (int j = 0;edge != null ;j++ ) {
-                    
-                    out.write(edge.node.id+" ");
-                    out.write(edge.cost+" ");
-                    edge = edge.next;
-                    
-                }
-                out.write("\n");
-                node = node.next;
+        while (node != null) {
+            out.write(node.id+" ");
+            out.write(node.people+" ");
+            out.write(node.x+" ");
+            out.write(node.y+" ");
+            Edge edge = node.firstEdge;
+            while (edge != null) {
+                out.write(edge.node.id+" ");
+                out.write(edge.cost+" ");
+                edge = edge.next;
             }
+            out.write("\n");
+            node = node.next;
         }
         out.close();
 
     }
+    
     public void createEdge(){
         long distance;
         int distances[] = new int[3006];
@@ -194,7 +194,7 @@ public class Graph
                 Node node2 = firstNode;
                 int minDis = Integer.MAX_VALUE;
                 Node minNode = null;
-                for(;node2 != null;) {
+                while(node2 != null) {
                     if(node2.isHeliport){
                         distance = (long) Math.sqrt(((long)(node2.x-node.x)*(node2.x-node.x))+((long)(node2.y-node.y)*(node2.y-node.y)));
                         if (minDis > distance) {
@@ -220,6 +220,7 @@ public class Graph
 
 
     }
+    
     public void generatePeople(){
          Random fRandom = new Random();
          int pp = 0;
@@ -245,7 +246,7 @@ public class Graph
          //System.out.println(pp*0.3);
          node = firstNode;
          int ppp = 0;
-         for(int j = 1;node != null;j++) {
+         while(node != null) {
             if (node instanceof SettleNode){
                  if (node.people < 2000) {
                      if (ppp%3 == 0) {
@@ -261,6 +262,7 @@ public class Graph
             node = node.next;
          }
     }
+    
     public Node[] dijkstra(Node from, Node to){
         dijkstra(from);
         Node node = to;
@@ -284,6 +286,7 @@ public class Graph
         return arrayNode;
 
     }
+    
     public boolean dijkstra(Node from){
         cleanGraph();
         from.isCloud = true;
@@ -292,14 +295,12 @@ public class Graph
         node.cost = 0;
         while (node != null) {
             edge = node.firstEdge;
-            for (int i = 0;edge != null ;i++ ) {
-               
+            while(edge != null) {
                 if (edge.node.cost > node.cost+edge.cost) {
                     edge.node.cost = node.cost+edge.cost;
                     edge.node.prev = node;
                 }
                 edge = edge.next;
-                 
             }
             //System.out.println(node.cost);
             node = addToCloud();
@@ -309,17 +310,15 @@ public class Graph
         //System.out.println("HHHHHH");
         return true;
     }
+    
     private Node addToCloud(){
         Node minCost = new Node(1,1,1);
         minCost.cost = Integer.MAX_VALUE;
         Node node = firstNode;
         while (node != null) {
-            if (node.isCloud == false) {
-                if (node.cost < minCost.cost) {
-                    minCost = node;
-                }
+            if (!node.isCloud && node.cost < minCost.cost) {
+                minCost = node;
             }
-
             node = node.next;
         }
         minCost.isCloud = true;
@@ -329,6 +328,7 @@ public class Graph
         return minCost;
 
     }
+    
     public void cleanGraph(){
         Node node = firstNode;
         while (node != null) {
@@ -342,6 +342,7 @@ public class Graph
         }
 
     }
+    
     public String statistic(){
         int sumaP = 0;
         int sumaSimple = 0;
@@ -389,6 +390,7 @@ public class Graph
         return "people: "+sumaP+"\n" + "city without roads: "+sumaSimple+"\n"+ "city > 10000: "+suma10+"\n" + " l1: "+ l1
          + " l2: "+ l2 + " l3: "+ l3 + " l4: "+ l4 + " l5: "+ l5+"\n"+" ost: " + ost;
     }
+    
     public void createSupplied(){
         Node node;
         int min = Integer.MAX_VALUE;

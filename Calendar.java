@@ -17,7 +17,6 @@ public class Calendar extends Thread
     public static Graph g;
     
     
-
     /***************************************************************************
      *
      */
@@ -28,9 +27,7 @@ public class Calendar extends Thread
         start();
     }
 
-
-
-    
+    @Override
     public synchronized void run()
     {
         //System.out.println("START!");
@@ -40,45 +37,45 @@ public class Calendar extends Thread
         try{
             createStatistics();
         }
-            catch (Exception e){
+        catch (Exception e){
         }
-        
-        //TODO
     }
     
     public void end()
     {
         Core.log("STOP!");
-        //super.interrupt();
+        super.interrupt();
+        notifyAll();
         //TODO
     }
     
-         /********************************************************************
-          * Testovaci metoda.
-          */
-         public static void test()
-         {  
-            Process proc;
-            while (q.size() != 0) {
-                if (q.peek().time == time) {
-                    proc = q.poll();
-                    proc.go();
-                    //System.out.println("peak time "+q.peek().time);
-                    //System.out.println(proc.time);
-                    //System.out.println(((Airport)proc.node.suppliedFrom.proces).actualFood);
-                }
-                else {
-                    time++;
-                    Core.log("======"+time+"======");
-                }
-                if (time == 7200) {
-                   break; 
-                }
+    /********************************************************************
+    * Testovaci metoda.
+    */
+    public static void test()
+    {  
+        Process proc;
+        while (q.size() != 0) {
+            if (q.peek().time == time) {
+                proc = q.poll();
+                proc.go();
                 //System.out.println("peak time "+q.peek().time);
+                //System.out.println(proc.time);
+                //System.out.println(((Airport)proc.node.suppliedFrom.proces).actualFood);
             }
-         }
+            else {
+                time++;
+                Core.log("======"+time+"======");
+            }
+            if (time == 7200) {
+                break; 
+            }
+            //System.out.println("peak time "+q.peek().time);
+        }
+    }
+         
     public void addAllNodeToQ(){
-        Random r = new Random();
+        //Random r = new Random();
         Node node = g.firstNode;
         int pp = 0;
         for (int i = 0;i<g.arrayAirport.length ;i++ ) {
@@ -104,6 +101,7 @@ public class Calendar extends Thread
             
         }
     }
+    
     public void createStatistics() throws Exception{
         FileWriter out1 = new FileWriter("zasobovano_z.txt");
         FileWriter out2 = new FileWriter("zasobovano_kdy_kolik.txt");
