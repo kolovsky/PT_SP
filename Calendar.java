@@ -32,7 +32,13 @@ public class Calendar extends Thread
     {
         //System.out.println("START!");
         Core.log("START!");
-        addAllNodeToQ();
+        try{
+            addAllNodeToQ();
+        }
+        catch(NullPointerException e){
+            Core.log("NENI GRAF!");
+            return;
+        }
         test(); //pro testovani
         try{
             createStatistics();

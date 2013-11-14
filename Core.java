@@ -59,7 +59,9 @@ class Core{
     public static void start()
     {
         //lw = new LogWindow();
+        
         c = new Calendar(g);
+
         //c.startt();
         /*try
         {
@@ -100,8 +102,9 @@ class Core{
         
         javax.swing.SwingUtilities.invokeLater(menu = new GUI_menu());
         
-
+        //lw = new LogWindow();
         Thread t = new Thread(lw = new LogWindow(), "LW");
+        //Thread t = new Thread(lw, "LW");
         t.run();
         //lw = new LogWindow();
         //lw.run();
