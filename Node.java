@@ -27,7 +27,7 @@ public class Node
     public AirportNode suppliedFrom = null; //prislusnost k letisti
     public int costToAir; //[min] jak dlouho trva cesta z letiste
     //zaznamy a statistiky 
-    public String log = "";
+    public Statistic log = new Statistic();
 
     /**
      * Seznam hran.

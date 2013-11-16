@@ -72,7 +72,7 @@ class Core{
         }*/
     }
     
-    public static void stop()
+    public static void stop() throws Exception
     {
         c.end();
     }

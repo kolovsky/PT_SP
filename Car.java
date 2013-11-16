@@ -6,20 +6,31 @@ class Car extends Process{
     int id;
     int kolik;
     Node helicop;
-    public Car(int time,Node [] path,int kolik,Node helicop)
+    int cast; //kolik do vrtulniku cca 2000kg
+
+    public Car(int time,Node [] path,int kolik,Node helicop,boolean isFull)
     {
         super(time);
         this.path = path;
         nextWork = -1;
-        this.kolik = kolik;
+        //this.kolik = kolik;
         this.helicop = helicop;
+        if (isFull == true) {
+            this.kolik = 12000;
+            this.cast = kolik;
+        }
+        else {
+            this.cast = kolik;
+            this.kolik = kolik;
+        }
+
     }
     
     public void go(){
         if (nextWork == path.length-1) {
             deal();
             if (helicop != null) {
-                Calendar.q.add(new Helicop(Calendar.time,path[path.length-1],helicop,kolik));
+                Calendar.q.add(new Helicop(Calendar.time,path[path.length-1],helicop,cast));
             }
             
             List<Node> list = Arrays.asList(path);
@@ -39,6 +50,9 @@ class Car extends Process{
         if (nextWork >= path.length) {
             if (nextWork == path.length && helicop == null) {
                 ((Settle) path[0].proces).addFood(kolik);
+            }
+            if (nextWork == path.length && helicop != null) {
+                ((Settle) path[0].proces).addFood(kolik - cast);
             }
             shift(nextWork-path.length);
             nextWork++;
