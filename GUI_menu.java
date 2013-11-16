@@ -23,6 +23,7 @@ public class GUI_menu extends JFrame implements Runnable {
     private JButton button4;
     private JButton button5;
     private JButton button6;
+    private JButton button7;
     private JLabel label1;
     private JLabel label2;
 
@@ -119,13 +120,29 @@ public class GUI_menu extends JFrame implements Runnable {
         button6.setForeground(new Color(0,0,0));
         button6.setEnabled(true);
         button6.setFont(new Font("sansserif",0,12));
-        button6.setText("Stop simulation");
+        button6.setText("Pause simulation");
         button6.setVisible(true);
         //Set action for button click
         //Call defined method
         button6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                stop();
+                pause();
+            }
+        });
+        
+        button7 = new JButton();
+        button7.setBounds(50,335,190,40);
+        button7.setBackground(new Color(200,200,200));
+        button7.setForeground(new Color(0,0,0));
+        button7.setEnabled(false);
+        button7.setFont(new Font("sansserif",0,12));
+        button7.setText("Continue simulation");
+        button7.setVisible(false);
+        //Set action for button click
+        //Call defined method
+        button7.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                cont();
             }
         });
 
@@ -154,6 +171,7 @@ public class GUI_menu extends JFrame implements Runnable {
         contentPane.add(button4);
         contentPane.add(button5);
         contentPane.add(button6);
+        contentPane.add(button7);
         contentPane.add(label1);
         contentPane.add(label2);
 
@@ -169,7 +187,7 @@ public class GUI_menu extends JFrame implements Runnable {
     //Method actionPerformed for button1
     private void generate() {
         Core.generateNew();
-        button4.setEnabled(true);
+        button3.setEnabled(true);
     }
 
     //Method actionPerformed for button2
@@ -178,8 +196,13 @@ public class GUI_menu extends JFrame implements Runnable {
     }
 
     //Method actionPerformed for button3
-    private void stop() {
-        Core.stop();
+    private void pause() {
+        button6.setEnabled(false);
+        button6.setVisible(false);
+        button7.setVisible(true);
+        button7.setEnabled(true);
+        Core.pause();
+        //notifyAll();
     }
 
     //Method actionPerformed for button4
@@ -199,13 +222,30 @@ public class GUI_menu extends JFrame implements Runnable {
         //msg.setName("Adding new settlement");
         String pop = JOptionPane.showInputDialog(this, new JOptionPane(), "Adding new settlement", JOptionPane.QUESTION_MESSAGE);
         System.out.println(pop);
-        n.people = Integer.parseInt(pop);
+        try
+        {
+            n.people = Integer.parseInt(pop);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         Core.g.addNode(n);
     }
 
     //Method actionPerformed for button6
     private void load(){
         Core.load();
+    }
+    
+    //Method actionPerformed for button6
+    private void cont(){
+        Core.cont();
+        //notifyAll();
+        button7.setEnabled(false);
+        button7.setVisible(false);
+        button6.setVisible(true);
+        button6.setEnabled(true);
     }
     
     @Override

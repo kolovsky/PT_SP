@@ -15,6 +15,8 @@ public class Calendar extends Thread
     public static int time; //cas simulace v minutach;
     public static PriorityQueue<Process> q = new PriorityQueue<Process>(3000, new ProcCompare());
     public static Graph g;
+    private final Object lock = new Object();
+    private volatile boolean isClear = true;
     
     
     /***************************************************************************
@@ -27,6 +29,12 @@ public class Calendar extends Thread
         start();
     }
 
+    
+    public void cont()
+    {
+        return;
+    }
+    
     @Override
     public synchronized void run()
     {
@@ -39,29 +47,44 @@ public class Calendar extends Thread
             Core.log("NENI GRAF!");
             return;
         }
-        test(); //pro testovani
-        try{
+        test();
+        try
+        {
             createStatistics();
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
+            return;
         }
     }
     
-    public void end()
+    public synchronized void pause()
     {
         Core.log("STOP!");
-        super.interrupt();
-        notifyAll();
+        /*
+        while(Core.isClear)
+        {
+            try
+            {
+                wait();
+            }
+            catch (InterruptedException e)
+            {
+                return;
+            }
+        }*/
+        isClear = false;
+        //notifyAll();
         //TODO
     }
     
     /********************************************************************
     * Testovaci metoda.
     */
-    public static void test()
+    public void test()
     {  
         Process proc;
-        while (q.size() != 0) {
+        while (q.size() != 0 && Core.isClear) {
             if (q.peek().time == time) {
                 proc = q.poll();
                 proc.go();
@@ -78,6 +101,21 @@ public class Calendar extends Thread
             }
             //System.out.println("peak time "+q.peek().time);
         }
+        synchronized(lock)
+            {
+                try
+                {
+                    while(!Core.isClear)
+                    {
+                        lock.wait();
+                    }
+                    lock.notify();
+                }
+                catch (InterruptedException ie)
+                {
+                    ie.printStackTrace();
+                }
+            }
     }
          
     public void addAllNodeToQ(){

@@ -7,6 +7,21 @@ class Core{
     static Calendar c;
     static LogWindow lw;
     static GUI_menu menu;
+    static volatile boolean isClear;
+    //static Object lock = new Object();
+    
+    /**
+     * =Continue
+     */
+    public static synchronized void cont()
+    {
+        isClear = true;
+        /*synchronized(c)
+        {
+            c.notifyAll();
+        }*/
+        //isClear = true;
+    }
     
     public static void generateNew()
     {
@@ -42,6 +57,29 @@ class Core{
         //System.out.println(s);
     }
     
+    public static synchronized void pause()
+    {
+        isClear = false;
+        /*synchronized(c)
+        {
+            try
+            {
+                while(!isClear)
+                {
+                    c.wait();
+                }
+                //c.yield();
+                //c.notify();
+            }
+            catch (InterruptedException ie)
+            {
+                ie.printStackTrace();
+                return;
+            }
+        }*/
+        //isClear = false;
+    }
+    
     public static void save()
     {
         //g.save("graph.txt");
@@ -56,9 +94,10 @@ class Core{
         }
     }
     
-    public static void start()
+    public static synchronized void start()
     {
         //lw = new LogWindow();
+        isClear = true;
         
         c = new Calendar(g);
 
@@ -70,11 +109,6 @@ class Core{
         catch (Exception e)
         {
         }*/
-    }
-    
-    public static void stop()
-    {
-        c.end();
     }
     
     public static void main(String[] args) throws Exception {
