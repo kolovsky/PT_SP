@@ -15,7 +15,12 @@ public class Calendar extends Thread
     public static int time; //cas simulace v minutach;
     public static PriorityQueue<Process> q = new PriorityQueue<Process>(10000, new ProcCompare());
     public static Graph g;
+
     private static boolean isRun = true;
+
+    //private final Object lock = new Object();
+    //private volatile boolean isClear = true;
+
     
     
     /***************************************************************************
@@ -28,26 +33,37 @@ public class Calendar extends Thread
         start();
     }
 
+    
+    /*public void cont()
+    {
+        return;
+    }*/
+    
     @Override
     public synchronized void run()
     {
         //System.out.println("START!");
         Core.log("START!");
-        //try{
-            addAllNodeToQ();
-        //}
-        //catch(NullPointerException e){
-            //Core.log("NENI GRAF!");
-            //return;
-        //}
-        test(); //pro testovani
         try{
+            addAllNodeToQ();
+
+        }
+        catch(NullPointerException e){
+            Core.log("NENI GRAF!");
+            return;
+        }
+        test();
+        try
+        {
             createStatistics();
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
+            return;
         }
     }
     
+//<<<<<<< HEAD
     public void end()  throws Exception
     {
         Core.log("STOP!");
@@ -57,19 +73,38 @@ public class Calendar extends Thread
         else {
             isRun = true;
         }
+    }
         //super.interrupt();
+//=======
+    /*public synchronized void pause()
+    {
+        Core.log("STOP!");
+        /*
+        while(Core.isClear)
+        {
+            try
+            {
+                wait();
+            }
+            catch (InterruptedException e)
+            {
+                return;
+            }
+        }
+        isClear = false;*/
+//>>>>>>> 67850bb8e846596279e9c927ffc5b3973eb18057
         //notifyAll();
         //TODO
-        createStatistics();
-    }
+        //createStatistics();
+    //}
     
     /********************************************************************
     * Testovaci metoda.
     */
-    public static void test()
+    public void test()
     {  
         Process proc;
-        while (q.size() != 0) {
+        while (q.size() != 0 && Core.isClear) {
             if (q.peek().time == time) {
                 proc = q.poll();
                 proc.go();
@@ -99,7 +134,7 @@ public class Calendar extends Thread
                 break; 
             }
             
-            while (isRun == false) {
+           while (isRun == false) {
                 try{
                     sleep(1);
                 }
@@ -108,6 +143,21 @@ public class Calendar extends Thread
                 }
             }
         }
+        /*synchronized(lock)
+            {
+                try
+                {
+                    while(!Core.isClear)
+                    {
+                        lock.wait();
+                    }
+                    lock.notify();
+                }
+                catch (InterruptedException ie)
+                {
+                    ie.printStackTrace();
+                }
+            }*/
     }
          
     public void addAllNodeToQ(){
