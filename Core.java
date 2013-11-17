@@ -13,10 +13,10 @@ class Core{
     /**
      * =Continue
      */
-    public static synchronized void cont()  throws Exception
+    public static synchronized void cont()
     {
-        //isClear = true;
-        c.end();
+        isClear = true;
+        //c.end();
         /*synchronized(c)
         {
             c.notifyAll();
@@ -58,10 +58,11 @@ class Core{
         //System.out.println(s);
     }
     
-    public static synchronized void pause()  throws Exception
+    public static synchronized void pause()
     {
-        //isClear = false;
-        c.end();
+        log("STOP!");
+        isClear = false;
+        //c.end();
         /*synchronized(c)
         {
             try

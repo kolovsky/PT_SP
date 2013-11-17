@@ -63,7 +63,7 @@ public class Calendar extends Thread
         }
     }
     
-//<<<<<<< HEAD
+    //<<<<<<< HEAD
     public void end()  throws Exception
     {
         Core.log("STOP!");
@@ -75,7 +75,7 @@ public class Calendar extends Thread
         }
     }
         //super.interrupt();
-//=======
+        //=======
     /*public synchronized void pause()
     {
         Core.log("STOP!");
@@ -92,7 +92,7 @@ public class Calendar extends Thread
             }
         }
         isClear = false;*/
-//>>>>>>> 67850bb8e846596279e9c927ffc5b3973eb18057
+        //>>>>>>> 67850bb8e846596279e9c927ffc5b3973eb18057
         //notifyAll();
         //TODO
         //createStatistics();
