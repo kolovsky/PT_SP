@@ -31,7 +31,6 @@ public class GUI_menu extends JFrame implements Runnable {
     public GUI_menu() {
 
         this.setTitle("PT_SP");
-        //this.setSize(300,400);
 
         //pane with null layout
         JPanel contentPane = new JPanel(null);
@@ -147,7 +146,7 @@ public class GUI_menu extends JFrame implements Runnable {
         });
 
         label1 = new JLabel();
-        label1.setBounds(115,45,90,40);
+        label1.setBounds(115,45,200,50);
         label1.setBackground(new Color(214,217,223));
         label1.setForeground(new Color(0,0,0));
         label1.setEnabled(true);
@@ -156,7 +155,7 @@ public class GUI_menu extends JFrame implements Runnable {
         label1.setVisible(true);
 
         label2 = new JLabel();
-        label2.setBounds(125,10,45,40);
+        label2.setBounds(125,10,50,50);
         label2.setBackground(new Color(214,217,223));
         label2.setForeground(new Color(0,0,0));
         label2.setEnabled(true);
@@ -180,8 +179,6 @@ public class GUI_menu extends JFrame implements Runnable {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(300,500));
         //this.setLocationRelativeTo(null);
-        //this.pack();
-        //this.setVisible(true);
     }
 
     //Method actionPerformed for button1
@@ -193,6 +190,7 @@ public class GUI_menu extends JFrame implements Runnable {
     //Method actionPerformed for button2
     private void go() {
         Core.start();
+        //button5.setEnabled(false);
     }
 
     //Method actionPerformed for button3
@@ -201,7 +199,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button6.setVisible(false);
         button7.setVisible(true);
         button7.setEnabled(true);
-        Core.pause();
+        Core.stop();
         //notifyAll();
     }
 
@@ -229,6 +227,7 @@ public class GUI_menu extends JFrame implements Runnable {
         catch (Exception e)
         {
             e.printStackTrace();
+            Core.exceptions.add(e);
         }
         Core.g.addNode(n);
     }
@@ -240,7 +239,7 @@ public class GUI_menu extends JFrame implements Runnable {
     
     //Method actionPerformed for button6
     private void cont(){
-        Core.cont();
+        Core.stop();
         //notifyAll();
         button7.setEnabled(false);
         button7.setVisible(false);
@@ -255,7 +254,7 @@ public class GUI_menu extends JFrame implements Runnable {
         //Point newLoc = new Point(screenSize.width / 2 - (this.getWidth() / 2), screenSize.height / 2 - (this.getWidth() / 2));
         //Point newLocation = new Point(middle.x - , middle.y));
         //this.setLocation(newLoc);
-        this.setLocationByPlatform(true);
+        //this.setLocationByPlatform(true);
         this.setVisible(true);
     }
 }

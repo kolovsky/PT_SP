@@ -4,23 +4,22 @@ import java.io.*;
  * Kontrola kodovani: Prilis zlutoucky kun upel dabelske ody. */
 
 /*******************************************************************************
- * Instance tridy {@code Calendar} predstavuji prioritni frontu (?)
+ * Instance tridy {@code Calendar} predstavuji prioritni frontu.
  *
- * @author    jmeno autora
- * @version   0.00.000
+ * @author    kolovsky
+ * @author    jmacura
+ * @version   1.00.000
  */
 public class Calendar extends Thread
 {
-    
-    public static int time; //cas simulace v minutach;
+    /**
+     * Cas simulace v minutach.
+     */
+    public static int time;
     public static PriorityQueue<Process> q = new PriorityQueue<Process>(10000, new ProcCompare());
     public static Graph g;
 
-    private static boolean isRun = true;
-
-    //private final Object lock = new Object();
-    //private volatile boolean isClear = true;
-
+    private volatile boolean isRun = true;
     
     
     /***************************************************************************
@@ -34,11 +33,6 @@ public class Calendar extends Thread
     }
 
     
-    /*public void cont()
-    {
-        return;
-    }*/
-    
     @Override
     public synchronized void run()
     {
@@ -46,118 +40,79 @@ public class Calendar extends Thread
         Core.log("START!");
         try{
             addAllNodeToQ();
-
         }
         catch(NullPointerException e){
             Core.log("NENI GRAF!");
-            return;
+            Core.exceptions.add(e);
         }
-        test();
+        simulate();
         try
         {
             createStatistics();
         }
         catch (Exception e)
         {
-            return;
+            Core.exceptions.add(e);
         }
+        Core.summary();
     }
     
-    //<<<<<<< HEAD
-    public void end()  throws Exception
+    public void pauseNplay()
     {
-        Core.log("STOP!");
         if (isRun) {
+            Core.log("PAUSE!");
             isRun = false;
         }
         else {
+            Core.log("PLAY");
             isRun = true;
         }
     }
-        //super.interrupt();
-        //=======
-    /*public synchronized void pause()
-    {
-        Core.log("STOP!");
-        /*
-        while(Core.isClear)
-        {
-            try
-            {
-                wait();
-            }
-            catch (InterruptedException e)
-            {
-                return;
-            }
-        }
-        isClear = false;*/
-        //>>>>>>> 67850bb8e846596279e9c927ffc5b3973eb18057
-        //notifyAll();
-        //TODO
-        //createStatistics();
-    //}
     
-    /********************************************************************
-    * Testovaci metoda.
+    /**
+    * 
     */
-    public void test()
+    public void simulate()
     {  
         Process proc;
-        while (q.size() != 0 && Core.isClear) {
-            if (q.peek().time == time) {
-                proc = q.poll();
-                proc.go();
-                //System.out.println("peak time "+q.peek().time);
-                //System.out.println(proc.time);
-                //System.out.println(((Airport)proc.node.suppliedFrom.proces).actualFood);
-            }
-            else {
-                if (q.peek().time < time) {
-                    Process pe = q.peek();
-                    //Core.log("peak time "+pe.time + " "+pe.people);
-                    if (pe instanceof Settle) {
-                        Core.log("mesto"+pe.node.people);
-                    }
-                    else if (pe instanceof Car) {
-                        Car pee = (Car) pe;
-                        Core.log("car"+pee.nextWork+" "+pee.path[pee.path.length-1].id+" kolik: "+pee.kolik +" "+ pee.cast);
-                    }
-                    else {
-                        Core.log("ost"+pe.nextWork);
-                    }
-                }
-                time++;
-                Core.log("======"+time+"======");
-            }
-            if (time == 7200) {
-                break; 
-            }
-            
-           while (isRun == false) {
+        while (q.size() != 0) {
+           if (q.peek().time == time) {
+               proc = q.poll();
+               proc.go();
+               //System.out.println("peak time "+q.peek().time);
+               //System.out.println(proc.time);
+               //System.out.println(((Airport)proc.node.suppliedFrom.proces).actualFood);
+           }
+           else {
+               if (q.peek().time < time) {
+                   Process pe = q.peek();
+                   //Core.log("peak time "+pe.time + " "+pe.people);
+                   if (pe instanceof Settle) {
+                       Core.log("mesto"+pe.node.people);
+                   }
+                   else if (pe instanceof Car) {
+                       Car pee = (Car) pe;
+                       Core.log("car"+pee.nextWork+" "+pee.path[pee.path.length-1].id+" kolik: "+pee.kolik +" "+ pee.cast);
+                   }
+                   else {
+                       Core.log("ost"+pe.nextWork);
+                   }
+               }
+               time++;
+               Core.log("======"+time+"======");
+           }
+           if (time == 200) {
+               break; 
+           }
+           while (!isRun) {
                 try{
                     sleep(1);
                 }
                 catch(Exception e){
-
+                    Core.exceptions.add(e);
                 }
             }
         }
-        /*synchronized(lock)
-            {
-                try
-                {
-                    while(!Core.isClear)
-                    {
-                        lock.wait();
-                    }
-                    lock.notify();
-                }
-                catch (InterruptedException ie)
-                {
-                    ie.printStackTrace();
-                }
-            }*/
     }
          
     public void addAllNodeToQ(){
@@ -175,7 +130,6 @@ public class Calendar extends Thread
                 node.proces.node = node;
                 q.add(node.proces);
                 pp++;
-             
             }
             if (node instanceof AirportNode) {
                 //node.proces = new Airport(r.nextInt(1000));
@@ -184,7 +138,6 @@ public class Calendar extends Thread
             if (pp == 3000) {
                 break;
             }
-            
         }
     }
     
@@ -201,12 +154,12 @@ public class Calendar extends Thread
                 out2.write("==== ID "+node.id+" ====\n");
                 out2.write(node.log.toString()+"\n"); 
             }
-
             node = node.next;
         }
         out2.close();
         out1.close();
         Core.log("Vytvorena statistika");
+        //throw new RuntimeException("mama mrda maso");
     }
 }
 

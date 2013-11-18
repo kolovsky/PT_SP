@@ -2,31 +2,50 @@ import java.util.*;
 import java.io.*;
 import javax.swing.*;
 
-class Core{
+/**
+ * Jadro - hlavni a spousteci trida aplikace.
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
+class Core
+{
+    /**
+     * Graf reprezentujici mapu uzemi.
+     */
     static Graph g;
-    static Calendar c;
-    static LogWindow lw;
-    static GUI_menu menu;
-    static volatile boolean isClear;
-    //static Object lock = new Object();
     
     /**
-     * =Continue
+     * Kalendar diskretni simulace.
      */
-    public static synchronized void cont()
+    static Calendar c;
+    
+    /**
+     * Okno pro zapis prubehu simulace.
+     */
+    static LogWindow lw;
+    
+    /**
+     * Graficke menu pro snadne ovladani aplikace.
+     */
+    static GUI_menu menu;
+    
+    /**
+     * Chyby zaznamenane pri behu programu.
+     */
+    static Vector exceptions;
+    
+    /**
+     * Staticky inicializacni blok.
+     */
+    static
     {
-        isClear = true;
-        //c.end();
-        /*synchronized(c)
-        {
-            c.notifyAll();
-        }*/
-        //isClear = true;
+        exceptions = new Vector<Exception>(2, 1);
     }
     
     public static void generateNew()
     {
-        g = new Graph();
+        //g = new Graph();
         g.generate();
         //System.out.println("1");
         g.generatePeople();
@@ -47,7 +66,7 @@ class Core{
         }
         catch (IOException e)
         {
-            return;
+            exceptions.add(e);
         }
         lw.log(g.statistic());
     }
@@ -56,31 +75,6 @@ class Core{
     {
         lw.log(s);
         //System.out.println(s);
-    }
-    
-    public static synchronized void pause()
-    {
-        log("STOP!");
-        isClear = false;
-        //c.end();
-        /*synchronized(c)
-        {
-            try
-            {
-                while(!isClear)
-                {
-                    c.wait();
-                }
-                //c.yield();
-                //c.notify();
-            }
-            catch (InterruptedException ie)
-            {
-                ie.printStackTrace();
-                return;
-            }
-        }*/
-        //isClear = false;
     }
     
     public static void save()
@@ -93,18 +87,15 @@ class Core{
         }
         catch (IOException e)
         {
-            return;
+            exceptions.add(e);
         }
     }
     
     public static synchronized void start()
     {
-        //lw = new LogWindow();
-        isClear = true;
-        
         c = new Calendar(g);
 
-        //c.startt();
+        //c.start();
         /*try
         {
             c.createStatistics();
@@ -114,45 +105,50 @@ class Core{
         }*/
     }
     
-//<<<<<<< HEAD
-    public static void stop() throws Exception
+    public static void stop()
     {
-        //c.end();
+        c.pauseNplay();
     }
     
-//=======
-//>>>>>>> 67850bb8e846596279e9c927ffc5b3973eb18057
-    public static void main(String[] args) throws Exception {
+    public static void summary()
+    {
+        Object[] allExs = exceptions.toArray();
+        int exNum = (int) allExs.length;
+        if (exNum > 0)
+        {
+            log("Doslo k " + exNum + " chybam:");
+            for(int i = 0; i < exNum; i++)
+            {
+                Exception e = (Exception) exceptions.get(i);
+                log(e.getMessage());
+            }
+        }
+        else
+        {
+            log("Vse OK");
+        }
+    }
+
+    public static void main(String[] args) {
         
         //System.out.print(Arrays.toString(g.nodes));
         
         g = new Graph();
         
         //System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-        /*javax.swing.SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run() {
-                new GUI_menu();
-            }
-        }
-        );*/
         try
         {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
         catch (Exception useDefault)
         {
-            return;
+            exceptions.add(useDefault);
         }
         
-        javax.swing.SwingUtilities.invokeLater(menu = new GUI_menu());
+        SwingUtilities.invokeLater(menu = new GUI_menu());
         
-        //lw = new LogWindow();
-        Thread t = new Thread(lw = new LogWindow(), "LW");
-        //Thread t = new Thread(lw, "LW");
-        t.run();
-        //lw = new LogWindow();
-        //lw.run();
+        Thread t = new Thread(lw = new LogWindow(), "LogWindow");
+        t.start();
         
     }
     

@@ -1,4 +1,3 @@
-
 class SettleNode extends Node
 {
 	public int people;

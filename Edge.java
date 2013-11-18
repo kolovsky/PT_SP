@@ -1,4 +1,3 @@
-
 public class Edge
 {
     public int cost;

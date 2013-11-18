@@ -6,7 +6,6 @@ public class Settle extends Process
     public Settle(int time)
     {
         super(time);
-        
     }
     public void addFood(int kolik){
     	//actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
@@ -45,12 +44,11 @@ public class Settle extends Process
 			Calendar.q.add(new Car(Calendar.time,path,kolik,node,true));
             //System.out.println(Arrays.toString(path));
             //System.out.println(node.toString());
-            Core.log("aaa");
+            Core.log("aaa"); //?! <-- vyznam ?
             //node.firstEdge.node.proces.time += (int)(((12000.0-kolik)/(2.0+node.people))*60.0*24.0);
 
     	}
     	else {
-			
 			if (node.people*2*3 - actualFood > 12000) {
 				kolik = 12000;	
 			}
@@ -67,9 +65,9 @@ public class Settle extends Process
 			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node);
 			Calendar.q.add(new Car(Calendar.time,path,kolik,null,false));
 		}
-		Core.log("Settle no "+node.id);
+		Core.log("Settle No "+node.id);
     	Core.log("Food: "+actualFood);
-    	Core.log("Stav: Obednavam jidlo " + kolik + "kg");
+    	Core.log("Stav: Objednavam jidlo " + kolik + " kg");
 
 
     	((Airport) node.suppliedFrom.proces).getFood(kolik);
