@@ -3,9 +3,17 @@ import java.util.*;
 public class Settle extends Process
 {	public int actualFood = 0;
 	public int lastTime = 0;
-    public Settle(int time)
+    public LinkedList<Helicop> garage;
+
+    public Settle(int time, Node node)
     {
         super(time);
+        this.node = node;
+        this.node.proces = this;
+        if (this.node.people > 10000) {
+            garage = new LinkedList<Helicop>();
+        }
+
     }
     public void addFood(int kolik){
     	//actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
@@ -41,11 +49,11 @@ public class Settle extends Process
             	return;
             }
 			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node.firstEdge.node);
-			Calendar.q.add(new Car(Calendar.time,path,kolik,node,true));
-            //System.out.println(Arrays.toString(path));
-            //System.out.println(node.toString());
-            Core.log("aaa"); //?! <-- vyznam ?
-            //node.firstEdge.node.proces.time += (int)(((12000.0-kolik)/(2.0+node.people))*60.0*24.0);
+            ((Airport) node.suppliedFrom.proces).sendCar(Calendar.time,path,kolik,node,true);
+			//Calendar.q.add(new Car(Calendar.time,path,kolik,node,true)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
+            
+            //Core.log("aaa"); //?! <-- vyznam ?
+            //node.firstEdge.node.proces.time += (int)(((12000.0-kolik)/(2.0+node.people))*60.0*24.0); //!!!!!!!!!NEMAZAT!!!!!!!!!!
 
     	}
     	else {
@@ -63,7 +71,8 @@ public class Settle extends Process
             	return;
             }
 			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node);
-			Calendar.q.add(new Car(Calendar.time,path,kolik,null,false));
+            ((Airport)node.suppliedFrom.proces).sendCar(Calendar.time,path,kolik,null,false);
+			//Calendar.q.add(new Car(Calendar.time,path,kolik,null,false)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
 		}
 		Core.log("Settle No "+node.id);
     	Core.log("Food: "+actualFood);
@@ -79,5 +88,18 @@ public class Settle extends Process
 		Calendar.q.add(this);
 
     	
+    }
+    public void sendHelicop(int time,Node start, Node end, int kolik){
+        Helicop ncar;
+        if (garage.size() == 0) {
+            ncar = new Helicop(time,start,end,kolik);
+            Calendar.allHelicop.add(ncar);
+            Calendar.q.add(ncar);
+        }
+        else {
+            ncar = garage.poll();
+            ncar.newWork(time,start,end,kolik);
+            Calendar.q.add(ncar);
+        }
     }
 }

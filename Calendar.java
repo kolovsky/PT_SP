@@ -18,6 +18,8 @@ public class Calendar extends Thread
     public static int time;
     public static PriorityQueue<Process> q = new PriorityQueue<Process>(10000, new ProcCompare());
     public static Graph g;
+    public static ArrayList<Car> allCar = new ArrayList<Car>();
+    public static ArrayList<Helicop> allHelicop = new ArrayList<Helicop>();
 
     private volatile boolean isRun = true;
     
@@ -120,14 +122,16 @@ public class Calendar extends Thread
         Node node = g.firstNode;
         int pp = 0;
         for (int i = 0;i<g.arrayAirport.length ;i++ ) {
-            g.arrayAirport[i].proces = new Airport(60);
-            g.arrayAirport[i].proces.node = g.arrayAirport[i];
+            //g.arrayAirport[i].proces = new Airport(60);
+            //g.arrayAirport[i].proces.node = g.arrayAirport[i];
+            new Airport(60,g.arrayAirport[i]);
             q.add(g.arrayAirport[i].proces);
         }
         while (node != null) {
             if (node instanceof SettleNode) {
-                node.proces = new Settle(0);
-                node.proces.node = node;
+                //node.proces = new Settle(0);
+                //node.proces.node = node;
+                new Settle(0,node);
                 q.add(node.proces);
                 pp++;
             }

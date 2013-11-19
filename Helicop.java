@@ -3,10 +3,14 @@ class Helicop extends Process{
 	public Node start;
 	public Node end;
 	public int kolik;
+    public static int lastId;
+    public int id;
 
     public Helicop(int time,Node start, Node end, int kolik)
     {
         super(time);
+        this.id = lastId;
+        this.lastId++;
         this.start = start;
         this.end = end;
         nextWork = 0;
@@ -19,8 +23,9 @@ class Helicop extends Process{
     		return;
     	}
     	if (nextWork == 4) {
-    		Core.log("Vrtulnik cil "+ end.id);
+    		Core.log("Vrtulnik id "+ id);
     		Core.log("Ukol zplnen!");
+            ((Settle)start.proces).garage.addLast(this);
     		return;
     		
     	}
@@ -49,7 +54,7 @@ class Helicop extends Process{
     }
     public void deal(){
     	time = (int)((kolik/1000.0)*30.0) + Calendar.time;
-		Core.log("Vrtulnik cil "+ end.id);
+		Core.log("Vrtulnik id "+ id);
 		Core.log("Nakladam/vykladam do casu "+time);
 		Calendar.q.add(this);
     }
@@ -61,9 +66,16 @@ class Helicop extends Process{
 			}
 			edge = edge.next;
 		}
-		Core.log("Vrtulnik cil "+ end.id);
+		Core.log("Vrtulnik id "+ id);
 		Core.log("Letim do uzlu id = "+ to.id);
 		Core.log("Budu tam v "+time);
 		Calendar.q.add(this);
+    }
+    public void newWork(int time,Node start, Node end, int kolik){
+        this.time = time;
+        this.start = start;
+        this.end = end;
+        nextWork = 0;
+        this.kolik = kolik;
     }
 }

@@ -7,10 +7,14 @@ class Car extends Process{
     int kolik;
     Node helicop;
     int cast; //kolik do vrtulniku cca 2000kg
+    public static int lastID;
 
     public Car(int time,Node [] path,int kolik,Node helicop,boolean isFull)
     {
         super(time);
+        
+        this.id = lastID;
+        lastID++;
         this.path = path;
         nextWork = -1;
         //this.kolik = kolik;
@@ -30,7 +34,8 @@ class Car extends Process{
         if (nextWork == path.length-1) {
             deal();
             if (helicop != null) {
-                Calendar.q.add(new Helicop(Calendar.time,path[path.length-1],helicop,cast));
+                //Calendar.q.add(new Helicop(Calendar.time,path[path.length-1],helicop,cast));
+                ((Settle)path[path.length-1].proces).sendHelicop(Calendar.time,path[path.length-1],helicop,cast);
             }
             
             List<Node> list = Arrays.asList(path);
@@ -45,6 +50,7 @@ class Car extends Process{
         if (nextWork == 2*path.length-1) {
            Core.log("Vozidlo cil "+ path[path.length-1].id);
            Core.log("Dojelo!");
+           ((Airport) path[path.length-1].proces).garage.addLast(this);
            return;
         }
         if (nextWork >= path.length) {
@@ -67,7 +73,7 @@ class Car extends Process{
     
     public void deal(){
         time = (int)((kolik/1000.0)*30.0) + Calendar.time; //nakladka 30min na tunu
-        Core.log("Vozidlo cil "+ path[path.length-1].id);
+        Core.log("Vozidlo id "+ id);
         Core.log("Nakladam/vykladam do casu "+ time);
         Calendar.q.add(this);
     }
@@ -80,9 +86,24 @@ class Car extends Process{
             }
             edge = edge.next;
         }
-        Core.log("Vozidlo cil "+ path[path.length-1].id);
+        Core.log("Vozidlo id "+ id);
         Core.log("Jedu do uzlu id = "+ path[nextWork+1].id);
         Core.log("Budu tam v "+time);
         Calendar.q.add(this);
+    }
+    public void newWork(int time,Node [] path,int kolik,Node helicop,boolean isFull){
+        this.time = time;
+        this.path = path;
+        nextWork = -1;
+        //this.kolik = kolik;
+        this.helicop = helicop;
+        if (isFull == true) {
+            this.kolik = 12000;
+            this.cast = kolik;
+        }
+        else {
+            this.cast = kolik;
+            this.kolik = kolik;
+        }
     }
 }

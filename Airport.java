@@ -1,11 +1,18 @@
 import java.util.*;
 
 class Airport extends Process{
+
 	int allFood = 500000;
 	public PriorityQueue<Supply> pq = new PriorityQueue<Supply>(10, new SupCompare());
-	public Airport(int time){
+	public LinkedList<Car> garage;
+
+	public Airport(int time,Node node){
 		super(time);
+		this.node = node;
+        this.node.proces = this;
 		pq.add(new Supply(500000,Calendar.time+2880));
+		garage = new LinkedList<Car>();
+
 	}
 	public void go(){
 		//actualFood += 500000;
@@ -44,6 +51,19 @@ class Airport extends Process{
 			pq.peek().quant -= quant;
 			allFood -= quant;
 			return quant;
+		}
+	}
+	public void sendCar(int time,Node [] path,int kolik,Node helicop,boolean isFull){
+		Car ncar;
+		if (garage.size() == 0) {
+			ncar = new Car(time,path,kolik,helicop,isFull);
+			Calendar.allCar.add(ncar);
+			Calendar.q.add(ncar);
+		}
+		else {
+			ncar = garage.poll();
+			ncar.newWork(time,path,kolik,helicop,isFull);
+			Calendar.q.add(ncar);
 		}
 	}
 	
