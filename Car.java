@@ -8,6 +8,7 @@ class Car extends Process{
     Node helicop;
     int cast; //kolik do vrtulniku cca 2000kg
     public static int lastID;
+    ArrayList<String> log = new ArrayList<String>();
 
     public Car(int time,Node [] path,int kolik,Node helicop,boolean isFull)
     {
@@ -51,6 +52,7 @@ class Car extends Process{
            Core.log("Vozidlo cil "+ path[path.length-1].id);
            Core.log("Dojelo!");
            ((Airport) path[path.length-1].proces).garage.addLast(this);
+           //log.add("start "+Calendar.time+ " "+kolik+" "+);
            return;
         }
         if (nextWork >= path.length) {
@@ -105,5 +107,17 @@ class Car extends Process{
             this.cast = kolik;
             this.kolik = kolik;
         }
+    }
+    public String toString(boolean legend){
+        String out = "Id: "+id+"\n";
+        out += "Actual place: "+ path[nextWork-1].id;
+        if (legend) {
+            out += "Start End Quant Settle\n";
+        }
+        for (int i = 0;i<log.size() ;i++ ) {
+            out += log.get(i)+"\n";
+
+        }
+        return out;
     }
 }
