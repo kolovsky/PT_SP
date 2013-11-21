@@ -287,24 +287,88 @@ public class GUI_menu extends JFrame implements Runnable {
     }
     
     /**
-     * Nested class
+     * Vnitrni trida.
      */
     class MyDialog extends JDialog
     {
+        private JPanel jdCont;
+        private ButtonGroup bg;
+        private JRadioButton opt1;
+        private JRadioButton opt2;
+        private JRadioButton opt3;
+        private JTextField line;
+        private JButton sender;
+        
         MyDialog(Frame owner, String title)
         {
-            super(owner, title);
-            JPanel jdCont = new JPanel();
-            jdCont.add(new JRadioButton());
-            jdCont.add(new JRadioButton());
-            jdCont.add(new JRadioButton());
+            //super(owner, title);
+            this.setTitle(title);
+            this.setPreferredSize(new Dimension(200,200));
             
-            this.setPreferredSize(new Dimension(200,150));
+            jdCont = new JPanel();
+            jdCont.setPreferredSize(new Dimension(200,200));
+            
+            bg = new ButtonGroup();
+            
+            opt1 = new JRadioButton("Settle");
+            opt1.setBounds(10,5,10,10);
+            opt1.setSize(10, 10);
+            opt1.setLocation(10, 5);
+            opt1.setSelected(true);
+            opt1.setOpaque(true);
+            
+            opt2 = new JRadioButton("Helicopter");
+            opt2.setBounds(30,5,10,10);
+            opt2.setOpaque(true);
+            
+            opt3 = new JRadioButton("Car");
+            opt3.setBounds(50,5,10,10);
+            opt3.setOpaque(true);
+            
+            bg.add(opt1);
+            bg.add(opt2);
+            bg.add(opt3);
+            
+            line = new JTextField(10);
+            //line.setBounds(10,20,100,20);
+            //line.setSize(100, 20);
+            //line.setAlignmentX(100);
+            line.setEnabled(true);
+            line.setOpaque(true);
+            
+            sender = new JButton();
+            sender.setBounds(50,50,100,20);
+            sender.setBackground(new Color(200,200,200));
+            sender.setEnabled(true);
+            sender.setFont(new Font("sansserif",0,12));
+            sender.setText("Check!");
+            sender.setVisible(true);
+            sender.setOpaque(true);
+            sender.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent evt)
+                {
+                    send();
+                }
+            });
+            
+            jdCont.add(opt1);
+            jdCont.add(opt2);
+            jdCont.add(opt3);
+            jdCont.add(line);
+            jdCont.add(sender);
+            
             this.setContentPane(jdCont);
-            this.setLocationRelativeTo(Core.menu);
+            //this.setPreferredSize(new Dimension(200,200));
+            this.setLocationRelativeTo(owner);
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.pack();
             this.setVisible(true);
+        }
+        
+        public String send()
+        {
+            return "";
         }
     }
 }

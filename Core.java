@@ -33,7 +33,7 @@ class Core
     /**
      * Chyby zaznamenane pri behu programu.
      */
-    static Vector exceptions;
+    static Vector<Exception> exceptions;
     
     /**
      * Staticky inicializacni blok.
@@ -128,15 +128,16 @@ class Core
     
     public static void summary()
     {
-        Object[] allExs = exceptions.toArray();
+        Exception[] allExs = new Exception[0];
+        allExs = exceptions.toArray(allExs);
         int exNum = (int) allExs.length;
         if (exNum > 0)
         {
             log("Doslo k " + exNum + " chybam:");
             for(int i = 0; i < exNum; i++)
             {
-                Exception e = (Exception) exceptions.get(i);
-                log(e.getMessage());
+                //Exception e = (Exception) exceptions.get(i);
+                log(allExs[i].getMessage());
             }
         }
         else
