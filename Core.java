@@ -43,19 +43,35 @@ class Core
         exceptions = new Vector<Exception>(2, 1);
     }
     
+    /**
+     * @param type Typ procesu. 1 = Settle; 2 = Helicop; 3 = Car.
+     * @param id ID procesu.
+     */
+    public static synchronized void check(int type, int id)
+    {
+        //TODO
+    }
+    
     public static void generateNew()
     {
         //g = new Graph();
-        g.generate();
-        //System.out.println("1");
-        g.generatePeople();
-        //System.out.println("2");
-        g.createEdge();
-        //System.out.println("3");
-        g.createSupplied();
-        //System.out.print(g.statistic());
-
-        lw.log(g.statistic());
+        try
+        {
+            g.generate();
+            //System.out.println("1");
+            g.generatePeople();
+            //System.out.println("2");
+            g.createEdge();
+            //System.out.println("3");
+            g.createSupplied();
+            //System.out.print(g.statistic());
+            log(g.statistic());
+        }
+        catch(Exception e)
+        {
+            exceptions.add(e);
+            log("Nelze vygenerovat nova data");
+        }
     }
     
     public static void load()
@@ -64,11 +80,11 @@ class Core
         {
             g.load("graph.txt");
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             exceptions.add(e);
         }
-        lw.log(g.statistic());
+        log(g.statistic());
     }
     
     public static synchronized void log(String s)

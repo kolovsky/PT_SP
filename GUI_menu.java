@@ -24,6 +24,7 @@ public class GUI_menu extends JFrame implements Runnable {
     private JButton button5;
     private JButton button6;
     private JButton button7;
+    private JButton button8;
     private JLabel label1;
     private JLabel label2;
 
@@ -144,6 +145,22 @@ public class GUI_menu extends JFrame implements Runnable {
                 cont();
             }
         });
+        
+        button8 = new JButton();
+        button8.setBounds(50,380,190,40);
+        button8.setBackground(new Color(200,200,200));
+        button8.setForeground(new Color(0,0,0));
+        button8.setEnabled(false);
+        button8.setFont(new Font("sansserif",0,12));
+        button8.setText("Check status of ...");
+        button8.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                check();
+            }
+        });
 
         label1 = new JLabel();
         label1.setBounds(115,45,200,50);
@@ -171,6 +188,7 @@ public class GUI_menu extends JFrame implements Runnable {
         contentPane.add(button5);
         contentPane.add(button6);
         contentPane.add(button7);
+        contentPane.add(button8);
         contentPane.add(label1);
         contentPane.add(label2);
 
@@ -181,34 +199,35 @@ public class GUI_menu extends JFrame implements Runnable {
         //this.setLocationRelativeTo(null);
     }
 
-    //Method actionPerformed for button1
+    //Method actionPerformed for button2
     private void generate() {
         Core.generateNew();
         button3.setEnabled(true);
     }
 
-    //Method actionPerformed for button2
+    //Method actionPerformed for button5
     private void go() {
         Core.start();
-        //button5.setEnabled(false);
+        button5.setEnabled(false);
     }
 
-    //Method actionPerformed for button3
+    //Method actionPerformed for button7
     private void pause() {
         button6.setEnabled(false);
         button6.setVisible(false);
         button7.setVisible(true);
         button7.setEnabled(true);
+        button8.setEnabled(true);
         Core.stop();
         //notifyAll();
     }
 
-    //Method actionPerformed for button4
+    //Method actionPerformed for button3
     private void save() {
         Core.save();
     }
     
-    //Method actionPerformed for button5
+    //Method actionPerformed for button4
     private void addNode() {
         int id = 1; //pracovne
         int x = 1; //pracovne
@@ -232,7 +251,7 @@ public class GUI_menu extends JFrame implements Runnable {
         Core.g.addNode(n);
     }
 
-    //Method actionPerformed for button6
+    //Method actionPerformed for button1
     private void load(){
         Core.load();
     }
@@ -240,11 +259,20 @@ public class GUI_menu extends JFrame implements Runnable {
     //Method actionPerformed for button6
     private void cont(){
         Core.stop();
-        //notifyAll();
         button7.setEnabled(false);
         button7.setVisible(false);
         button6.setVisible(true);
         button6.setEnabled(true);
+        button8.setEnabled(false);
+    }
+    
+    //Method actionPerformed for button8
+    private void check(){
+        int[] answers = new int[2];
+        
+        MyDialog jxd = new MyDialog(this, "Pick a jew");
+        
+        Core.check(answers[0], answers[1]);
     }
     
     @Override
@@ -256,5 +284,27 @@ public class GUI_menu extends JFrame implements Runnable {
         //this.setLocation(newLoc);
         //this.setLocationByPlatform(true);
         this.setVisible(true);
+    }
+    
+    /**
+     * Nested class
+     */
+    class MyDialog extends JDialog
+    {
+        MyDialog(Frame owner, String title)
+        {
+            super(owner, title);
+            JPanel jdCont = new JPanel();
+            jdCont.add(new JRadioButton());
+            jdCont.add(new JRadioButton());
+            jdCont.add(new JRadioButton());
+            
+            this.setPreferredSize(new Dimension(200,150));
+            this.setContentPane(jdCont);
+            this.setLocationRelativeTo(Core.menu);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            this.pack();
+            this.setVisible(true);
+        }
     }
 }

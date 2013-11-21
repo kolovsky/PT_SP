@@ -3,10 +3,10 @@ import java.io.*;
 
 public class Graph
 {
-    /**
-     * Asociativni pole vrcholu.
-     */
-    //public Node[] nodes;
+    public static final int SETTLE = 1;
+    public static final int HELICOP = 2;
+    public static final int CAR = 3;
+    
     public Node firstNode = null;
     public Node lastNode = null;
     public AirportNode [] arrayAirport = new AirportNode[5];
@@ -73,7 +73,7 @@ public class Graph
 
     }
     
-    public void load(String filename)throws IOException{
+    public void load(String filename)throws Exception{
         File file = new File(filename);
         Scanner s = new Scanner(file);
         int air = 0;
@@ -135,7 +135,7 @@ public class Graph
 
     }
     
-    public void createEdge(){
+    public void createEdge() throws Exception{
         long distance;
         int distances[] = new int[3006];
         int distancesCopy[];
