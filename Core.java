@@ -44,12 +44,22 @@ class Core
     }
     
     /**
-     * @param type Typ procesu. 1 = Settle; 2 = Helicop; 3 = Car.
+     * @param type Typ procesu.
      * @param id ID procesu.
      */
-    public static synchronized void check(int type, int id)
+    public static synchronized void check(String type, int id)
     {
+        //jen navrh, jak dostat typ objektu ze Stringu
+        Process objekt;
+        switch(type)
+        {
+            //case "settle": objekt = ?; break;
+            case "helicop": objekt = c.allHelicop.get(id); break;
+            case "car": objekt = c.allCar.get(id); break;
+            default: Core.log("Nebyl vybran objekt!"); break;
+        }
         //TODO
+        Core.log(type + ", " + id);
     }
     
     public static void generateNew()
@@ -74,6 +84,19 @@ class Core
         }
     }
     
+    public static synchronized int getProcessNumber(String process)
+    {
+        int num = 0;
+        switch(process)
+        {
+            case "settle": num = Settle.lastID; break;
+            case "helicop": num = Helicop.lastID; break;
+            case "car": num = Car.lastID; break;
+            default: break;
+        }
+        return num;
+    }
+    
     public static void load()
     {
         try
@@ -89,7 +112,15 @@ class Core
     
     public static synchronized void log(String s)
     {
-        lw.log(s);
+        if (lw == null)
+        {
+            Thread t = new Thread(lw = new LogWindow(), "LogWindow");
+            t.start();
+        }
+        else
+        {
+            lw.log(s);
+        }
         //System.out.println(s);
     }
     

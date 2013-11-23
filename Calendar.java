@@ -46,6 +46,7 @@ public class Calendar extends Thread
         catch(NullPointerException e){
             Core.log("NENI GRAF!");
             Core.exceptions.add(e);
+            return;
         }
         simulate();
         try
@@ -62,11 +63,11 @@ public class Calendar extends Thread
     public void pauseNplay()
     {
         if (isRun) {
-            Core.log("PAUSE!");
+            Core.log("POZASTAVENO!");
             isRun = false;
         }
         else {
-            Core.log("PLAY");
+            Core.log("SPUSTENO");
             isRun = true;
         }
     }

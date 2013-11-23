@@ -3,14 +3,14 @@ class Helicop extends Process{
 	public Node start;
 	public Node end;
 	public int kolik;
-    public static int lastId;
+    public static int lastID;
     public int id;
 
     public Helicop(int time,Node start, Node end, int kolik)
     {
         super(time);
-        this.id = lastId;
-        this.lastId++;
+        this.id = lastID;
+        lastID++;
         this.start = start;
         this.end = end;
         nextWork = 0;
@@ -24,7 +24,7 @@ class Helicop extends Process{
     	}
     	if (nextWork == 4) {
     		Core.log("Vrtulnik id "+ id);
-    		Core.log("Ukol zplnen!");
+    		Core.log("Ukol splnen!");
             ((Settle)start.proces).garage.addLast(this);
     		return;
     		

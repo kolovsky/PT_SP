@@ -1,7 +1,6 @@
 /**
 *Text genereted by Simple GUI Extension for BlueJ
 */
-import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.border.Border;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.*;
-
+import java.util.*;
 
 public class GUI_menu extends JFrame implements Runnable {
 
@@ -43,7 +43,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button1.setBackground(new Color(200,200,200));
         button1.setEnabled(true);
         button1.setFont(new Font("sansserif",0,12));
-        button1.setText("Load data");
+        button1.setText("Nacist data");
         button1.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -58,7 +58,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button2.setBackground(new Color(200,200,200));
         button2.setEnabled(true);
         button2.setFont(new Font("sansserif",0,12));
-        button2.setText("Generate new data");
+        button2.setText("Generovat nova data");
         button2.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -73,7 +73,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button3.setBackground(new Color(200,200,200));
         button3.setEnabled(false);
         button3.setFont(new Font("sansserif",0,12));
-        button3.setText("Save new data");
+        button3.setText("Ulozit nova data");
         button3.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -88,7 +88,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button4.setBackground(new Color(200,200,200));
         button4.setEnabled(true);
         button4.setFont(new Font("sansserif",0,12));
-        button4.setText("Add new settlement");
+        button4.setText("Pridat sidlo");
         button4.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -104,7 +104,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button5.setForeground(new Color(0,0,0));
         button5.setEnabled(true);
         button5.setFont(new Font("SansSerif",1,12));
-        button5.setText("Start simulation");
+        button5.setText("Spustit simulaci");
         button5.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -120,7 +120,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button6.setForeground(new Color(0,0,0));
         button6.setEnabled(true);
         button6.setFont(new Font("sansserif",0,12));
-        button6.setText("Pause simulation");
+        button6.setText("Pozastavit simulaci");
         button6.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -136,7 +136,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button7.setForeground(new Color(0,0,0));
         button7.setEnabled(false);
         button7.setFont(new Font("sansserif",0,12));
-        button7.setText("Continue simulation");
+        button7.setText("Pokracovat v simulaci");
         button7.setVisible(false);
         //Set action for button click
         //Call defined method
@@ -152,7 +152,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button8.setForeground(new Color(0,0,0));
         button8.setEnabled(false);
         button8.setFont(new Font("sansserif",0,12));
-        button8.setText("Check status of ...");
+        button8.setText("Zjistit stav objektu");
         button8.setVisible(true);
         //Set action for button click
         //Call defined method
@@ -268,11 +268,7 @@ public class GUI_menu extends JFrame implements Runnable {
     
     //Method actionPerformed for button8
     private void check(){
-        int[] answers = new int[2];
-        
-        MyDialog jxd = new MyDialog(this, "Pick a jew");
-        
-        Core.check(answers[0], answers[1]);
+        new CheckDialog(this, "Vyberte objekt pro sledovani");
     }
     
     @Override
@@ -289,17 +285,24 @@ public class GUI_menu extends JFrame implements Runnable {
     /**
      * Vnitrni trida.
      */
-    class MyDialog extends JDialog
+    class CheckDialog extends JDialog
     {
         private JPanel jdCont;
         private ButtonGroup bg;
         private JRadioButton opt1;
         private JRadioButton opt2;
         private JRadioButton opt3;
+        private JLabel info;
         private JTextField line;
         private JButton sender;
         
-        MyDialog(Frame owner, String title)
+        private int bounds;
+        
+        /**
+         * @param owner Nadrazene okno {@code java.awt.Frame}.
+         * @param title Jmeno dialogoveho okna.
+         */
+        CheckDialog(Frame owner, String title)
         {
             //super(owner, title);
             this.setTitle(title);
@@ -310,24 +313,41 @@ public class GUI_menu extends JFrame implements Runnable {
             
             bg = new ButtonGroup();
             
-            opt1 = new JRadioButton("Settle");
+            ActionListener change = new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent evt)
+                {
+                    chngInfo(evt);
+                }
+            };
+            
+            opt1 = new JRadioButton("Sidlo");
             opt1.setBounds(10,5,10,10);
             opt1.setSize(10, 10);
             opt1.setLocation(10, 5);
             opt1.setSelected(true);
             opt1.setOpaque(true);
+            opt1.setActionCommand("settle");
+            opt1.addActionListener(change);
             
-            opt2 = new JRadioButton("Helicopter");
+            opt2 = new JRadioButton("Vrtulnik");
             opt2.setBounds(30,5,10,10);
             opt2.setOpaque(true);
+            opt2.setActionCommand("helicop");
+            opt2.addActionListener(change);
             
-            opt3 = new JRadioButton("Car");
+            opt3 = new JRadioButton("Auto");
             opt3.setBounds(50,5,10,10);
             opt3.setOpaque(true);
+            opt3.setActionCommand("car");
+            opt3.addActionListener(change);
             
             bg.add(opt1);
             bg.add(opt2);
             bg.add(opt3);
+            
+            info = new JLabel("ID musi byt v danem rozmezi!", JLabel.CENTER);
             
             line = new JTextField(10);
             //line.setBounds(10,20,100,20);
@@ -341,7 +361,7 @@ public class GUI_menu extends JFrame implements Runnable {
             sender.setBackground(new Color(200,200,200));
             sender.setEnabled(true);
             sender.setFont(new Font("sansserif",0,12));
-            sender.setText("Check!");
+            sender.setText("Zjistit!");
             sender.setVisible(true);
             sender.setOpaque(true);
             sender.addActionListener(new ActionListener()
@@ -355,6 +375,7 @@ public class GUI_menu extends JFrame implements Runnable {
             jdCont.add(opt1);
             jdCont.add(opt2);
             jdCont.add(opt3);
+            jdCont.add(info);
             jdCont.add(line);
             jdCont.add(sender);
             
@@ -366,9 +387,45 @@ public class GUI_menu extends JFrame implements Runnable {
             this.setVisible(true);
         }
         
-        public String send()
+        private void chngInfo(ActionEvent evt)
         {
-            return "";
+            String action = evt.getActionCommand();
+            int bounds = 0;
+            bounds = Core.getProcessNumber(action) - 1;
+            info.setText("ID musi byt v rozmezi 0 az " + bounds);
+        }
+        
+        public void send()
+        {
+            Enumeration<AbstractButton> eab = bg.getElements();
+            String action = "", idS;
+            int id = 0;
+            while(eab.hasMoreElements())
+            {
+                AbstractButton x = eab.nextElement();
+                if (x.isSelected())
+                {
+                    action = x.getActionCommand();
+                    break;
+                }
+            }
+            try
+            {
+                idS = line.getText();
+                id = Integer.parseInt(idS);
+            }
+            catch(NullPointerException e)
+            {
+                Core.log("Zadejte ID objektu!");
+                Core.exceptions.add(e);
+            }
+            catch(Exception e)
+            {
+                Core.log("Chybny format ID");
+                Core.exceptions.add(e);
+            }
+            
+            Core.check(action, id);
         }
     }
 }

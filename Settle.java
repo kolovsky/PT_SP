@@ -4,6 +4,8 @@ public class Settle extends Process
 {	public int actualFood = 0;
 	public int lastTime = 0;
     public LinkedList<Helicop> garage;
+    public static int lastID;
+    public int id;
 
     public Settle(int time, Node node)
     {
