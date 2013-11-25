@@ -26,10 +26,10 @@ public class Settle extends Process
     	}
     }
     public void actualizatedFood(){
-    	actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
-    	lastTime = Calendar.time;
+    	actualFood = actualFood - (int)((Core.c.time - lastTime)/(24.0*60.0)*2*node.people);
+    	lastTime = Core.c.time;
     }
-    public void go(){
+    public void goOn(){
     	actualizatedFood();
     	if (actualFood < 0) {
     		actualFood = 0;
@@ -43,15 +43,15 @@ public class Settle extends Process
 			else {
 				kolik = node.people*2*3 - actualFood;
 			}
-			if (((Airport)node.suppliedFrom.proces).isFood(kolik) == false) {
+			if (!((Airport)node.suppliedFrom.proces).isFood(kolik)) {
 				//lastTime = time;
 				time = time + 60 - time%60 + 1;
 				Calendar.q.add(this);
 				Core.log("precasovano");
             	return;
             }
-			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node.firstEdge.node);
-            ((Airport) node.suppliedFrom.proces).sendCar(Calendar.time,path,kolik,node,true);
+			Node [] path = Core.c.getGraph().dijkstra(node.suppliedFrom,node.firstEdge.node);
+            ((Airport) node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,node,true);
 			//Calendar.q.add(new Car(Calendar.time,path,kolik,node,true)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
             
             //Core.log("aaa"); //?! <-- vyznam ?
@@ -65,15 +65,15 @@ public class Settle extends Process
 			else {
 				kolik = node.people*2*3 - actualFood;
 			}
-			if (((Airport)node.suppliedFrom.proces).isFood(kolik) == false) {
+			if (!((Airport)node.suppliedFrom.proces).isFood(kolik)) {
 				//lastTime = time;
 				time = time + 60 - time%60 + 1;
 				Calendar.q.add(this);
 				Core.log("precasovano");
             	return;
             }
-			Node [] path = Calendar.g.dijkstra(node.suppliedFrom,node);
-            ((Airport)node.suppliedFrom.proces).sendCar(Calendar.time,path,kolik,null,false);
+			Node [] path = Core.c.getGraph().dijkstra(node.suppliedFrom,node);
+            ((Airport)node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,null,false);
 			//Calendar.q.add(new Car(Calendar.time,path,kolik,null,false)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
 		}
 		Core.log("Settle No "+node.id);
@@ -85,7 +85,7 @@ public class Settle extends Process
 
     	//lastTime = time;
 
-		time = (int) (Calendar.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
+		time = (int) (Core.c.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
 		Core.log("priste: "+time);
 		Calendar.q.add(this);
 

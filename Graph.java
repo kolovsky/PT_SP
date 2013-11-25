@@ -73,7 +73,7 @@ public class Graph
 
     }
     
-    public void load(String filename)throws Exception{
+    public void load(String filename) throws IOException{
         File file = new File(filename);
         Scanner s = new Scanner(file);
         int air = 0;
@@ -135,7 +135,7 @@ public class Graph
 
     }
     
-    public void createEdge() throws Exception{
+    public void createEdge() throws RuntimeException {
         long distance;
         int distances[] = new int[3006];
         int distancesCopy[];

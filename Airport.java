@@ -10,35 +10,35 @@ class Airport extends Process{
 		super(time);
 		this.node = node;
         this.node.proces = this;
-		pq.add(new Supply(500000,Calendar.time+2880));
+		pq.add(new Supply(500000,Core.c.time+2880));
 		garage = new LinkedList<Car>();
 
 	}
-	public void go(){
+	public void goOn(){
 		//actualFood += 500000;
-		pq.add(new Supply(500000,Calendar.time+2880));
+		pq.add(new Supply(500000,Core.c.time+2880));
 		allFood += 500000;
-		time = Calendar.time + 60;
+		time = Core.c.time + 60;
 		Calendar.q.add(this);
 		Core.log("Nove jidlo");
 
 	}
 	public boolean isFood(int kolik){
-		if (pq.peek().expire < Calendar.time) {
+		if (pq.peek().expire < Core.c.time) {
 			
 			allFood -= pq.poll().quant;
 		}
 		if (allFood < kolik) {
 			return false;
 		}
-		else {
+		//else {
 			return true;
-		}
+		//}
 		//return pq.peek().quant;
 	}
 	public int getFood(int quant){
 		//pq.peek().quant -= quant;
-		if (pq.peek().expire < Calendar.time) {
+		if (pq.peek().expire < Core.c.time) {
 			allFood -= pq.poll().quant;
 		}
 		if (pq.peek().quant < quant) {

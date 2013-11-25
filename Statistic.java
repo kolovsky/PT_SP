@@ -4,8 +4,8 @@ class Statistic{
 	public int [] threeFood = new int[3];
 
 	public void addLog(int kolik){
-		log[Calendar.time/1440] += "("+Calendar.time+" "+kolik+" kg)";
-		threeFood[Calendar.time/4320] += kolik;
+		log[Core.c.time/1440] += "("+Core.c.time+" "+kolik+" kg)";
+		threeFood[Core.c.time/4320] += kolik;
 	}
 	public String toString(){
 		String out = "";

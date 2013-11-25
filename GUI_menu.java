@@ -2,31 +2,22 @@
 *Text genereted by Simple GUI Extension for BlueJ
 */
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import javax.swing.border.Border;
-import javax.swing.UIManager.LookAndFeelInfo;
+import java.awt.event.*;
+//import javax.swing.border.Border;
+//import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.*;
 import java.util.*;
 
 public class GUI_menu extends JFrame implements Runnable {
 
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JButton button7;
-    private JButton button8;
-    private JLabel label1;
-    private JLabel label2;
+    private final JButton button1;
+    private final JButton button2;
+    private final JButton button3;
+    private final JButton button4;
+    private final JButton button5;
+    private final JButton button6;
+    private final JButton button7;
+    private final JButton button8;
 
     //Constructor 
     public GUI_menu() {
@@ -110,7 +101,7 @@ public class GUI_menu extends JFrame implements Runnable {
         //Call defined method
         button5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                go();
+                kickThisPig();
             }
         });
 
@@ -162,7 +153,7 @@ public class GUI_menu extends JFrame implements Runnable {
             }
         });
 
-        label1 = new JLabel();
+        JLabel label1 = new JLabel();
         label1.setBounds(115,45,200,50);
         label1.setBackground(new Color(214,217,223));
         label1.setForeground(new Color(0,0,0));
@@ -171,7 +162,7 @@ public class GUI_menu extends JFrame implements Runnable {
         label1.setText("MENU");
         label1.setVisible(true);
 
-        label2 = new JLabel();
+        JLabel label2 = new JLabel();
         label2.setBounds(125,10,50,50);
         label2.setBackground(new Color(214,217,223));
         label2.setForeground(new Color(0,0,0));
@@ -206,7 +197,7 @@ public class GUI_menu extends JFrame implements Runnable {
     }
 
     //Method actionPerformed for button5
-    private void go() {
+    private void kickThisPig() {
         Core.start();
         button5.setEnabled(false);
     }
@@ -287,16 +278,16 @@ public class GUI_menu extends JFrame implements Runnable {
      */
     class CheckDialog extends JDialog
     {
-        private JPanel jdCont;
-        private ButtonGroup bg;
-        private JRadioButton opt1;
-        private JRadioButton opt2;
-        private JRadioButton opt3;
-        private JLabel info;
-        private JTextField line;
-        private JButton sender;
+        private final JPanel jdCont;
+        private final ButtonGroup bg;
+        private final JRadioButton opt1;
+        private final JRadioButton opt2;
+        private final JRadioButton opt3;
+        private final JLabel info;
+        private final JTextField line;
+        private final JButton sender;
         
-        private int bounds;
+        //private int bounds;
         
         /**
          * @param owner Nadrazene okno {@code java.awt.Frame}.
@@ -413,11 +404,6 @@ public class GUI_menu extends JFrame implements Runnable {
             {
                 idS = line.getText();
                 id = Integer.parseInt(idS);
-            }
-            catch(NullPointerException e)
-            {
-                Core.log("Zadejte ID objektu!");
-                Core.exceptions.add(e);
             }
             catch(Exception e)
             {

@@ -15,12 +15,12 @@ class Car extends Process{
         super(time);
         
         this.id = lastID;
-        lastID++;
+        incrementID();
         this.path = path;
         nextWork = -1;
         //this.kolik = kolik;
         this.helicop = helicop;
-        if (isFull == true) {
+        if (isFull) {
             this.kolik = 12000;
             this.cast = kolik;
         }
@@ -31,12 +31,17 @@ class Car extends Process{
 
     }
     
-    public void go(){
+    private void incrementID()
+    {
+        lastID++;
+    }
+    
+    public void goOn(){
         if (nextWork == path.length-1) {
             deal();
             if (helicop != null) {
                 //Calendar.q.add(new Helicop(Calendar.time,path[path.length-1],helicop,cast));
-                ((Settle)path[path.length-1].proces).sendHelicop(Calendar.time,path[path.length-1],helicop,cast);
+                ((Settle)path[path.length-1].proces).sendHelicop(Core.c.time,path[path.length-1],helicop,cast);
             }
             
             List<Node> list = Arrays.asList(path);
@@ -51,7 +56,7 @@ class Car extends Process{
         if (nextWork == 2*path.length-1) {
            Core.log("Vozidlo cil "+ path[path.length-1].id);
            Core.log("Dojelo!");
-           ((Airport) path[path.length-1].proces).garage.addLast(this);
+           ((Airport) path[path.length-1].proces).garage.add(this);
            //log.add("start "+Calendar.time+ " "+kolik+" "+);
            return;
         }
@@ -74,7 +79,7 @@ class Car extends Process{
     }
     
     public void deal(){
-        time = (int)((kolik/1000.0)*30.0) + Calendar.time; //nakladka 30min na tunu
+        time = (int)((kolik/1000.0)*30.0) + Core.c.time; //nakladka 30min na tunu
         Core.log("Vozidlo id "+ id);
         Core.log("Nakladam/vykladam do casu "+ time);
         Calendar.q.add(this);
@@ -84,7 +89,7 @@ class Car extends Process{
         Edge edge = path[nextWork].firstEdge;
         while (edge != null) {
             if (edge.node == path[nextWork+1]) {
-                time = (int) (edge.cost/500.0) + Calendar.time;//500 metru/min
+                time = (int) (edge.cost/500.0) + Core.c.time;//500 metru/min
             }
             edge = edge.next;
         }
@@ -99,7 +104,7 @@ class Car extends Process{
         nextWork = -1;
         //this.kolik = kolik;
         this.helicop = helicop;
-        if (isFull == true) {
+        if (isFull) {
             this.kolik = 12000;
             this.cast = kolik;
         }

@@ -10,13 +10,19 @@ class Helicop extends Process{
     {
         super(time);
         this.id = lastID;
-        lastID++;
+        incrementID();
         this.start = start;
         this.end = end;
         nextWork = 0;
         this.kolik = kolik; 
     }
-    public void go(){
+    
+    private void incrementID()
+    {
+        lastID++;
+    }
+    
+    public void goOn(){
     	if (nextWork == 0) { //nakladani do vrtulniku
     		deal();
     		nextWork = 1;
@@ -53,7 +59,7 @@ class Helicop extends Process{
     	
     }
     public void deal(){
-    	time = (int)((kolik/1000.0)*30.0) + Calendar.time;
+    	time = (int)((kolik/1000.0)*30.0) + Core.c.time;
 		Core.log("Vrtulnik id "+ id);
 		Core.log("Nakladam/vykladam do casu "+time);
 		Calendar.q.add(this);
@@ -62,7 +68,7 @@ class Helicop extends Process{
     	Edge edge = from.firstEdge;
 		while (edge != null) {
 			if (edge.node == to) {
-				time = (int) (edge.cost/2500.0) + Calendar.time;//2500 metru/min
+				time = (int) (edge.cost/2500.0) + Core.c.time;//2500 metru/min
 			}
 			edge = edge.next;
 		}

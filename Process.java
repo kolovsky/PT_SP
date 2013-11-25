@@ -1,4 +1,4 @@
-class Process{
+abstract class Process{
 	int time;
 	Node node;
 	int nextWork;
@@ -6,8 +6,6 @@ class Process{
 	public Process(int time){
 		this.time = time;
 	}
-	public void go(){
-		
-	}
 	
+	public abstract void goOn();
 }
