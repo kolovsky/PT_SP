@@ -10,12 +10,18 @@ public class Settle extends Process
     public Settle(int time, Node node)
     {
         super(time);
+        incrementID();
+        this.id = lastID;
         this.node = node;
         this.node.proces = this;
         if (this.node.people > 10000) {
             garage = new LinkedList<Helicop>();
         }
 
+    }
+    private void incrementID()
+    {
+        lastID++;
     }
     public void addFood(int kolik){
     	//actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
@@ -103,5 +109,8 @@ public class Settle extends Process
             ncar.newWork(time,start,end,kolik);
             Calendar.q.add(ncar);
         }
+    }
+    public String toString(boolean legend){
+        return node.toString();
     }
 }

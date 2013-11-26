@@ -166,6 +166,8 @@ public class Calendar extends Thread
     public void createStatistics() throws IOException{
         FileWriter out1 = new FileWriter("zasobovano_z.txt");
         FileWriter out2 = new FileWriter("zasobovano_kdy_kolik.txt");
+        FileWriter out3 = new FileWriter("movingObject.txt");
+
         out1.write("ID zasobovano z letiste\n");
         Node node = g.firstNode;
         while (node != null) {
@@ -180,6 +182,13 @@ public class Calendar extends Thread
         }
         out2.close();
         out1.close();
+        for (int i = 0;i<allCar.size() ;i++ ) {
+            out3.write(allCar.get(i).toString(false));
+        }
+        out3.write("=====HELICOP=====\n");
+        for (int i = 0;i<allHelicop.size() ;i++ ) {
+            out3.write(allHelicop.get(i).toString(false));
+        }
         Core.log("Vytvorena statistika");
     }
 }

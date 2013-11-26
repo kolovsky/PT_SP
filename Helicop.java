@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Helicop extends Process{
 	
 	public Node start;
@@ -5,6 +7,8 @@ class Helicop extends Process{
 	public int kolik;
     public static int lastID;
     public int id;
+    ArrayList<String> log = new ArrayList<String>();
+    int startTime;
 
     public Helicop(int time,Node start, Node end, int kolik)
     {
@@ -14,7 +18,8 @@ class Helicop extends Process{
         this.start = start;
         this.end = end;
         nextWork = 0;
-        this.kolik = kolik; 
+        this.kolik = kolik;
+        this.startTime = time;
     }
     
     private void incrementID()
@@ -31,6 +36,7 @@ class Helicop extends Process{
     	if (nextWork == 4) {
     		Core.log("Vrtulnik id "+ id);
     		Core.log("Ukol splnen!");
+            log.add(""+startTime+" "+Core.c.time+ " "+kolik+" "+end.id);
             ((Settle)start.proces).garage.addLast(this);
     		return;
     		
@@ -83,5 +89,24 @@ class Helicop extends Process{
         this.end = end;
         nextWork = 0;
         this.kolik = kolik;
+        this.startTime = time;
+    }
+    public String toString(boolean legend){
+        String out = "Id: "+id+"\n";
+        //out += "Actual place: "+ path[nextWork-1].id;
+        if (nextWork <= 1 || nextWork == 4 ) {
+            out += "Actual place: "+ start.id;
+        }
+        else {
+            out += "Actual place: "+ end.id;
+        }
+        if (legend) {
+            out += "Start End Quant Settle\n";
+        }
+        for (int i = 0;i<log.size() ;i++ ) {
+            out += log.get(i)+"\n";
+
+        }
+        return out;
     }
 }

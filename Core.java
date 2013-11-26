@@ -56,10 +56,11 @@ class Core
             //case "settle": objekt = ?; break;
             case "helicop": objekt = c.allHelicop.get(id); break;
             case "car": objekt = c.allCar.get(id); break;
-            default: Core.log("Nebyl vybran objekt!"); break;
+            //case "settle": objekt = c.allCar.get(id); break;
+            default: Core.log("Nebyl vybran objekt!"); return;
         }
         //TODO
-        Core.log(type + ", " + id);
+        Core.log(objekt.toString(true));
     }
     
     public static void generateNew()

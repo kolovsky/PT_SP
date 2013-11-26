@@ -9,11 +9,12 @@ class Car extends Process{
     int cast; //kolik do vrtulniku cca 2000kg
     public static int lastID;
     ArrayList<String> log = new ArrayList<String>();
+    int startTime;
 
     public Car(int time,Node [] path,int kolik,Node helicop,boolean isFull)
     {
         super(time);
-        
+        this.startTime = time;
         this.id = lastID;
         incrementID();
         this.path = path;
@@ -57,7 +58,7 @@ class Car extends Process{
            Core.log("Vozidlo cil "+ path[path.length-1].id);
            Core.log("Dojelo!");
            ((Airport) path[path.length-1].proces).garage.add(this);
-           //log.add("start "+Calendar.time+ " "+kolik+" "+);
+           log.add(""+startTime+" "+Core.c.time+ " "+kolik+" "+path[0]);
            return;
         }
         if (nextWork >= path.length) {
@@ -103,6 +104,7 @@ class Car extends Process{
         this.path = path;
         nextWork = -1;
         //this.kolik = kolik;
+        this.startTime = time;
         this.helicop = helicop;
         if (isFull) {
             this.kolik = 12000;
@@ -115,7 +117,12 @@ class Car extends Process{
     }
     public String toString(boolean legend){
         String out = "Id: "+id+"\n";
-        out += "Actual place: "+ path[nextWork-1].id;
+        if (nextWork < 0) {
+            out += "Actual place: "+ path[0].id;
+        }
+        else {
+            out += "Actual place: "+ path[nextWork-1].id;
+        }
         if (legend) {
             out += "Start End Quant Settle\n";
         }

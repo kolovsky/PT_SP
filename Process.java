@@ -8,4 +8,5 @@ abstract class Process{
 	}
 	
 	public abstract void goOn();
+	public abstract String toString(boolean legend);
 }
