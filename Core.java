@@ -56,7 +56,7 @@ class Core
             //case "settle": objekt = ?; break;
             case "helicop": objekt = c.allHelicop.get(id); break;
             case "car": objekt = c.allCar.get(id); break;
-            //case "settle": objekt = c.allCar.get(id); break;
+            case "settle": objekt = g.get(id).proces; break;
             default: Core.log("Nebyl vybran objekt!"); return;
         }
         //TODO
@@ -90,7 +90,7 @@ class Core
         int num = 0;
         switch(process)
         {
-            case "settle": num = Settle.lastID; break;
+            case "settle": num = Settle.lastID + 1; break;
             case "helicop": num = Helicop.lastID; break;
             case "car": num = Car.lastID; break;
             default: break;
@@ -132,6 +132,7 @@ class Core
         try
         {
             g.save("graph.txt");
+            //c.createStatistics();
         }
         catch (IOException e)
         {
@@ -156,6 +157,7 @@ class Core
     public static void stop()
     {
         c.pauseNplay();
+
     }
     
     public static void summary()

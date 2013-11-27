@@ -138,14 +138,16 @@ public class Graph
     public void createEdge() throws RuntimeException {
         long distance;
         int distances[] = new int[3006];
-        int distancesCopy[];
-        int ppZarazka = 0;
-        int r = 0;
+        //int distancesCopy[];
+        //int ppZarazka = 0;
+        //int r = 0;
         Node node = firstNode;
         
         while(node != null) { // i = node
             //System.out.println(i);
-            if (!node.isSimple) { 
+            if (!node.isSimple) {
+                distances = distancesFromNode(node);
+                /*==================================================================================
                 Node node2 = firstNode;
                 for(int j = 1;node2 != null;j++) {
                     if (node != node2) {
@@ -163,18 +165,21 @@ public class Graph
                     }
                     node2 = node2.next;
                 }
+                *///=====================================================================================
                 //distancesCopy = null;
-                distancesCopy = Arrays.copyOf(distances,distances.length);
+                createRoads(node,distances);
+                /*distancesCopy = Arrays.copyOf(distances,distances.length);
                 Arrays.sort(distancesCopy);
                 if (node instanceof SettleNode) {
                    r = distancesCopy[11];
                    ppZarazka = 10;
                 }
                 else {
-                     r = distancesCopy[61];
-                     ppZarazka = 60;
+                    r = distancesCopy[61];
+                    ppZarazka = 60;
                 }
-                    
+                
+                //================prizareni hran=====================
                 int pp = 0;
                 Node node3 = firstNode;
                 for (int j = 1; node3 != null;j++ ) {
@@ -188,9 +193,11 @@ public class Graph
                     }
                     node3 = node3.next;
                 }
+                //===================/prizarebi harn==========================*/
             
             }
             if (node.isSimple) {
+                //===================================find nearest heliport============================
                 Node node2 = firstNode;
                 int minDis = Integer.MAX_VALUE;
                 Node minNode = null;
@@ -204,6 +211,8 @@ public class Graph
                     }
                     node2 = node2.next;
                 }
+                //===================================/find nearest heliport============================
+
                 //node.edges[0] = new Edge(minNode,minDis);
                 //node.edges[0].isRoad = false;
                 
@@ -425,5 +434,75 @@ public class Graph
             }
             node = node.next;  
         }
+    }
+    public Node get(int id){
+        Node node  = firstNode;
+        while (node != null) {
+            if (node.id == id) {
+                return node;
+            }
+            node = node.next;
+        }
+        return null;
+    }
+    public int[] distancesFromNode(Node node){
+        long distance;
+        int distances[] = new int[lastNode.id+1];
+        Node node2 = firstNode;
+        for(int j = 1;node2 != null;j++) {
+            if (node != node2) {
+                //System.out.println(nodes[j].x);
+                distance = (long) Math.sqrt(((long)(node2.x-node.x)*(node2.x-node.x))+((long)(node2.y-node.y)*(node2.y-node.y)));
+                if (node2.isSimple) {
+                    distance = Integer.MAX_VALUE;
+                }
+                distances[j] = (int) distance;
+
+                
+            }
+            else {
+                distances[j] = 0;
+            }
+            node2 = node2.next;
+        }
+        return distances;
+    }
+    public void createRoads(Node node, int[] distances){
+        int[] distancesCopy;
+        int ppZarazka,r;
+        distancesCopy = Arrays.copyOf(distances,distances.length);
+        Arrays.sort(distancesCopy);
+        if (node instanceof SettleNode) {
+           r = distancesCopy[11];
+           ppZarazka = 10;
+        }
+        else {
+            r = distancesCopy[61];
+            ppZarazka = 60;
+        }
+        
+        //================prizareni hran=====================
+        int pp = 0;
+        Node node3 = firstNode;
+        for (int j = 1; node3 != null;j++ ) {
+            if (r >= distances[j] && distances[j] != 0) {
+                
+                node.addEdge(new Edge(node3,distances[j]));
+                pp++;
+                if (pp == ppZarazka) {
+                    break;
+                }
+            }
+            node3 = node3.next;
+        } 
+    }
+    public void addSettle(int x,int y,int people){
+        int distances[] = new int[lastNode.id+1];
+        int distancesCopy[];
+
+        Node newNode = new SettleNode(lastNode.id +1,x,y);
+        newNode.people = people;
+        distances = distancesFromNode(newNode);
+        createRoads(newNode,distances);
     }
 }

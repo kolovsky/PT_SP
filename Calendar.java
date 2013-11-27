@@ -157,9 +157,9 @@ public class Calendar extends Thread
                 //node.proces = new Airport(r.nextInt(1000));
             //}
             node = node.next;
-            if (pp == 3000) {
+            /*if (pp == 3001) {
                 break;
-            }
+            }*/
         }
     }
     
@@ -182,6 +182,8 @@ public class Calendar extends Thread
         }
         out2.close();
         out1.close();
+        out3.write("=====CAR=====\n");
+        out3.write("Start End Quant Settle\n");
         for (int i = 0;i<allCar.size() ;i++ ) {
             out3.write(allCar.get(i).toString(false));
         }
@@ -190,6 +192,7 @@ public class Calendar extends Thread
             out3.write(allHelicop.get(i).toString(false));
         }
         Core.log("Vytvorena statistika");
+        out3.close();
     }
 }
 

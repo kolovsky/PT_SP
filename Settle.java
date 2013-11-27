@@ -79,7 +79,7 @@ public class Settle extends Process
             	return;
             }
 			Node [] path = Core.c.getGraph().dijkstra(node.suppliedFrom,node);
-            ((Airport)node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,null,false);
+            ((Airport)node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,null,true);
 			//Calendar.q.add(new Car(Calendar.time,path,kolik,null,false)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
 		}
 		Core.log("Settle No "+node.id);
@@ -111,6 +111,6 @@ public class Settle extends Process
         }
     }
     public String toString(boolean legend){
-        return node.toString();
+        return node.log.toString();
     }
 }
