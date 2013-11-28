@@ -33,7 +33,7 @@ class Core
     /**
      * Chyby zaznamenane pri behu programu.
      */
-    static Vector<Exception> exceptions;
+    static List<Exception> exceptions;
     
     /**
      * Staticky inicializacni blok.
@@ -41,6 +41,13 @@ class Core
     static
     {
         exceptions = new Vector<Exception>(2, 1);
+    }
+    
+    
+    public static synchronized void addSettle(int x, int y, int pop)
+    {
+        g.addSettle(x, y, pop);
+        log("Pridano sidlo s " + pop + " obyvateli na pozici [" + x +", " + y + "].");
     }
     
     /**
@@ -98,7 +105,7 @@ class Core
         return num;
     }
     
-    public static void load()
+    public static synchronized void load()
     {
         try
         {
@@ -198,6 +205,7 @@ class Core
         
         SwingUtilities.invokeLater(menu = new GUI_menu());
         
+        //SwingUtilities.invokeLater(lw = new LogWindow());
         Thread t = new Thread(lw = new LogWindow(), "LogWindow");
         t.start();
         

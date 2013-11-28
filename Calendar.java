@@ -138,7 +138,7 @@ public class Calendar extends Thread
     public void addAllNodeToQ(){
         //Random r = new Random();
         Node node = g.firstNode;
-        int pp = 0;
+        //int pp = 0;
         for (int i = 0;i<g.arrayAirport.length ;i++ ) {
             //g.arrayAirport[i].proces = new Airport(60);
             //g.arrayAirport[i].proces.node = g.arrayAirport[i];
@@ -151,7 +151,7 @@ public class Calendar extends Thread
                 //node.proces.node = node;
                 new Settle(0,node);
                 q.add(node.proces);
-                pp++;
+                //pp++;
             }
             //if (node instanceof AirportNode) {
                 //node.proces = new Airport(r.nextInt(1000));

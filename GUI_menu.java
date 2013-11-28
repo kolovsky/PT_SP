@@ -199,6 +199,10 @@ public class GUI_menu extends JFrame implements Runnable {
     //Method actionPerformed for button5
     private void kickThisPig() {
         Core.start();
+        button1.setEnabled(false);
+        button2.setEnabled(false);
+        button3.setEnabled(false);
+        button4.setEnabled(false);
         button5.setEnabled(false);
     }
 
@@ -220,26 +224,30 @@ public class GUI_menu extends JFrame implements Runnable {
     
     //Method actionPerformed for button4
     private void addNode() {
-        int id = 1; //pracovne
+        int people = 1; //pracovne
         int x = 1; //pracovne
         int y = 1; //pracovne
-        SettleNode n = new SettleNode(id, x, y);
         //JOptionPane msg = new JOptionPane();
         //msg.setMessageType(JOptionPane.QUESTION_MESSAGE);
         //msg.setMessage("hello");
         //msg.setName("Adding new settlement");
-        String pop = JOptionPane.showInputDialog(this, new JOptionPane(), "Adding new settlement", JOptionPane.QUESTION_MESSAGE);
-        System.out.println(pop);
         try
         {
-            n.people = Integer.parseInt(pop);
+            String pop = JOptionPane.showInputDialog(this, "Zadejte pocet obyvatel:");
+            //System.out.println(pop);
+            people = Integer.parseInt(pop);
+            String xx = JOptionPane.showInputDialog(this, "Zadejte souradnici x:");
+            x = Integer.parseInt(xx);
+            String yy = JOptionPane.showInputDialog(this, "Zadejte souradnici y:");
+            y = Integer.parseInt(yy);
         }
-        catch (Exception e)
+        catch(Exception e)
         {
-            e.printStackTrace();
+            //e.printStackTrace();
             Core.exceptions.add(e);
+            return;
         }
-        Core.g.addNode(n);
+        Core.addSettle(x, y, people);
     }
 
     //Method actionPerformed for button1

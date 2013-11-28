@@ -237,15 +237,15 @@ public class Graph
          while(node != null) {
             if(node instanceof SettleNode){
                  int c =  (int) (fRandom.nextGaussian() *1900)+5300;
-
+                 
                  if (c < 0) {
                      c = 10;
                  }
-                 if (c<2000) {
+                 if (c < 2000) {
                      pp++;
                  }
                  node.people = c;
-                 if (node.people > 10000) {
+                 if (c > 10000) {
                      node.isHeliport = true;
                  }
              }
@@ -253,23 +253,23 @@ public class Graph
          }
          int p = 0;
          //System.out.println(pp*0.3);
+         // Oznaceni sidel bez cest
          node = firstNode;
-         int ppp = 0;
+         int ppp = 0; // <----------------------------------- HERE''''''!
          while(node != null) {
             if (node instanceof SettleNode){
-                 if (node.people < 2000) {
-                     if (ppp%3 == 0) {
-                         node.isSimple = true;
-                         p++;
-                     }
-                     if (p >= pp*0.3) {
-                        break; 
-                     }
-                     ppp++;
+                 if (node.people < 2000 && ppp%3 == 0) { // <----------------------- ALSO HERE!!!!!!
+                     node.isSimple = true;
+                     p++;
+                     ppp++; // <------------------------------AND HERE !!!!
+                 }
+                 if (node.people < 2000 && p >= pp*0.3) {
+                     break; 
                  }
             }
             node = node.next;
          }
+         // /Oznaceni sidel bez cest
     }
     
     public Node[] dijkstra(Node from, Node to){

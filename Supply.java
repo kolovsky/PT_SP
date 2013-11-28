@@ -1,7 +1,8 @@
 /*******************************************************************************
  * Instance tridy {@code Supply} predstavuji zasoby
  *
- * @author    jmeno autora
+ * @author    kolovsky
+ * @author    jmacura
  * @version   0.00.000
  */
 public class Supply

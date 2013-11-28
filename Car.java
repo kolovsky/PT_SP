@@ -71,7 +71,7 @@ class Car extends Process{
             }
             shift(nextWork-path.length);
             //vyklopeni na ceste zpet
-            if (cast != kolik && helicop == null && path[nextWork].people > 5000 && isEmpty == false) {
+            if (cast != kolik && helicop == null && path[nextWork].people > 5000 && !isEmpty) {
                 ((Settle)path[nextWork].proces).addFood(kolik - cast);
                 isEmpty = true;
             }
