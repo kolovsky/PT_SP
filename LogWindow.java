@@ -17,7 +17,7 @@ public class LogWindow extends JFrame implements Runnable
     //== STATICKy INICIALIZAcNi BLOK - STATICKy KONSTRUKTOR ====================
     //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
     //== PROMeNNe ATRIBUTY INSTANCi ============================================
-    JPanel content;
+    //JPanel content;
     JScrollPane jsp;
     JTextArea ta;
     

@@ -16,10 +16,10 @@ public class Calendar extends Thread
      * Cas simulace v minutach.
      */
     public int time;
-    public static PriorityQueue<Process> q = new PriorityQueue<Process>(10000, new ProcCompare());
-    private Graph g;
-    public static ArrayList<Car> allCar = new ArrayList<Car>();
-    public static ArrayList<Helicop> allHelicop = new ArrayList<Helicop>();
+    private final PriorityQueue<Process> q;
+    private final Graph g;
+    public ArrayList<Car> allCar;
+    public ArrayList<Helicop> allHelicop;
 
     private volatile boolean isRun = true;
     
@@ -30,18 +30,25 @@ public class Calendar extends Thread
     public Calendar(Graph g)
     {
         time = 0;
+        allCar = new ArrayList<Car>();
+        q = new PriorityQueue<Process>(10000, new Comparator<Process>() {
+            @Override
+            public int compare(Process o1, Process o2) {
+                return o1.time - o2.time;
+            }});
         this.g = g;
+        allHelicop = new ArrayList<Helicop>();
         start();
-    }
-
-    public void setGraph(Graph graph)
-    {
-        this.g = graph;
     }
     
     public Graph getGraph()
     {
         return this.g;
+    }
+    
+    public PriorityQueue<Process> getQueue()
+    {
+        return this.q;
     }
     
     @Override

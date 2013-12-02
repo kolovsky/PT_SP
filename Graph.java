@@ -251,10 +251,34 @@ public class Graph
              }
              node = node.next;
          }
-         int p = 0;
+         /*int p = 0;
          //System.out.println(pp*0.3);
          // Oznaceni sidel bez cest
          node = firstNode;
+         int ppp = 0; // <----------------------------------- HERE''''''!
+         while(node != null) {
+            if (node instanceof SettleNode){
+                 if (node.people < 2000 && ppp%3 == 0) { // <----------------------- ALSO HERE!!!!!!
+                     node.isSimple = true;
+                     p++;
+                     ppp++; // <------------------------------AND HERE !!!!
+                 }
+                 if (node.people < 2000 && p >= pp*0.3) {
+                     break; 
+                 }
+            }
+            node = node.next;
+         }
+         // /Oznaceni sidel bez cest*/
+         setSimpleNodes(pp);
+    }
+    
+    private void setSimpleNodes(int pp)
+    {
+        int p = 0;
+         //System.out.println(pp*0.3);
+         // Oznaceni sidel bez cest
+         Node node = firstNode;
          int ppp = 0; // <----------------------------------- HERE''''''!
          while(node != null) {
             if (node instanceof SettleNode){

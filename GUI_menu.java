@@ -10,148 +10,46 @@ import java.util.*;
 
 public class GUI_menu extends JFrame implements Runnable {
 
-    private final JButton button1;
-    private final JButton button2;
-    private final JButton button3;
-    private final JButton button4;
-    private final JButton button5;
-    private final JButton button6;
-    private final JButton button7;
-    private final JButton button8;
+    private JButton button1;
+    private JButton button2;
+    private JButton button3;
+    private JButton button4;
+    private JButton button5;
+    private JButton button6;
+    private JButton button7;
+    private JButton button8;
+    private JButton button9;
+    //public JPanel contentPane;
 
     //Constructor 
     public GUI_menu() {
 
         this.setTitle("PT_SP");
 
+        JPanel contentPane = initComponents();
+
+        //adding panel to JFrame and seting of window position and close operation
+        this.add(contentPane);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(300,500));
+        //this.setLocationRelativeTo(null);
+    }
+
+    private JPanel initComponents()
+    {
         //pane with null layout
         JPanel contentPane = new JPanel(null);
-        //contentPane.setPreferredSize(new Dimension(300,400));
         contentPane.setBackground(new Color(200,200,200));
-
-        button1 = new JButton();
-        button1.setBounds(50,100,190,40);
-        button1.setBackground(new Color(200,200,200));
-        button1.setEnabled(true);
-        button1.setFont(new Font("sansserif",0,12));
-        button1.setText("Nacist data");
-        button1.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                load();
-            }
-        });
-
-        button2 = new JButton();
-        button2.setBounds(50,145,190,40);
-        button2.setBackground(new Color(200,200,200));
-        button2.setEnabled(true);
-        button2.setFont(new Font("sansserif",0,12));
-        button2.setText("Generovat nova data");
-        button2.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                generate();
-            }
-        });
-
-        button3 = new JButton();
-        button3.setBounds(50,190,190,40);
-        button3.setBackground(new Color(200,200,200));
-        button3.setEnabled(false);
-        button3.setFont(new Font("sansserif",0,12));
-        button3.setText("Ulozit nova data");
-        button3.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                save();
-            }
-        });
-
-        button4 = new JButton();
-        button4.setBounds(50,235,190,40);
-        button4.setBackground(new Color(200,200,200));
-        button4.setEnabled(true);
-        button4.setFont(new Font("sansserif",0,12));
-        button4.setText("Pridat sidlo");
-        button4.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                addNode();
-            }
-        });
         
-        button5 = new JButton();
-        button5.setBounds(50,290,190,40);
-        button5.setBackground(new Color(200,200,200));
-        button5.setForeground(new Color(0,0,0));
-        button5.setEnabled(true);
-        button5.setFont(new Font("SansSerif",1,12));
-        button5.setText("Spustit simulaci");
-        button5.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                kickThisPig();
-            }
-        });
-
-        button6 = new JButton();
-        button6.setBounds(50,335,190,40);
-        button6.setBackground(new Color(200,200,200));
-        button6.setForeground(new Color(0,0,0));
-        button6.setEnabled(true);
-        button6.setFont(new Font("sansserif",0,12));
-        button6.setText("Pozastavit simulaci");
-        button6.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button6.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                pause();
-            }
-        });
-        
-        button7 = new JButton();
-        button7.setBounds(50,335,190,40);
-        button7.setBackground(new Color(200,200,200));
-        button7.setForeground(new Color(0,0,0));
-        button7.setEnabled(false);
-        button7.setFont(new Font("sansserif",0,12));
-        button7.setText("Pokracovat v simulaci");
-        button7.setVisible(false);
-        //Set action for button click
-        //Call defined method
-        button7.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cont();
-            }
-        });
-        
-        button8 = new JButton();
-        button8.setBounds(50,380,190,40);
-        button8.setBackground(new Color(200,200,200));
-        button8.setForeground(new Color(0,0,0));
-        button8.setEnabled(false);
-        button8.setFont(new Font("sansserif",0,12));
-        button8.setText("Zjistit stav objektu");
-        button8.setVisible(true);
-        //Set action for button click
-        //Call defined method
-        button8.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                check();
-            }
-        });
+        initButton1();
+        initButton2();
+        initButton3();
+        initButton4();
+        initButton5();
+        initButton6();
+        initButton7();
+        initButton8();
+        initButton9();
 
         JLabel label1 = new JLabel();
         label1.setBounds(115,45,200,50);
@@ -180,16 +78,182 @@ public class GUI_menu extends JFrame implements Runnable {
         contentPane.add(button6);
         contentPane.add(button7);
         contentPane.add(button8);
+        contentPane.add(button9);
         contentPane.add(label1);
         contentPane.add(label2);
-
-        //adding panel to JFrame and seting of window position and close operation
-        this.add(contentPane);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(300,500));
-        //this.setLocationRelativeTo(null);
+        
+        return contentPane;
     }
-
+    
+    private void initButton1()
+    {
+        button1 = new JButton();
+        button1.setBounds(50,100,190,40);
+        button1.setBackground(new Color(200,200,200));
+        button1.setEnabled(true);
+        button1.setFont(new Font("sansserif",0,12));
+        button1.setText("Nacist data");
+        button1.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                load();
+            }
+        });
+        //return button1;
+    }
+    
+    private void initButton2()
+    {
+        button2 = new JButton();
+        button2.setBounds(50,145,190,40);
+        button2.setBackground(new Color(200,200,200));
+        button2.setEnabled(true);
+        button2.setFont(new Font("sansserif",0,12));
+        button2.setText("Generovat nova data");
+        button2.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                generate();
+            }
+        });
+        //return button2;
+    }
+    
+    private void initButton3()
+    {
+        button3 = new JButton();
+        button3.setBounds(50,190,190,40);
+        button3.setBackground(new Color(200,200,200));
+        button3.setEnabled(false);
+        button3.setFont(new Font("sansserif",0,12));
+        button3.setText("Ulozit nova data");
+        button3.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                save();
+            }
+        });
+    }
+    
+    private void initButton4()
+    {
+        button4 = new JButton();
+        button4.setBounds(50,235,190,40);
+        button4.setBackground(new Color(200,200,200));
+        button4.setEnabled(true);
+        button4.setFont(new Font("sansserif",0,12));
+        button4.setText("Pridat sidlo");
+        button4.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                addNode();
+            }
+        });
+    }
+    
+    private void initButton5()
+    {
+        button5 = new JButton();
+        button5.setBounds(50,290,190,40);
+        button5.setBackground(new Color(200,200,200));
+        button5.setForeground(new Color(0,0,0));
+        button5.setEnabled(true);
+        button5.setFont(new Font("SansSerif",1,12));
+        button5.setText("Spustit simulaci");
+        button5.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                kickThisPig();
+            }
+        });
+    }
+    
+    private void initButton6()
+    {
+        button6 = new JButton();
+        button6.setBounds(50,335,190,40);
+        button6.setBackground(new Color(200,200,200));
+        button6.setForeground(new Color(0,0,0));
+        button6.setEnabled(false);
+        button6.setFont(new Font("sansserif",0,12));
+        button6.setText("Pozastavit simulaci");
+        button6.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                pause();
+            }
+        });
+    }
+    
+    private void initButton7()
+    {
+        button7 = new JButton();
+        button7.setBounds(50,335,190,40);
+        button7.setBackground(new Color(200,200,200));
+        button7.setForeground(new Color(0,0,0));
+        button7.setEnabled(false);
+        button7.setFont(new Font("sansserif",0,12));
+        button7.setText("Pokracovat v simulaci");
+        button7.setVisible(false);
+        //Set action for button click
+        //Call defined method
+        button7.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                cont();
+            }
+        });
+    }
+    
+    private void initButton8()
+    {
+        button8 = new JButton();
+        button8.setBounds(50,380,190,40);
+        button8.setBackground(new Color(200,200,200));
+        button8.setForeground(new Color(0,0,0));
+        button8.setEnabled(false);
+        button8.setFont(new Font("sansserif",0,12));
+        button8.setText("Zjistit stav objektu");
+        button8.setVisible(true);
+        //Set action for button click
+        //Call defined method
+        button8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                check();
+            }
+        });
+    }
+    
+    private void initButton9()
+    {
+        button9 = new JButton();
+        button9.setBounds(50,290,190,40);
+        button9.setBackground(new Color(200,200,200));
+        button9.setForeground(new Color(0,0,0));
+        button9.setEnabled(false);
+        button9.setFont(new Font("sansserif",1,12));
+        button9.setText("Zrusit simulaci vcetne dat");
+        button9.setVisible(false);
+        //Set action for button click
+        //Call defined method
+        button9.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                abort();
+            }
+        });
+    }
+    
     //Method actionPerformed for button2
     private void generate() {
         Core.generateNew();
@@ -204,6 +268,8 @@ public class GUI_menu extends JFrame implements Runnable {
         button3.setEnabled(false);
         button4.setEnabled(false);
         button5.setEnabled(false);
+        button6.setEnabled(true);
+        button9.setEnabled(true);
     }
 
     //Method actionPerformed for button7
@@ -268,6 +334,21 @@ public class GUI_menu extends JFrame implements Runnable {
     //Method actionPerformed for button8
     private void check(){
         new CheckDialog(this, "Vyberte objekt pro sledovani");
+    }
+    
+    //Method actionPerformed for button9
+    private void abort()
+    {
+        Core.abort();
+        button1.setEnabled(true);
+        button2.setEnabled(true);
+        button3.setEnabled(true);
+        button4.setEnabled(true);
+        button5.setEnabled(true);
+        button6.setEnabled(true);
+        button7.setEnabled(false);
+        button8.setEnabled(false);
+        button9.setEnabled(false);
     }
     
     @Override
@@ -391,7 +472,14 @@ public class GUI_menu extends JFrame implements Runnable {
             String action = evt.getActionCommand();
             int bounds = 0;
             bounds = Core.getProcessNumber(action) - 1;
-            info.setText("ID musi byt v rozmezi 0 az " + bounds);
+            if (bounds <= 0)
+            {
+                info.setText("Tento objekt se v simulaci nevyskytuje");
+            }
+            else
+            {
+                info.setText("ID musi byt v rozmezi 1 az " + bounds);
+            }
         }
         
         public void send()

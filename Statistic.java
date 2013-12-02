@@ -10,13 +10,13 @@ class Statistic{
 	public String toString(){
 		String out = "";
 		for (int i = 0;i<7 ;i++ ) {
-			out = out + i+". den ";
-			out = out +log[i];
+			out = out + i+". den: ";
+			out = out +log[i] + " ";
 		}
 		out = out + "\n";
 		int allFood = 0;
 		for (int j = 0;j<3 ;j++ ) {
-			out = out + +j+". trojden "+threeFood[j]+" kg";
+			out = out + +j+". trojden: "+threeFood[j]+" kg ";
 			allFood += threeFood[j];
 		}
 		out = out + "\n";

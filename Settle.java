@@ -52,7 +52,7 @@ public class Settle extends Process
 			if (!((Airport)node.suppliedFrom.proces).isFood(kolik)) {
 				//lastTime = time;
 				time = time + 60 - time%60 + 1;
-				Calendar.q.add(this);
+				Core.c.getQueue().add(this);
 				Core.log("precasovano");
             	return;
             }
@@ -74,7 +74,7 @@ public class Settle extends Process
 			if (!((Airport)node.suppliedFrom.proces).isFood(kolik)) {
 				//lastTime = time;
 				time = time + 60 - time%60 + 1;
-				Calendar.q.add(this);
+				Core.c.getQueue().add(this);
 				Core.log("precasovano");
             	return;
             }
@@ -93,7 +93,7 @@ public class Settle extends Process
 
 		time = (int) (Core.c.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
 		Core.log("priste: "+time);
-		Calendar.q.add(this);
+		Core.c.getQueue().add(this);
 
     	
     }
@@ -101,13 +101,13 @@ public class Settle extends Process
         Helicop ncar;
         if (garage.size() == 0) {
             ncar = new Helicop(time,start,end,kolik);
-            Calendar.allHelicop.add(ncar);
-            Calendar.q.add(ncar);
+            Core.c.allHelicop.add(ncar);
+            Core.c.getQueue().add(ncar);
         }
         else {
             ncar = garage.poll();
             ncar.newWork(time,start,end,kolik);
-            Calendar.q.add(ncar);
+            Core.c.getQueue().add(ncar);
         }
     }
     public String toString(boolean legend){

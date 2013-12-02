@@ -68,7 +68,7 @@ class Helicop extends Process{
     	time = (int)((kolik/1000.0)*30.0) + Core.c.time;
 		Core.log("Vrtulnik id "+ id);
 		Core.log("Nakladam/vykladam do casu "+time);
-		Calendar.q.add(this);
+		Core.c.getQueue().add(this);
     }
     public void shift(Node from, Node to){
     	Edge edge = from.firstEdge;
@@ -81,7 +81,7 @@ class Helicop extends Process{
 		Core.log("Vrtulnik id "+ id);
 		Core.log("Letim do uzlu id = "+ to.id);
 		Core.log("Budu tam v "+time);
-		Calendar.q.add(this);
+		Core.c.getQueue().add(this);
     }
     public void newWork(int time,Node start, Node end, int kolik){
         this.time = time;

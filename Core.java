@@ -43,6 +43,13 @@ class Core
         exceptions = new Vector<Exception>(2, 1);
     }
     
+    public static void abort()
+    {
+        c.interrupt();
+        c = null;
+        g = new Graph();
+        log("SIMULACE UKONCENA NASILIM. Vsechna data zahozena.");
+    }
     
     public static synchronized void addSettle(int x, int y, int pop)
     {
@@ -56,17 +63,14 @@ class Core
      */
     public static synchronized void check(String type, int id)
     {
-        //jen navrh, jak dostat typ objektu ze Stringu
         Process objekt;
         switch(type)
         {
-            //case "settle": objekt = ?; break;
             case "helicop": objekt = c.allHelicop.get(id); break;
             case "car": objekt = c.allCar.get(id); break;
             case "settle": objekt = g.get(id).proces; break;
             default: Core.log("Nebyl vybran objekt!"); return;
         }
-        //TODO
         Core.log(objekt.toString(true));
     }
     

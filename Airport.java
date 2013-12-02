@@ -3,7 +3,11 @@ import java.util.*;
 class Airport extends Process{
 
     int allFood = 500000;
-    public PriorityQueue<Supply> pq = new PriorityQueue<Supply>(10, new SupCompare());
+    public PriorityQueue<Supply> pq = new PriorityQueue<Supply>(10, new Comparator<Supply>() {
+        @Override
+        public int compare(Supply o1, Supply o2) {
+            return o1.expire - o2.expire;
+        }});
     public LinkedList<Car> garage;
 
     public Airport(int time,Node node){
@@ -21,7 +25,7 @@ class Airport extends Process{
         pq.add(new Supply(500000,Core.c.time+2880));
         allFood += 500000;
         time = Core.c.time + 60;
-        Calendar.q.add(this);
+        Core.c.getQueue().add(this);
         Core.log("Nove jidlo");
 
     }
@@ -59,13 +63,13 @@ class Airport extends Process{
         Car ncar;
         if (garage.size() == 0) {
             ncar = new Car(time,path,kolik,helicop,isFull);
-            Calendar.allCar.add(ncar);
-            Calendar.q.add(ncar);
+            Core.c.allCar.add(ncar);
+            Core.c.getQueue().add(ncar);
         }
         else {
             ncar = garage.poll();
             ncar.newWork(time,path,kolik,helicop,isFull);
-            Calendar.q.add(ncar);
+            Core.c.getQueue().add(ncar);
         }
     }
     

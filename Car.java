@@ -64,7 +64,7 @@ class Car extends Process{
         }
         if (nextWork >= path.length) {
             if (nextWork == path.length && helicop == null) {
-                ((Settle) path[0].proces).addFood(cast); ///tady asi cast misto kilik
+                ((Settle) path[0].proces).addFood(cast); ///tady asi cast misto kolik
             }
             if (nextWork == path.length && helicop != null) {
                 ((Settle) path[0].proces).addFood(kolik - cast);
@@ -90,7 +90,7 @@ class Car extends Process{
         time = (int)((kolik/1000.0)*30.0) + Core.c.time; //nakladka 30min na tunu
         Core.log("Vozidlo id "+ id);
         Core.log("Nakladam/vykladam do casu "+ time);
-        Calendar.q.add(this);
+        Core.c.getQueue().add(this);
     }
     
     public void shift(int nextWork){
@@ -104,7 +104,7 @@ class Car extends Process{
         Core.log("Vozidlo id "+ id);
         Core.log("Jedu do uzlu id = "+ path[nextWork+1].id);
         Core.log("Budu tam v "+time);
-        Calendar.q.add(this);
+        Core.c.getQueue().add(this);
     }
     public void newWork(int time,Node [] path,int kolik,Node helicop,boolean isFull){
         this.time = time;
