@@ -71,6 +71,7 @@ public class Graph
         addNode(e);
         arrayAirport[4] = e;
 
+
     }
     
     public void load(String filename) throws IOException{
@@ -521,12 +522,37 @@ public class Graph
         } 
     }
     public void addSettle(int x,int y,int people){
-        int distances[] = new int[lastNode.id+1];
-        int distancesCopy[];
-
         Node newNode = new SettleNode(lastNode.id +1,x,y);
+        addNode(newNode);
+
+        int distances[] = new int[lastNode.id+1];
+        //int distancesCopy[];
+
         newNode.people = people;
         distances = distancesFromNode(newNode);
         createRoads(newNode,distances);
+
+        Edge arrival = newNode.firstEdge;
+        while (arrival != null) {
+            arrival.node.addEdge(new Edge(newNode,arrival.cost));
+            arrival = arrival.next;
+        }
+
+        int min = Integer.MAX_VALUE;
+        AirportNode minNode = null;
+        for (int i = 0;i<arrayAirport.length ;i++ ) {
+            dijkstra(arrayAirport[i]);
+            newNode.costToAirAll[i] = newNode.cost;
+            if (min > newNode.cost) {
+                min = newNode.cost;
+                minNode = arrayAirport[i];
+                
+            }
+            
+            
+        }
+        newNode.suppliedFrom = minNode;
+        newNode.costToAir = min;
+        
     }
 }

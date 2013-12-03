@@ -168,6 +168,16 @@ class Core
     public static void stop()
     {
         c.pauseNplay();
+        try
+        {
+            c.createStatistics();
+            //c.createStatistics();
+        }
+        catch (IOException e)
+        {
+            exceptions.add(e);
+        }
+        
 
     }
     

@@ -76,6 +76,6 @@ class Airport extends Process{
     @Override
     public String toString(boolean legend)
     {
-        return "";
+        return "Toto je letiste" + node.id;
     }
 }

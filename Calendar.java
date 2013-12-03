@@ -105,6 +105,7 @@ public class Calendar extends Thread
         while (q.size() != 0) {
            if (q.peek().time == time) {
                proc = q.poll();
+               //System.out.println(((Settle)proc).id);
                proc.goOn();
                //System.out.println("peak time "+q.peek().time);
                //System.out.println(proc.time);
@@ -158,6 +159,10 @@ public class Calendar extends Thread
                 //node.proces.node = node;
                 new Settle(0,node);
                 q.add(node.proces);
+
+                if (((Settle)node.proces).id == 3000) {
+                    ((Settle)node.proces).lastID += 5;
+                }
                 //pp++;
             }
             //if (node instanceof AirportNode) {
@@ -173,7 +178,7 @@ public class Calendar extends Thread
     public void createStatistics() throws IOException{
         FileWriter out1 = new FileWriter("zasobovano_z.txt");
         FileWriter out2 = new FileWriter("zasobovano_kdy_kolik.txt");
-        FileWriter out3 = new FileWriter("movingObject.txt");
+        
 
         out1.write("ID zasobovano z letiste\n");
         Node node = g.firstNode;
@@ -189,14 +194,23 @@ public class Calendar extends Thread
         }
         out2.close();
         out1.close();
+
+        
+        FileWriter out3 = new FileWriter("movingObject.txt");
+
+        out3.write("Celkovi pocet nakladnich aut je "+allCar.size()+"\n");
+        out3.write("Celkovi pocet vrtulniku je "+allHelicop.size()+"\n");
+
         out3.write("=====CAR=====\n");
         out3.write("Start End Quant Settle\n");
         for (int i = 0;i<allCar.size() ;i++ ) {
             out3.write(allCar.get(i).toString(false));
+            
         }
         out3.write("=====HELICOP=====\n");
         for (int i = 0;i<allHelicop.size() ;i++ ) {
             out3.write(allHelicop.get(i).toString(false));
+
         }
         Core.log("Vytvorena statistika");
         out3.close();
