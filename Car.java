@@ -71,8 +71,8 @@ class Car extends Process{
             }
             shift(nextWork-path.length);
             //vyklopeni na ceste zpet
-            if (cast != kolik && helicop == null && path[nextWork].people > 5000 && !isEmpty) {
-                ((Settle)path[nextWork].proces).addFood(kolik - cast);
+            if (cast != kolik && helicop == null && path[nextWork-path.length].people > 5000 && !isEmpty) {
+                ((Settle)path[nextWork-path.length].proces).addFood(kolik - cast);
                 isEmpty = true;
             }
             //vyklopeni ba cest zpet
@@ -125,11 +125,14 @@ class Car extends Process{
     }
     public String toString(boolean legend){
         String out = "Id: "+id+"\n";
-        if (nextWork < 0) {
+        if (nextWork < 1) {
             out += "Actual place: "+ path[0].id;
         }
-        else {
+        else if(nextWork < path.length){
             out += "Actual place: "+ path[nextWork-1].id;
+        }
+        else {
+            out += "Actual place: "+ path[nextWork-path.length].id;
         }
         out += " Vezu: "+kolik+"kg Primarni cil: "+path[path.length-1].id+"\n";
         if (legend) {

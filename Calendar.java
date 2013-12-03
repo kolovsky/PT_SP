@@ -77,9 +77,12 @@ public class Calendar extends Thread
         {
             createStatistics();
         }
-        catch (Exception e)
+        catch (IOException e)
+
         {
+            System.out.println("chyba");
             Core.exceptions.add(e);
+            System.out.println(e.toString());
         }
         Core.summary();
     }
@@ -129,7 +132,7 @@ public class Calendar extends Thread
                time++;
                Core.log("======"+time+"======");
            }
-           if (time == 200) {
+           if (time == 3000) {
                break; 
            }
            while (!isRun) {
@@ -194,7 +197,7 @@ public class Calendar extends Thread
         }
         out2.close();
         out1.close();
-
+        //System.out.println(0);
         
         FileWriter out3 = new FileWriter("movingObject.txt");
 
@@ -203,17 +206,20 @@ public class Calendar extends Thread
 
         out3.write("=====CAR=====\n");
         out3.write("Start End Quant Settle\n");
+        //System.out.println(1);
         for (int i = 0;i<allCar.size() ;i++ ) {
             out3.write(allCar.get(i).toString(false));
             
         }
+        //System.out.println(2);
         out3.write("=====HELICOP=====\n");
         for (int i = 0;i<allHelicop.size() ;i++ ) {
             out3.write(allHelicop.get(i).toString(false));
 
         }
-        Core.log("Vytvorena statistika");
         out3.close();
+        Core.log("Vytvorena statistika");
+        
     }
 }
 
