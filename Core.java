@@ -35,9 +35,7 @@ class Core
      */
     static List<Exception> exceptions;
     
-    /**
-     * Staticky inicializacni blok.
-     */
+    // Staticky inicializacni blok.
     static
     {
         exceptions = new Vector<Exception>(2, 1);
@@ -45,12 +43,13 @@ class Core
     
     public static void abort()
     {
-        stop();
-        c.interrupt();
-        g = null;
+        //System.out.println(Thread.activeCount() + Thread.currentThread().getName());
+        //c.setDaemon(true);
+        //c.interrupt();
+        //System.out.println(Thread.activeCount() + Thread.currentThread().getName());
+        //g = null;
         //c = null;
-        c = null;
-        log("SIMULACE UKONCENA NASILIM. Vsechna data zahozena.");
+        //log("SIMULACE UKONCENA NASILIM. Vsechna data zahozena.");
     }
     
     public static synchronized void addSettle(int x, int y, int pop)
@@ -156,31 +155,11 @@ class Core
     public static synchronized void start()
     {
         c = new Calendar(g);
-
-        //c.start();
-        /*try
-        {
-            c.createStatistics();
-        }
-        catch (Exception e)
-        {
-        }*/
     }
     
     public static void stop()
     {
         c.pauseNplay();
-        /*try
-        {
-            c.createStatistics();
-            //c.createStatistics();
-        }
-        catch (IOException e)
-        {
-            exceptions.add(e);
-        }*/
-        
-
     }
     
     public static void summary()

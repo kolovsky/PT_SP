@@ -4,7 +4,7 @@ import java.io.*;
  * Kontrola kodovani: Prilis zlutoucky kun upel dabelske ody. */
 
 /*******************************************************************************
- * Instance tridy {@code Calendar} predstavuji prioritni frontu.
+ * Instance tridy {@code Calendar} predstavuji prioritni frontu objektu simulace.
  *
  * @author    kolovsky
  * @author    jmacura
@@ -23,12 +23,12 @@ public class Calendar extends Thread
 
     private volatile boolean isRun = true;
     
-    
     /***************************************************************************
      *
      */
     public Calendar(Graph g)
     {
+        super("Calendar");
         time = 0;
         allCar = new ArrayList<Car>();
         q = new PriorityQueue<Process>(10000, new Comparator<Process>() {
@@ -131,6 +131,7 @@ public class Calendar extends Thread
                }
                time++;
                Core.log("======"+time+"======");
+               //Core.log(Thread.currentThread().getName());
            }
            if (time == 3000) {
                break; 
@@ -141,8 +142,14 @@ public class Calendar extends Thread
                 }
                 catch(Exception e){
                     Core.exceptions.add(e);
+                    //q.clear();
+                    //System.out.println("SHUTDOWN");
                 }
             }
+           //if(isKillingTime)
+           //{
+           //    interrupt();
+           //}
         }
     }
          

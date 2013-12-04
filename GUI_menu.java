@@ -18,7 +18,7 @@ public class GUI_menu extends JFrame implements Runnable {
     private JButton button6;
     private JButton button7;
     private JButton button8;
-    private JButton button9;
+    //private JButton button9;
     //public JPanel contentPane;
 
     //Constructor 
@@ -49,7 +49,7 @@ public class GUI_menu extends JFrame implements Runnable {
         initButton6();
         initButton7();
         initButton8();
-        initButton9();
+        //initButton9();
 
         JLabel label1 = new JLabel();
         label1.setBounds(115,45,200,50);
@@ -78,7 +78,7 @@ public class GUI_menu extends JFrame implements Runnable {
         contentPane.add(button6);
         contentPane.add(button7);
         contentPane.add(button8);
-        contentPane.add(button9);
+        //contentPane.add(button9);
         contentPane.add(label1);
         contentPane.add(label2);
         
@@ -235,7 +235,7 @@ public class GUI_menu extends JFrame implements Runnable {
         });
     }
     
-    private void initButton9()
+    /*private void initButton9()
     {
         button9 = new JButton();
         button9.setBounds(50,290,190,40);
@@ -252,7 +252,7 @@ public class GUI_menu extends JFrame implements Runnable {
                 abort();
             }
         });
-    }
+    }*/
     
     private void catchMeIfYouCan(Exception e, String s)
     {
@@ -370,10 +370,10 @@ public class GUI_menu extends JFrame implements Runnable {
         button3.setEnabled(false);
         button4.setEnabled(false);
         button5.setEnabled(false);
-        button5.setVisible(false);
+        //button5.setVisible(false);
         button6.setEnabled(true);
-        button9.setVisible(true);
-        button9.setEnabled(true);
+        //button9.setVisible(true);
+        //button9.setEnabled(true);
     }
 
     //Method actionPerformed for button7
@@ -439,8 +439,8 @@ public class GUI_menu extends JFrame implements Runnable {
         button6.setEnabled(false);
         button7.setEnabled(false);
         button8.setEnabled(false);
-        button9.setEnabled(false);
-        button9.setVisible(false);
+        //button9.setEnabled(false);
+        //button9.setVisible(false);
     }
     
     @Override
@@ -455,7 +455,8 @@ public class GUI_menu extends JFrame implements Runnable {
     }
     
     /**
-     * Vnitrni trida.
+     * Vytvori dotazovaci dialog pro kontrolu objektu sumulace.
+     * @author jmacura
      */
     class CheckDialog extends JDialog
     {
@@ -468,7 +469,7 @@ public class GUI_menu extends JFrame implements Runnable {
         private final JTextField line;
         private final JButton sender;
         
-        //private int bounds;
+        private int bounds;
         
         /**
          * @param owner Nadrazene okno {@code java.awt.Frame}.
@@ -562,7 +563,6 @@ public class GUI_menu extends JFrame implements Runnable {
         private void chngInfo(ActionEvent evt)
         {
             String action = evt.getActionCommand();
-            int bounds = 0;
             bounds = Core.getProcessNumber(action) - 1;
             if (bounds <= 0)
             {
@@ -574,7 +574,7 @@ public class GUI_menu extends JFrame implements Runnable {
             }
         }
         
-        public void send()
+        private void send()
         {
             Enumeration<AbstractButton> eab = bg.getElements();
             String action = "", idS;
@@ -595,11 +595,28 @@ public class GUI_menu extends JFrame implements Runnable {
             }
             catch(Exception e)
             {
-                Core.log("Chybny format ID");
+                Core.log("ID objektu je prirozene cislo!");
                 Core.exceptions.add(e);
+                return;
             }
-            
-            Core.check(action, id);
+            if(verifyInput(id))
+            {
+                Core.check(action, id);
+            }
+            else
+            {
+                Core.log("ID musi byt v uvedenem rozsahu");
+                return;
+            }
+        }
+        
+        private boolean verifyInput(int id)
+        {
+            if (id <= 0 || id > bounds)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
