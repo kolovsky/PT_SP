@@ -133,7 +133,7 @@ public class Calendar extends Thread
                Core.log("======"+time+"======");
                //Core.log(Thread.currentThread().getName());
            }
-           if (time == 3000) {
+           if (time == 7200) {
                break; 
            }
            while (!isRun) {
@@ -208,8 +208,8 @@ public class Calendar extends Thread
         
         FileWriter out3 = new FileWriter("movingObject.txt");
 
-        out3.write("Celkovi pocet nakladnich aut je "+allCar.size()+"\n");
-        out3.write("Celkovi pocet vrtulniku je "+allHelicop.size()+"\n");
+        out3.write("Celkovy pocet nakladnich aut je "+allCar.size()+"\n");
+        out3.write("Celkovy pocet vrtulniku je "+allHelicop.size()+"\n");
 
         out3.write("=====CAR=====\n");
         out3.write("Start End Quant Settle\n");
