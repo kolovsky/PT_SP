@@ -146,7 +146,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button4 = new JButton();
         button4.setBounds(50,235,190,40);
         button4.setBackground(new Color(200,200,200));
-        button4.setEnabled(true);
+        button4.setEnabled(false);
         button4.setFont(new Font("sansserif",0,12));
         button4.setText("Pridat sidlo");
         button4.setVisible(true);
@@ -165,7 +165,7 @@ public class GUI_menu extends JFrame implements Runnable {
         button5.setBounds(50,290,190,40);
         button5.setBackground(new Color(200,200,200));
         button5.setForeground(new Color(0,0,0));
-        button5.setEnabled(true);
+        button5.setEnabled(false);
         button5.setFont(new Font("SansSerif",1,12));
         button5.setText("Spustit simulaci");
         button5.setVisible(true);
@@ -254,10 +254,112 @@ public class GUI_menu extends JFrame implements Runnable {
         });
     }
     
+    private void catchMeIfYouCan(Exception e, String s)
+    {
+        Core.exceptions.add(e);
+        if(s.length() == 0)
+        {
+            Core.log("Zadejte souradnici");
+        }
+        else
+        {
+            Core.log("Souradnice musi byt prirozene cislo!");
+        }
+    }
+    
+    private int getPopulation()
+    {
+        int people = -1;
+        String pop = JOptionPane.showInputDialog(this, "Zadejte pocet obyvatel (1 - " + Integer.MAX_VALUE + "):");
+        try
+        {
+            people = Integer.parseInt(pop);
+            if (people <= 0)
+            {
+                throw new RuntimeException("Zadan zaporny pocet obyvatel");
+            }
+        }
+        catch(NumberFormatException naN) //Not a Number
+        {
+            Core.exceptions.add(naN);
+            if(pop.length() == 0)
+            {
+                Core.log("Zadejte pocet obyvatel");
+            }
+            else
+            {
+                Core.log("Pocet obyvatel znamena prirozene cislo mensi nez " + Integer.MAX_VALUE + "!");
+            }
+            return -1;
+        }
+        catch(Exception e) //<0
+        {
+            Core.exceptions.add(e);
+            Core.log("Zadejte pocet obyvatel vetsi nez 0");
+            return -1;
+        }
+        return people;
+    }
+    
+    private int getXCoord()
+    {
+        int x = -1;
+        String xx = JOptionPane.showInputDialog(this, "Zadejte souradnici x (0 - 500 000):");
+        try
+        {
+            x = Integer.parseInt(xx);
+            if (x < 0 || x > 500000)
+            {
+                throw new RuntimeException("Souradnice x musi byt v rozmezi 0 a 500 000");
+            }
+        }
+        catch(NumberFormatException naN) //Not a Number
+        {
+            catchMeIfYouCan(naN, xx);
+            return -1;
+        }
+        catch(Exception e) //Out of bounds
+        {
+            Core.exceptions.add(e);
+            Core.log("Zadejte souradnici v danem rozmezi");
+            return -1;
+        }
+        return x;
+    }
+    
+    private int getYCoord()
+    {
+        int y = -1;
+        String yy = JOptionPane.showInputDialog(this, "Zadejte souradnici y (0 - 500 000):");
+        try
+        {
+            y = Integer.parseInt(yy);
+            if (y < 0 || y > 500000)
+            {
+                throw new RuntimeException("Souradnice y musi byt v rozmezi 0 a 500 000");
+            }
+        }
+        catch(NumberFormatException naN) //Not a Number
+        {
+            catchMeIfYouCan(naN, yy);
+            return -1;
+        }
+        catch(Exception e) //Out of bounds
+        {
+            Core.exceptions.add(e);
+            Core.log("Zadejte souradnici v danem rozmezi");
+            return -1;
+        }
+        return y;
+    }
+    
     //Method actionPerformed for button2
     private void generate() {
         Core.generateNew();
+        button1.setEnabled(false);
         button3.setEnabled(true);
+        button4.setEnabled(true);
+        button5.setEnabled(true);
     }
 
     //Method actionPerformed for button5
@@ -268,7 +370,9 @@ public class GUI_menu extends JFrame implements Runnable {
         button3.setEnabled(false);
         button4.setEnabled(false);
         button5.setEnabled(false);
+        button5.setVisible(false);
         button6.setEnabled(true);
+        button9.setVisible(true);
         button9.setEnabled(true);
     }
 
@@ -290,35 +394,21 @@ public class GUI_menu extends JFrame implements Runnable {
     
     //Method actionPerformed for button4
     private void addNode() {
-        int people = 1; //pracovne
-        int x = 1; //pracovne
-        int y = 1; //pracovne
-        //JOptionPane msg = new JOptionPane();
-        //msg.setMessageType(JOptionPane.QUESTION_MESSAGE);
-        //msg.setMessage("hello");
-        //msg.setName("Adding new settlement");
-        try
-        {
-            String pop = JOptionPane.showInputDialog(this, "Zadejte pocet obyvatel:");
-            //System.out.println(pop);
-            people = Integer.parseInt(pop);
-            String xx = JOptionPane.showInputDialog(this, "Zadejte souradnici x:");
-            x = Integer.parseInt(xx);
-            String yy = JOptionPane.showInputDialog(this, "Zadejte souradnici y:");
-            y = Integer.parseInt(yy);
-        }
-        catch(Exception e)
-        {
-            //e.printStackTrace();
-            Core.exceptions.add(e);
-            return;
-        }
-        Core.addSettle(x, y, people);
+        int pop = getPopulation();
+        if (pop < 0) {return;}
+        int x = getXCoord();
+        if (x < 0) {return;}
+        int y = getYCoord();
+        if (y < 0) {return;}
+        Core.addSettle(x, y, pop);
     }
 
     //Method actionPerformed for button1
     private void load(){
         Core.load();
+        button2.setEnabled(false);
+        button4.setEnabled(true);
+        button5.setEnabled(true);
     }
     
     //Method actionPerformed for button6
@@ -342,13 +432,15 @@ public class GUI_menu extends JFrame implements Runnable {
         Core.abort();
         button1.setEnabled(true);
         button2.setEnabled(true);
-        button3.setEnabled(true);
-        button4.setEnabled(true);
+        //button3.setEnabled(false);
+        //button4.setEnabled(false);
         button5.setEnabled(true);
-        button6.setEnabled(true);
+        button5.setVisible(true);
+        button6.setEnabled(false);
         button7.setEnabled(false);
         button8.setEnabled(false);
         button9.setEnabled(false);
+        button9.setVisible(false);
     }
     
     @Override

@@ -45,9 +45,11 @@ class Core
     
     public static void abort()
     {
+        stop();
         c.interrupt();
+        g = null;
+        //c = null;
         c = null;
-        g = new Graph();
         log("SIMULACE UKONCENA NASILIM. Vsechna data zahozena.");
     }
     
