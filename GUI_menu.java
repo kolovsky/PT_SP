@@ -1,15 +1,33 @@
-/**
-*Text genereted by Simple GUI Extension for BlueJ
-*/
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
 //import javax.swing.border.Border;
 //import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.*;
-import java.util.*;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
-public class GUI_menu extends JFrame implements Runnable {
-
+/**
+ * Instance tridy {@code GUI_menu} predstavuji jednoduche uzivatelske rozhrani pro ovladani programu.
+ * 
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
+public class GUI_menu extends JFrame implements Runnable
+{
+    //== PROMeNNe ATRIBUTY INSTANCi ============================================
     private JButton button1;
     private JButton button2;
     private JButton button3;
@@ -19,9 +37,11 @@ public class GUI_menu extends JFrame implements Runnable {
     private JButton button7;
     private JButton button8;
     //private JButton button9;
-    //public JPanel contentPane;
 
-    //Constructor 
+    //== KONSTRUKTORY A TOVaRNi METODY =========================================
+    /**
+     * Vytvori nove graficke menu s pevne danym layoutem.
+     */
     public GUI_menu() {
 
         this.setTitle("PT_SP");
@@ -31,7 +51,6 @@ public class GUI_menu extends JFrame implements Runnable {
         //adding panel to JFrame and seting of window position and close operation
         this.add(contentPane);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(300,500));
         //this.setLocationRelativeTo(null);
     }
 
@@ -85,6 +104,19 @@ public class GUI_menu extends JFrame implements Runnable {
         return contentPane;
     }
     
+    //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
+    /**
+     * Nastavi velikost okna a vykresli menu na obrazovku.
+     */
+    @Override
+    public void run() {
+        this.setPreferredSize(new Dimension(300,500));
+        this.pack();
+        //this.setLocationByPlatform(true);
+        this.setVisible(true);
+    }
+    
+    //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
     private void initButton1()
     {
         button1 = new JButton();
@@ -427,7 +459,7 @@ public class GUI_menu extends JFrame implements Runnable {
     }
     
     //Method actionPerformed for button9
-    private void abort()
+    /*private void abort()
     {
         Core.abort();
         button1.setEnabled(true);
@@ -441,25 +473,20 @@ public class GUI_menu extends JFrame implements Runnable {
         button8.setEnabled(false);
         //button9.setEnabled(false);
         //button9.setVisible(false);
-    }
+    }*/
     
-    @Override
-    public void run() {
-        this.pack();
-        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        //Point newLoc = new Point(screenSize.width / 2 - (this.getWidth() / 2), screenSize.height / 2 - (this.getWidth() / 2));
-        //Point newLocation = new Point(middle.x - , middle.y));
-        //this.setLocation(newLoc);
-        //this.setLocationByPlatform(true);
-        this.setVisible(true);
-    }
-    
+    //== INTERNi DATOVe TYPY ===================================================
     /**
-     * Vytvori dotazovaci dialog pro kontrolu objektu sumulace.
-     * @author jmacura
+     * Instance tridy {@code CheckDialog} predstavuji dotazovaci dialog pro kontrolu objektu sumulace.
+     * Vytvareni takovych dialogu je pouzivano jen instancemi tridy {@code GUI_menu},
+     * proto se jedna o tridu vnitrni.
+     * @author  kolovsky
+     * @author  jmacura
+     * @version 1.00.000
      */
     class CheckDialog extends JDialog
     {
+        //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
         private final JPanel jdCont;
         private final ButtonGroup bg;
         private final JRadioButton opt1;
@@ -469,15 +496,18 @@ public class GUI_menu extends JFrame implements Runnable {
         private final JTextField line;
         private final JButton sender;
         
+        //== PROMeNNe ATRIBUTY INSTANCi ============================================
         private int bounds;
         
+        //== KONSTRUKTORY A TOVaRNi METODY =========================================
         /**
+         * Vytvori dotazovaci dialog s prednastavenym layoutem, nastavi jeho pozici a vykresli jej na obrazovku.
+         * 
          * @param owner Nadrazene okno {@code java.awt.Frame}.
          * @param title Jmeno dialogoveho okna.
          */
         CheckDialog(Frame owner, String title)
         {
-            //super(owner, title);
             this.setTitle(title);
             this.setPreferredSize(new Dimension(200,200));
             
@@ -560,6 +590,7 @@ public class GUI_menu extends JFrame implements Runnable {
             this.setVisible(true);
         }
         
+        //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
         private void chngInfo(ActionEvent evt)
         {
             String action = evt.getActionCommand();

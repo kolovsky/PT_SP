@@ -1,9 +1,9 @@
-/*******************************************************************************
- * Instance tridy {@code Supply} predstavuji zasoby
+/**
+ * Instance tridy {@code Supply} predstavuji zasoby.
  *
  * @author    kolovsky
  * @author    jmacura
- * @version   0.00.000
+ * @version   1.00.000
  */
 public class Supply
 {

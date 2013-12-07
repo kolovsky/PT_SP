@@ -1,5 +1,11 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Arrays;
 
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
 public class Settle extends Process
 {	public int actualFood = 0;
 	public int lastTime = 0;
@@ -59,7 +65,7 @@ public class Settle extends Process
 				Core.log("precasovano");
             	return;
             }
-			Node [] path = Arrays.copyOf(node.firstEdge.node.path,node.firstEdge.node.path.length);//Core.c.getGraph().dijkstra(node.suppliedFrom,node.firstEdge.node);
+			Node [] path = Arrays.copyOf(node.firstEdge.node.path,node.firstEdge.node.path.length);//Core.c.getGraph().dijkstra(node.suppliedFrom,node.firstEdge.node)
             ((Airport) node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,node,true);
 			//Calendar.q.add(new Car(Calendar.time,path,kolik,node,true)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
             

@@ -1,3 +1,8 @@
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 2.00.000
+ */
 public class Edge
 {
     public int cost;
