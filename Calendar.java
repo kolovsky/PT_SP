@@ -23,8 +23,9 @@ public class Calendar extends Thread
 
     private volatile boolean isRun = true;
     
-    /***************************************************************************
-     *
+    /**
+     * konstruktor
+     * @param pouzity graf
      */
     public Calendar(Graph g)
     {
@@ -40,17 +41,23 @@ public class Calendar extends Thread
         allHelicop = new ArrayList<Helicop>();
         start();
     }
-    
+    /**
+     * vrati graf
+     */
     public Graph getGraph()
     {
         return this.g;
     }
-    
+    /**
+     * vrati frontu
+     */
     public PriorityQueue<Process> getQueue()
     {
         return this.q;
     }
-    
+    /**
+     * metoda pro spusteni simulace
+     */
     @Override
     public synchronized void run()
     {
@@ -64,6 +71,8 @@ public class Calendar extends Thread
         {
             Core.log("NENI GRAF!");
         }
+        Core.log("Pripravuji data pro simulaci (nejakou dobu to muse trvat)");
+        g.generatePath();
         /*try{
             addAllNodeToQ();
         }
@@ -86,7 +95,9 @@ public class Calendar extends Thread
         }
         Core.summary();
     }
-    
+    /**
+     * metoda pro pozastavovani simulace
+     */
     public void pauseNplay()
     {
         if (isRun) {
@@ -100,8 +111,8 @@ public class Calendar extends Thread
     }
     
     /**
-    * 
-    */
+     * metoda ve ktre probiha simulace 
+     */
     public void simulate()
     {  
         Process proc;
@@ -152,7 +163,9 @@ public class Calendar extends Thread
            //}
         }
     }
-         
+    /**
+     * vytvareni procesu k vrcholum a plneni fronty procesy
+     */     
     public void addAllNodeToQ(){
         //Random r = new Random();
         Node node = g.firstNode;
@@ -184,7 +197,9 @@ public class Calendar extends Thread
             }*/
         }
     }
-    
+    /**
+     * vytvori statistiku k simulaci
+     */
     public void createStatistics() throws IOException{
         FileWriter out1 = new FileWriter("zasobovano_z.txt");
         FileWriter out2 = new FileWriter("zasobovano_kdy_kolik.txt");

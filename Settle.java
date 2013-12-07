@@ -24,6 +24,9 @@ public class Settle extends Process
         lastID++;
     }
     public void addFood(int kolik){
+        if (actualFood == 0) {
+            lastTime = Core.c.time;
+        }
     	//actualFood = actualFood - (int)((Calendar.time - lastTime)/(24.0*60.0)*2*node.people);
     	actualFood +=  kolik;
     	//lastTime = time;
@@ -42,12 +45,12 @@ public class Settle extends Process
     	}
     	int kolik;
     	if (node.isSimple) {
-    		if (node.people*2*3 - actualFood > 2000) { // maximum co muzu objednat
+    		if (node.people*2*3 - getPrebytek() > 2000) { // maximum co muzu objednat
 				kolik = 2000;
 
 			}
 			else {
-				kolik = node.people*2*3 - actualFood;
+				kolik = node.people*2*3 - getPrebytek();
 			}
 			if (!((Airport)node.suppliedFrom.proces).isFood(kolik)) {
 				//lastTime = time;
@@ -56,7 +59,7 @@ public class Settle extends Process
 				Core.log("precasovano");
             	return;
             }
-			Node [] path = Core.c.getGraph().dijkstra(node.suppliedFrom,node.firstEdge.node);
+			Node [] path = Arrays.copyOf(node.firstEdge.node.path,node.firstEdge.node.path.length);//Core.c.getGraph().dijkstra(node.suppliedFrom,node.firstEdge.node);
             ((Airport) node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,node,true);
 			//Calendar.q.add(new Car(Calendar.time,path,kolik,node,true)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
             
@@ -65,11 +68,11 @@ public class Settle extends Process
 
     	}
     	else {
-			if (node.people*2*3 - actualFood > 12000) {
+			if (node.people*2*3 - getPrebytek() > 12000) {
 				kolik = 12000;	
 			}
 			else {
-				kolik = node.people*2*3 - actualFood;
+				kolik = node.people*2*3 - getPrebytek();
 			}
 			if (!((Airport)node.suppliedFrom.proces).isFood(kolik)) {
 				//lastTime = time;
@@ -78,7 +81,7 @@ public class Settle extends Process
 				Core.log("precasovano");
             	return;
             }
-			Node [] path = Core.c.getGraph().dijkstra(node.suppliedFrom,node);
+			Node [] path = Arrays.copyOf(node.path,node.path.length);//Core.c.getGraph().dijkstra(node.suppliedFrom,node); //!!!!!!!!!NEMAZAT!!!!!!!!!!
             ((Airport)node.suppliedFrom.proces).sendCar(Core.c.time,path,kolik,null,true);
 			//Calendar.q.add(new Car(Calendar.time,path,kolik,null,false)); //!!!!!!!!!NEMAZAT!!!!!!!!!!
 		}
@@ -91,7 +94,7 @@ public class Settle extends Process
 
     	//lastTime = time;
 
-		time = (int) (Core.c.time+(((kolik+actualFood)/(2.0*node.people))*24.0*60.0)-60);
+		time = (int) (Core.c.time+(((kolik+getPrebytek())/(2.0*node.people))*24.0*60.0)-60);
 		Core.log("priste: "+time);
 		Core.c.getQueue().add(this);
 
@@ -112,5 +115,18 @@ public class Settle extends Process
     }
     public String toString(boolean legend){
         return node.log.toString();
+    }
+    public int food2time(int kolik){
+        return (int)((kolik/(2.0*node.people))*24.0*60.0);
+    }
+    public int getPrebytek(){
+        if (node.isSimple) {
+
+            return (int)((food2time(actualFood) - (int)((node.firstEdge.node.costToAir/500.0)+((12000+4000)*30)/1000.0+(node.firstEdge.cost/2500.0)))/(24.0*60.0))*2*node.people;
+        }
+        else {
+            return (int)((food2time(actualFood) - (int)((node.costToAir/500.0)+(12000*30*2)/1000))/(int)(24.0*60.0))*2*node.people;
+        }
+        
     }
 }

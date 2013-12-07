@@ -17,7 +17,10 @@ public class Graph
     {
         //nodes = new Node[0];
     }
-    
+    /**
+     * pridani vrcholu do grafu
+     * @param vrchol
+     */
     public void addNode(Node newNode){
         if (firstNode == null) {
             firstNode = newNode;
@@ -28,7 +31,9 @@ public class Graph
             lastNode = newNode;
         }
     }
-    
+    /**
+     * generovani pozic sidel a letist
+     */
     public void generate(){
         //nodes = new Node[3006]; //3000 settle and 5 aiport, index 0 is NULL
         Random r = new Random(); //random
@@ -73,7 +78,10 @@ public class Graph
 
 
     }
-    
+    /**
+     * nacitani grafu se souboru
+     * @param jmeno souboru
+     */
     public void load(String filename) throws IOException{
         File file = new File(filename);
         Scanner s = new Scanner(file);
@@ -114,7 +122,10 @@ public class Graph
         createSupplied();
 
     }
-    
+    /**
+     * ukladani grafu do souboru
+     * @param jmeno souboru
+     */
     public void save(String filename) throws IOException{
         FileWriter out = new FileWriter(filename);
         Node node = firstNode;
@@ -135,7 +146,9 @@ public class Graph
         out.close();
 
     }
-    
+    /**
+     * vytvari hrany v grafu
+     */
     public void createEdge() throws RuntimeException {
         long distance;
         int distances[] = new int[3006];
@@ -230,7 +243,9 @@ public class Graph
 
 
     }
-    
+    /**
+     * generuje pocty obyvatel v sidlech
+     */
     public void generatePeople(){
          Random fRandom = new Random();
          int pp = 0;
@@ -273,7 +288,10 @@ public class Graph
          // /Oznaceni sidel bez cest*/
          setSimpleNodes(pp);
     }
-    
+    /**
+     * konstuktor
+     * @param pocet mest pod 2000 obyvatel
+     */
     private void setSimpleNodes(int pp)
     {
         int p = 0;
@@ -296,9 +314,15 @@ public class Graph
          }
          // /Oznaceni sidel bez cest
     }
-    
-    public Node[] dijkstra(Node from, Node to){
-        dijkstra(from);
+    /**
+     * vraci nekratsi cestu z vrcholu do vrcholu
+     * @param od
+     * @param do
+     */
+    public Node[] dijkstra(Node from, Node to,boolean build){
+        if (build) {
+           dijkstra(from); 
+        }
         Node node = to;
         //System.out.println(node.id);
         int i;
@@ -320,7 +344,10 @@ public class Graph
         return arrayNode;
 
     }
-    
+    /**
+     * ohodnoti graf (pojde graf a  zapise do promene cost hodnoty)
+     * @param od
+     */
     public boolean dijkstra(Node from){
         cleanGraph();
         from.isCloud = true;
@@ -344,7 +371,9 @@ public class Graph
         //System.out.println("HHHHHH");
         return true;
     }
-    
+    /**
+     * pridani vrcholu do mraku (dijkstara)
+     */
     private Node addToCloud(){
         Node minCost = new Node(1,1,1);
         minCost.cost = Integer.MAX_VALUE;
@@ -362,7 +391,9 @@ public class Graph
         return minCost;
 
     }
-    
+   /**
+     * inicializuje graf do puvodni podoby
+     */
     public void cleanGraph(){
         Node node = firstNode;
         while (node != null) {
@@ -376,7 +407,9 @@ public class Graph
         }
 
     }
-    
+    /**
+     * vypise statistiku o generovani vstupnich dat
+     */
     public String statistic(){
         int sumaP = 0;
         int sumaSimple = 0;
@@ -424,7 +457,10 @@ public class Graph
         return "people: "+sumaP+"\n" + "city without roads: "+sumaSimple+"\n"+ "city > 10000: "+suma10+"\n" + " l1: "+ l1
          + " l2: "+ l2 + " l3: "+ l3 + " l4: "+ l4 + " l5: "+ l5+"\n"+" ost: " + ost;
     }
-    
+    /**
+     * ohodnoti graf (pojde graf a  zapise do promene cost hodnoty)
+     * @param od
+     */
     public void createSupplied(){
         Node node;
         int min = Integer.MAX_VALUE;
@@ -460,6 +496,10 @@ public class Graph
             node = node.next;  
         }
     }
+    /**
+     * vrati vrchol
+     * @param ID
+     */
     public Node get(int id){
         Node node  = firstNode;
         while (node != null) {
@@ -470,6 +510,10 @@ public class Graph
         }
         return null;
     }
+    /**
+     * vrati vzdalenost ke vsem ostatim Vrcholum
+     * @param vrchol
+     */
     public int[] distancesFromNode(Node node){
         long distance;
         int distances[] = new int[lastNode.id+1];
@@ -492,6 +536,11 @@ public class Graph
         }
         return distances;
     }
+    /**
+     * vytvori hrany od daneho vrcholu
+     * @param od
+     * @param vzdalenosti k vrcholum
+     */
     public void createRoads(Node node, int[] distances){
         int[] distancesCopy;
         int ppZarazka,r;
@@ -521,6 +570,12 @@ public class Graph
             node3 = node3.next;
         } 
     }
+    /**
+     * prida nove sidlo
+     * @param souradnice x
+     * @param souradnice y
+     * @param pocet obyvatel
+     */
     public void addSettle(int x,int y,int people){
         Node newNode = new SettleNode(lastNode.id +1,x,y);
         addNode(newNode);
@@ -554,5 +609,17 @@ public class Graph
         newNode.suppliedFrom = minNode;
         newNode.costToAir = min;
         
+    }
+    public void generatePath(){
+        for (int i = 0;i<arrayAirport.length ;i++ ) {
+            dijkstra(arrayAirport[i]);
+            Node node = firstNode;
+            while (node != null) {
+                if (arrayAirport[i] == node.suppliedFrom) {
+                    node.path = dijkstra(arrayAirport[i],node,false);
+                }
+                node = node.next;
+            } 
+        }
     }
 }

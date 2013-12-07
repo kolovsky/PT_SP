@@ -12,6 +12,14 @@ class Car extends Process{
     int startTime;
     boolean isEmpty = false;
 
+    /**
+     * konstuktor
+     * @param kdy jet
+     * @param kam kudy
+     * @param kolik vest
+     * @param kdyz je koncovy vrchol bez sinic, tak ten, jinak null
+     * @param nalozit cely nakladak?
+     */
     public Car(int time,Node [] path,int kolik,Node helicop,boolean isFull)
     {
         super(time);
@@ -32,18 +40,22 @@ class Car extends Process{
         }
 
     }
-    
+    /**
+     * nacitani ID
+     */
     private void incrementID()
     {
         lastID++;
     }
-    
+    /**
+     * metoda volaná po vyberu z fronty
+     */
     public void goOn(){
         if (nextWork == path.length-1) {
             deal();
             if (helicop != null) {
                 //Calendar.q.add(new Helicop(Calendar.time,path[path.length-1],helicop,cast));
-                ((Settle)path[path.length-1].proces).sendHelicop(Core.c.time,path[path.length-1],helicop,cast);
+                ((Settle) path[path.length-1].proces).sendHelicop(Core.c.time,path[path.length-1],helicop,cast);
             }
             
             List<Node> list = Arrays.asList(path);
@@ -59,7 +71,7 @@ class Car extends Process{
            Core.log("Vozidlo cil "+ path[path.length-1].id);
            Core.log("Dojelo!");
            ((Airport) path[path.length-1].proces).garage.add(this);
-           log.add(""+startTime+" "+Core.c.time+ " "+kolik+" "+path[0]);
+           log.add(""+startTime+" "+Core.c.time+ " "+kolik+" "+path[0].id);
            return;
         }
         if (nextWork >= path.length) {
@@ -85,14 +97,19 @@ class Car extends Process{
         
         nextWork++;
     }
-    
+    /**
+     * nakladej/vykladej
+     */
     public void deal(){
         time = (int)((kolik/1000.0)*30.0) + Core.c.time; //nakladka 30min na tunu
         Core.log("Vozidlo id "+ id);
         Core.log("Nakladam/vykladam do casu "+ time);
         Core.c.getQueue().add(this);
     }
-    
+    /**
+     * posun se
+     * @param kam (index v ceste)
+     */
     public void shift(int nextWork){
         Edge edge = path[nextWork].firstEdge;
         while (edge != null) {
@@ -106,6 +123,14 @@ class Car extends Process{
         Core.log("Budu tam v "+time);
         Core.c.getQueue().add(this);
     }
+    /**
+     * reciklace nakladniho auta pro dalsi cestu (prideleni nove prace)
+     * @param kdy jet
+     * @param kam kudy
+     * @param kolik vest
+     * @param kdyz je koncovy vrchol bez sinic, tak ten, jinak null
+     * @param nalozit cely nakladak?
+     */
     public void newWork(int time,Node [] path,int kolik,Node helicop,boolean isFull){
         this.time = time;
         this.path = path;
@@ -123,8 +148,15 @@ class Car extends Process{
         }
         isEmpty = false;
     }
+    /**
+     * vypis statistiky
+     */
     public String toString(boolean legend){
         String out = "Id: "+id+"\n";
+        int stav = kolik; 
+        if (isEmpty) {
+            stav = 0;
+        }
         if (nextWork < 1) {
             out += "Actual place: "+ path[0].id;
         }
@@ -134,7 +166,7 @@ class Car extends Process{
         else {
             out += "Actual place: "+ path[nextWork-path.length].id;
         }
-        out += " Vezu: "+kolik+"kg Primarni cil: "+path[path.length-1].id+"\n";
+        out += " Vezu: "+stav+"kg Primarni cil: "+path[path.length-1].id+"\n";
         if (legend) {
             out += "Start End Quant Settle\n";
         }

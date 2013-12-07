@@ -1,4 +1,15 @@
+
 import java.util.*;
+
+/**
+ * <h1>trida Airport</h1>
+ * trida pro inmplementaci letiste
+ * 
+ * @author Jan Macura, Frantisek Kolovsky
+ * 
+ * 
+ * @version  1.0
+ */
 
 class Airport extends Process{
 
@@ -9,7 +20,11 @@ class Airport extends Process{
             return o1.expire - o2.expire;
         }});
     public LinkedList<Car> garage;
-
+    /**
+     * konstruktor
+     * @param cas prvniho spusteni
+     * @param prislusnost k uzlu
+     */
     public Airport(int time,Node node){
         super(time);
         this.node = node;
@@ -18,7 +33,9 @@ class Airport extends Process{
         garage = new LinkedList<Car>();
 
     }
-    
+    /**
+     * metoda volana pro vyberu z fronty.
+     */
     @Override
     public void goOn(){
         //actualFood += 500000;
@@ -29,6 +46,10 @@ class Airport extends Process{
         Core.log("Nove jidlo");
 
     }
+    /**
+     * metoda pro zjisteni jestli je dostatek jidla na letisti
+     * @param mnozstvi
+     */
     public boolean isFood(int kolik){
         if (pq.peek().expire < Core.c.time) {
             
@@ -42,6 +63,10 @@ class Airport extends Process{
         //}
         //return pq.peek().quant;
     }
+    /**
+     * vybira jidlo z letiste
+     * @param mnozstvi
+     */
     public int getFood(int quant){
         //pq.peek().quant -= quant;
         if (pq.peek().expire < Core.c.time) {
@@ -59,6 +84,14 @@ class Airport extends Process{
             return quant;
         }
     }
+    /**
+     * posila nakladni auto na cestu
+     * @param kdy
+     * @param kudy
+     * @param kolik
+     * @param koncovy vrchol pro sidlo bez silnice jinak null
+     * @param doplnit nakladak?
+     */
     public void sendCar(int time,Node [] path,int kolik,Node helicop,boolean isFull){
         Car ncar;
         if (garage.size() == 0) {
@@ -72,7 +105,9 @@ class Airport extends Process{
             Core.c.getQueue().add(ncar);
         }
     }
-    
+    /**
+     * vypis
+     */
     @Override
     public String toString(boolean legend)
     {
