@@ -1,6 +1,15 @@
-import java.util.*;
-import java.io.*;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.Random;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 2.00.000
+ */
 public class Graph
 {
     public static final int SETTLE = 1;

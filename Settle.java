@@ -1,5 +1,10 @@
-import java.util.*;
+import java.util.LinkedList;
 
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
 public class Settle extends Process
 {	public int actualFood = 0;
 	public int lastTime = 0;

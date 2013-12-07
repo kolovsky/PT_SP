@@ -1,3 +1,8 @@
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
 class Statistic{
 	//public int allFoodHelp = 0;
 	public String [] log = new String[8];

@@ -1,5 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
 
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
 class Helicop extends Process{
 	
 	public Node start;

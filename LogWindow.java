@@ -1,34 +1,26 @@
-/* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kodovani: Prilis zlutoucky kun upel dabelske ody. */
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
-import java.awt.*;
-import javax.swing.*;
-
-/*******************************************************************************
- * Instance tridy {@code LogWindow} predstavuji ...
+/**
+ * Instance tridy {@code LogWindow} predstavuji zaznamove okno udalosti.
  *
- * @author    jmeno autora
- * @version   0.00.000
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
  */
 public class LogWindow extends JFrame implements Runnable
 {
-    //== KONSTANTNi ATRIBUTY TriDY =============================================
-    //== PROMeNNe ATRIBUTY TriDY ===============================================
-    //== STATICKy INICIALIZAcNi BLOK - STATICKy KONSTRUKTOR ====================
-    //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
     //== PROMeNNe ATRIBUTY INSTANCi ============================================
-    //JPanel content;
-    JScrollPane jsp;
-    JTextArea ta;
+    private final JTextArea ta;
     
-    //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
-    //== OSTATNi NESOUKROMe METODY TriDY =======================================
-    
-    //##########################################################################
     //== KONSTRUKTORY A TOVaRNi METODY =========================================
-
-    /***************************************************************************
-     *
+    /**
+     *  Vytvori nove okno s textovym polem pro zaznamy a s posuvnikem.
      */
     public LogWindow()
     {
@@ -55,7 +47,7 @@ public class LogWindow extends JFrame implements Runnable
         
         //content.add(ta);
         
-        jsp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane jsp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         //jsp.setPreferredSize(new Dimension(500,300));
         
         this.add(jsp);
@@ -67,14 +59,19 @@ public class LogWindow extends JFrame implements Runnable
         //this.setPreferredSize(new Dimension(500,400));
     }
 
-    //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================
     //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
-    
+    /**
+     * Pripoji zadany retezec na konec stavajiciho zapisu v okne.
+     * @param s Retezec, ktery se ma vypsat do okna.
+     */
     public synchronized void log(String s)
     {
         ta.append("\n" + s);
     }
     
+    /**
+     * Nastavi velikost okna, vypocte pozici pro zobrazeni a vykresli okno na obrazovce.
+     */
     @Override
     public synchronized void run()
     {
@@ -87,19 +84,4 @@ public class LogWindow extends JFrame implements Runnable
         this.setLocation(newLoc);
         this.setVisible(true);
     }
-    
-    //== SOUKROMe A POMOCNe METODY TriDY =======================================
-    //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
-    //== INTERNi DATOVe TYPY ===================================================
-    //== TESTOVACi METODY A TriDY ==============================================
-    //
-    //     /********************************************************************
-    //      * Testovaci metoda.
-    //      */
-    //     public static void test()
-    //     {
-    //         LogWindow instance = new LogWindow();
-    //     }
-    //     /** @param args Parametry prikazoveho radku - nepouzivane. */
-    //     public static void main(String[] args)  {  test();  }
 }

@@ -1,9 +1,10 @@
-import java.util.*;
-import java.io.*;
-/* Soubor je ulozen v kodovani UTF-8.
- * Kontrola kodovani: Prilis zlutoucky kun upel dabelske ody. */
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.io.FileWriter;
+import java.io.IOException;
 
-/*******************************************************************************
+/**
  * Instance tridy {@code Calendar} predstavuji prioritni frontu objektu simulace.
  *
  * @author    kolovsky
@@ -12,32 +13,43 @@ import java.io.*;
  */
 public class Calendar extends Thread
 {
+    //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
+    private final PriorityQueue<Process> q;
+    private final Graph g;
+    
+    //== PROMeNNe ATRIBUTY INSTANCi ============================================
     /**
      * Cas simulace v minutach.
      */
     public int time;
-    private final PriorityQueue<Process> q;
-    private final Graph g;
-    public ArrayList<Car> allCar;
-    public ArrayList<Helicop> allHelicop;
-
+    
+    /**
+     * Seznam vsech nakladnich aut.
+     */
+    public ArrayList<Car> allCar = new ArrayList<Car>();
+    
+    /**
+     * Seznam vsech vrtulniku.
+     */
+    public ArrayList<Helicop> allHelicop = new ArrayList<Helicop>();
+    
     private volatile boolean isRun = true;
     
-    /***************************************************************************
-     *
+    /**
+     * Vytvori novy kalendar s prioritni frontou a spusti simulaci.
+     * 
+     * @param g Mapa uzemi, tj. graf, nad kterym probiha simulace.
      */
     public Calendar(Graph g)
     {
         super("Calendar");
         time = 0;
-        allCar = new ArrayList<Car>();
         q = new PriorityQueue<Process>(10000, new Comparator<Process>() {
             @Override
             public int compare(Process o1, Process o2) {
                 return o1.time - o2.time;
             }});
         this.g = g;
-        allHelicop = new ArrayList<Helicop>();
         start();
     }
     
@@ -133,7 +145,7 @@ public class Calendar extends Thread
                Core.log("======"+time+"======");
                //Core.log(Thread.currentThread().getName());
            }
-           if (time == 7200) {
+           if (time == 10800) {
                break; 
            }
            while (!isRun) {

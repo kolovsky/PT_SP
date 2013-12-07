@@ -1,5 +1,12 @@
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
 
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
 class Airport extends Process{
 
     int allFood = 500000;

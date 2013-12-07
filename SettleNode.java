@@ -1,3 +1,8 @@
+/**
+ * @author  kolovsky
+ * @author  jmacura
+ * @version 1.00.000
+ */
 class SettleNode extends Node
 {
 	public int people;
