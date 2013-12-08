@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 /**
+ * Instance tridy {@code Helicop} predstavuji proces vrtulniku v simulaci.
  * @author  kolovsky
  * @author  jmacura
  * @version 1.00.000
@@ -16,10 +17,10 @@ class Helicop extends Process{
     int startTime;
     /**
      * konstruktor
-     * @param kdy ma vrtulnik vyletet
-     * @param odkud
-     * @param kam
-     * @param kolik veze
+     * @param time Kdy ma vrtulnik vyletet
+     * @param start Odkud
+     * @param end Kam
+     * @param kolik Kolik veze
      */
     public Helicop(int time,Node start, Node end, int kolik)
     {
@@ -31,13 +32,6 @@ class Helicop extends Process{
         nextWork = 0;
         this.kolik = kolik;
         this.startTime = time;
-    }
-    /**
-     * zajistuje aktuali cislovani vrtulniku
-     */
-    private void incrementID()
-    {
-        lastID++;
     }
     /**
      * metoda volana po vybrani z fronty
@@ -90,8 +84,8 @@ class Helicop extends Process{
     }
     /**
      * posun vrtulniku
-     * @param odkud
-     * @param kam
+     * @param from Odkud
+     * @param to Kam
      */
     public void shift(Node from, Node to){
     	Edge edge = from.firstEdge;
@@ -107,11 +101,11 @@ class Helicop extends Process{
 		Core.c.getQueue().add(this);
     }
     /**
-     * prideluje novou praci pro vrtulnik (reciklace vrtulniku)
-     * @param kdy ma vrtulnik vyletet
-     * @param odkud
-     * @param kam
-     * @param kolik veze
+     * prideluje novou praci pro vrtulnik (recyklace vrtulniku)
+     * @param time Kdy ma vrtulnik vyletet
+     * @param start Odkud
+     * @param end Kam
+     * @param kolik Kolik veze
      */
     public void newWork(int time,Node start, Node end, int kolik){
         this.time = time;
@@ -122,8 +116,8 @@ class Helicop extends Process{
         this.startTime = time;
     }
     /**
-     * statistrika k danemu vrtulniku
-     * @param true - vypise legendu
+     * statistika k danemu vrtulniku
+     * @param legend {@code true} vypise legendu
      */
     public String toString(boolean legend){
         String out = "Id: "+id+"\n";
@@ -142,5 +136,13 @@ class Helicop extends Process{
 
         }
         return out;
+    }
+    
+    /**
+     * zajistuje aktualni cislovani vrtulniku
+     */
+    private void incrementID()
+    {
+        lastID++;
     }
 }

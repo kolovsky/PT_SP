@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Instance tridy {@code Car} predstavuji proces auta v simulaci.
  * @author  kolovsky
  * @author  jmacura
  * @version 1.00.000
  */
 class Car extends Process{
-
     Node [] path;
     int id;
     int kolik;
@@ -22,11 +22,11 @@ class Car extends Process{
 
     /**
      * konstuktor
-     * @param kdy jet
-     * @param kam kudy
-     * @param kolik vest
-     * @param kdyz je koncovy vrchol bez sinic, tak ten, jinak null
-     * @param nalozit cely nakladak?
+     * @param time Kdy jet
+     * @param path Kam kudy
+     * @param kolik Kolik vest
+     * @param helicop Kdyz je koncovy vrchol bez sinic, tak ten, jinak null
+     * @param isFull Nalozit cely nakladak?
      */
     public Car(int time,Node [] path,int kolik,Node helicop,boolean isFull)
     {
@@ -49,14 +49,7 @@ class Car extends Process{
 
     }
     /**
-     * nacitani ID
-     */
-    private void incrementID()
-    {
-        lastID++;
-    }
-    /**
-     * metoda volaná po vyberu z fronty
+     * metoda volani po vyberu z fronty
      */
     public void goOn(){
         if (nextWork == path.length-1) {
@@ -116,7 +109,7 @@ class Car extends Process{
     }
     /**
      * posun se
-     * @param kam (index v ceste)
+     * @param nextWork Kam (index v ceste)
      */
     public void shift(int nextWork){
         Edge edge = path[nextWork].firstEdge;
@@ -132,12 +125,12 @@ class Car extends Process{
         Core.c.getQueue().add(this);
     }
     /**
-     * reciklace nakladniho auta pro dalsi cestu (prideleni nove prace)
-     * @param kdy jet
-     * @param kam kudy
-     * @param kolik vest
-     * @param kdyz je koncovy vrchol bez sinic, tak ten, jinak null
-     * @param nalozit cely nakladak?
+     * recyklace nakladniho auta pro dalsi cestu (prideleni nove prace)
+     * @param time Kdy jet
+     * @param path Kam a kudy
+     * @param kolik Kolik vezt
+     * @param helicop Kdyz je koncovy vrchol bez sinic, tak ten, jinak null
+     * @param isFull Nalozit cely nakladak?
      */
     public void newWork(int time,Node [] path,int kolik,Node helicop,boolean isFull){
         this.time = time;
@@ -158,6 +151,8 @@ class Car extends Process{
     }
     /**
      * vypis statistiky
+     * @param legend Vypsat legendu?
+     * @return Statisticka data
      */
     public String toString(boolean legend){
         String out = "Id: "+id+"\n";
@@ -183,5 +178,13 @@ class Car extends Process{
 
         }
         return out;
+    }
+    
+    /**
+     * nacitani ID
+     */
+    private void incrementID()
+    {
+        lastID++;
     }
 }

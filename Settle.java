@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.Arrays;
 
 /**
+ * Instance tridy {@Settle} reprezentuji proces mesta v simulaci.
  * @author  kolovsky
  * @author  jmacura
  * @version 1.00.000
@@ -14,8 +15,8 @@ public class Settle extends Process
     public int id;
     /**
      * konstruktor
-     * @param cas prvniho objednani (nacasovani procesu)
-     * @param prislusnost k vrcholu grafu (k sidlu)
+     * @param time Cas prvniho objednani (nacasovani procesu)
+     * @param node Prislusnost k vrcholu grafu (k sidlu)
      */
     public Settle(int time, Node node)
     {
@@ -32,7 +33,7 @@ public class Settle extends Process
     
     /**
      * pridat jidlo do sidla
-     * @param kolik jidla
+     * @param kolik Kolik jidla
      */
     public void addFood(int kolik){
         if (actualFood == 0) {
@@ -119,10 +120,10 @@ public class Settle extends Process
     }
     /**
      * posle vrtulnik
-     * @param kdy ma vrtulnik vyletet
-     * @param odkud
-     * @param kam
-     * @param kolik veze
+     * @param time Kdy ma vrtulnik vyletet
+     * @param start Odkud
+     * @param end Kam
+     * @param kolik Kolik veze
      */
     public void sendHelicop(int time,Node start, Node end, int kolik){
         Helicop ncar;
@@ -139,14 +140,14 @@ public class Settle extends Process
     }
     /**
      * statistika pro dane sidlo
-     * @param vytvorit statistiku
+     * @param legend vytvorit statistiku
      */
     public String toString(boolean legend){
         return node.log.toString();
     }
     /**
      * prevede jidlo na cas (za jak dlouho sni urcite mnozstvi jidla)
-     * @param kolik jidla
+     * @param kolik Kolik jidla
      */
     public int food2time(int kolik){
         return (int)((kolik/(2.0*node.people))*24.0*60.0);
