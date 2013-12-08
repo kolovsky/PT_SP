@@ -33,28 +33,16 @@ public class Node
     //zaznamy a statistiky 
     public Statistic log = new Statistic();
 
-    /**
-     * Seznam hran.
-     */
     //public Edge edges[];
     public Edge firstEdge = null;
     public Edge lastEdge = null;
-
-    public void addEdge(Edge newEdge){
-        if (firstEdge == null) {
-            firstEdge = newEdge;
-            lastEdge = newEdge;    
-        }
-        else {
-            lastEdge.next = newEdge;
-            lastEdge = newEdge;
-        }
-    }
 
     /**
      * Konstruktor objektu tridy {@code Node}.
      * 
      * @param id Jmeno noveho vrcholu
+     * @param x X-ova souradnice
+     * @param y Y-ova souradnice
      */
     public Node(int id, int x, int y)
     {
@@ -65,7 +53,23 @@ public class Node
     }
     
     /**
+     * Prida hranu
+     * @param newEdge Nova hrana.
+     */
+    public void addEdge(Edge newEdge){
+        if (firstEdge == null) {
+            firstEdge = newEdge;
+            lastEdge = newEdge;    
+        }
+        else {
+            lastEdge.next = newEdge;
+            lastEdge = newEdge;
+        }
+    }
+    
+    /**
      * Nastavuje parametr id.
+     * @param newId Nove ID
      */
     public void setId(int newId)
     {
@@ -75,7 +79,7 @@ public class Node
     /**
      * Vraci parametr id.
      * 
-     * @return {@code String} ID vrcholu
+     * @return ID vrcholu
      */
     public int getId()
     {

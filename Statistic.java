@@ -5,13 +5,28 @@
  */
 class Statistic{
 	//public int allFoodHelp = 0;
+	/**
+	 * Pole pro zaznamy o dovezenych potravinach.
+	 */
 	public String [] log = new String[8];
+	
+	/**
+	 * Pole o s poctem surovin, dovezenym za 3 dny.
+	 */
 	public int [] threeFood = new int[3];
 
+	/**
+	 * Prida zaznam.
+	 * @param kolik Pocet surovin.
+	 */
 	public void addLog(int kolik){
 		log[Core.c.time/1440] += "("+Core.c.time+" "+kolik+" kg)";
 		threeFood[Core.c.time/4320] += kolik;
 	}
+	/**
+	 * Vytvori statistiku v citelne podobe.
+	 * @return Statisticka data
+	 */
 	public String toString(){
 		String out = "";
 		for (int i = 0;i<7 ;i++ ) {

@@ -7,46 +7,26 @@
  */
 public class Supply
 {
-    //== KONSTANTNi ATRIBUTY TriDY =============================================
-    //== PROMeNNe ATRIBUTY TriDY ===============================================
-    //==  ====================
-    //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
     //== PROMeNNe ATRIBUTY INSTANCi ============================================
-    int quant; //mnozstvi surovin
-    int expire; //trvanlivost do [min]
+    /**
+     * Mnozstvi surovin.
+     */
+    int quant;
     
-    //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
-    //== OSTATNi NESOUKROMe METODY TriDY =======================================
+    /**
+     * Trvanlivost do.. [min]
+     */
+    int expire;
     
-    //##########################################################################
     //== KONSTRUKTORY A TOVaRNi METODY =========================================
-
-    /***************************************************************************
-     *
+    /**
+     * Vytvori dany pocet zasob.
+     * @param amount Pocet potravin.
+     * @param expireTo Doba trvanlivosti.
      */
     public Supply(int amount,int expiteTo)
     {
         this.expire = expiteTo;
         this.quant = amount;
     }
-
-
-
-    //== ABSTRAKTNi METODY =====================================================
-    //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================
-    //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
-    //== SOUKROMe A POMOCNe METODY TriDY =======================================
-    //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
-    //== INTERNi DATOVe TYPY ===================================================
-    //== TESTOVACi METODY A TriDY ==============================================
-    //
-    //     /********************************************************************
-    //      * Testovaci metoda.
-    //      */
-    //     public static void test()
-    //     {
-    //         Supply instance = new Supply();
-    //     }
-    //     /** @param args Parametry prikazoveho radku - nepouzivane. */
-    //     public static void main(String[] args)  {  test();  }
 }

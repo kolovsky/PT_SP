@@ -14,12 +14,24 @@ abstract class Process{
 	//int actualFood;
 	
 	//== KONSTRUKTORY A TOVaRNi METODY =========================================
+	/**
+	 * Vytvori novy proces.
+	 * @param time Simulacni cas dalsi akce.
+	 */
 	public Process(int time){
 		this.time = time;
 	}
 	
 	//== ABSTRAKTNi METODY =====================================================
+	/**
+	 * Provede s procesem akci.
+	 */
 	public abstract void goOn();
 	
+	/**
+	 * Vypise udaje o procesu.
+	 * @param legend Chcete legendu informaci?
+	 * @return Statisticka data.
+	 */
 	public abstract String toString(boolean legend);
 }

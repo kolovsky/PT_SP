@@ -12,15 +12,23 @@ import java.io.IOException;
  */
 public class Graph
 {
-    public static final int SETTLE = 1;
-    public static final int HELICOP = 2;
-    public static final int CAR = 3;
-    
-    public Node firstNode = null;
-    public Node lastNode = null;
-    public AirportNode [] arrayAirport = new AirportNode[5];
     /**
-     * Konstruktor objektu tridy Graph
+     * Prvni vrchol ve spojovem seznamu.
+     */
+    public Node firstNode = null;
+    
+    /**
+     * Posledni vrchol ve spojovem seznamu.
+     */
+    public Node lastNode = null;
+    
+    /**
+     * Pole s letisti.
+     */
+    public AirportNode [] arrayAirport = new AirportNode[5];
+    
+    /**
+     * Konstruktor objektu tridy {@code Graph}.
      */
     public Graph()
     {
@@ -28,7 +36,7 @@ public class Graph
     }
     /**
      * pridani vrcholu do grafu
-     * @param vrchol
+     * @param newNode Novy vrchol.
      */
     public void addNode(Node newNode){
         if (firstNode == null) {
@@ -88,8 +96,9 @@ public class Graph
 
     }
     /**
-     * nacitani grafu se souboru
-     * @param jmeno souboru
+     * nacitani grafu ze souboru
+     * @param filenam Jmeno souboru.
+     * @throws IOException Chyba cteni ze souboru.
      */
     public void load(String filename) throws IOException{
         File file = new File(filename);
@@ -133,7 +142,8 @@ public class Graph
     }
     /**
      * ukladani grafu do souboru
-     * @param jmeno souboru
+     * @param filename jmeno souboru
+     * @throws IOException Chyba zapisu do souboru.
      */
     public void save(String filename) throws IOException{
         FileWriter out = new FileWriter(filename);
@@ -157,6 +167,7 @@ public class Graph
     }
     /**
      * vytvari hrany v grafu
+     * @throws RuntimeException Neocekavana chyba pri behu programu.
      */
     public void createEdge() throws RuntimeException {
         long distance;
@@ -298,8 +309,8 @@ public class Graph
          setSimpleNodes(pp);
     }
     /**
-     * konstuktor
-     * @param pocet mest pod 2000 obyvatel
+     * Oznaci mesta bez silnic.
+     * @param pp Pocet mest pod 2000 obyvatel.
      */
     private void setSimpleNodes(int pp)
     {
@@ -325,8 +336,10 @@ public class Graph
     }
     /**
      * vraci nekratsi cestu z vrcholu do vrcholu
-     * @param od
-     * @param do
+     * @param from Pocatecni vrchol
+     * @param to Koncovy vrchol
+     * @param build
+     * @return Pole s vrcholy na nejkratsi ceste.
      */
     public Node[] dijkstra(Node from, Node to,boolean build){
         if (build) {
@@ -354,8 +367,8 @@ public class Graph
 
     }
     /**
-     * ohodnoti graf (pojde graf a  zapise do promene cost hodnoty)
-     * @param od
+     * ohodnoti graf (pojde graf a  zapise do promene {@code cost} hodnoty)
+     * @param from Pocatecni vrchol
      */
     public boolean dijkstra(Node from){
         cleanGraph();
@@ -381,7 +394,7 @@ public class Graph
         return true;
     }
     /**
-     * pridani vrcholu do mraku (dijkstara)
+     * pridani vrcholu do mraku (dijkstra)
      */
     private Node addToCloud(){
         Node minCost = new Node(1,1,1);
@@ -400,7 +413,7 @@ public class Graph
         return minCost;
 
     }
-   /**
+    /**
      * inicializuje graf do puvodni podoby
      */
     public void cleanGraph(){
@@ -418,6 +431,7 @@ public class Graph
     }
     /**
      * vypise statistiku o generovani vstupnich dat
+     * @return Statisticka data
      */
     public String statistic(){
         int sumaP = 0;
@@ -467,8 +481,7 @@ public class Graph
          + " l2: "+ l2 + " l3: "+ l3 + " l4: "+ l4 + " l5: "+ l5+"\n"+" ost: " + ost;
     }
     /**
-     * ohodnoti graf (pojde graf a  zapise do promene cost hodnoty)
-     * @param od
+     * ohodnoti graf (pojde graf a  zapise do promene {@code cost} hodnoty)
      */
     public void createSupplied(){
         Node node;
@@ -507,7 +520,8 @@ public class Graph
     }
     /**
      * vrati vrchol
-     * @param ID
+     * @param id ID vrcholu
+     * @return objekt vrcholu
      */
     public Node get(int id){
         Node node  = firstNode;
@@ -520,8 +534,9 @@ public class Graph
         return null;
     }
     /**
-     * vrati vzdalenost ke vsem ostatim Vrcholum
-     * @param vrchol
+     * vrati vzdalenost ke vsem ostatim vrcholum
+     * @param node Pocatecni vrchol
+     * @return Pole se vzdalenostmi
      */
     public int[] distancesFromNode(Node node){
         long distance;
@@ -547,8 +562,8 @@ public class Graph
     }
     /**
      * vytvori hrany od daneho vrcholu
-     * @param od
-     * @param vzdalenosti k vrcholum
+     * @param node Pocatecni vrchol
+     * @param distances Pole se vzdalenostmi k ostatnim vrcholum
      */
     public void createRoads(Node node, int[] distances){
         int[] distancesCopy;
@@ -581,9 +596,9 @@ public class Graph
     }
     /**
      * prida nove sidlo
-     * @param souradnice x
-     * @param souradnice y
-     * @param pocet obyvatel
+     * @param x Souradnice x
+     * @param y Souradnice y
+     * @param people Pocet obyvatel
      */
     public void addSettle(int x,int y,int people){
         Node newNode = new SettleNode(lastNode.id +1,x,y);
@@ -619,6 +634,9 @@ public class Graph
         newNode.costToAir = min;
         
     }
+    /**
+     * Vytvori hrany mezi mesty a letisti.
+     */
     public void generatePath(){
         for (int i = 0;i<arrayAirport.length ;i++ ) {
             dijkstra(arrayAirport[i]);
