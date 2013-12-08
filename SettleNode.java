@@ -6,6 +6,12 @@
 class SettleNode extends Node
 {
 	public int people;
+	/**
+     * konstruktor
+     * @param ID
+     * @param souradnice x
+     * @param souradnice y
+     */
     public SettleNode(int id, int x, int y)
     {
         super(id,x,y);

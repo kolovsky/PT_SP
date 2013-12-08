@@ -12,7 +12,11 @@ public class Settle extends Process
     public LinkedList<Helicop> garage;
     public static int lastID;
     public int id;
-
+    /**
+     * konstruktor
+     * @param cas prvniho objednani (nacasovani procesu)
+     * @param prislusnost k vrcholu grafu (k sidlu)
+     */
     public Settle(int time, Node node)
     {
         super(time);
@@ -25,10 +29,17 @@ public class Settle extends Process
         }
 
     }
+    /**
+     * zajistuje cislovani 
+     */
     private void incrementID()
     {
         lastID++;
     }
+    /**
+     * pridat jidlo do sidla
+     * @param kolik jidla
+     */
     public void addFood(int kolik){
         if (actualFood == 0) {
             lastTime = Core.c.time;
@@ -40,10 +51,16 @@ public class Settle extends Process
     		node.log.addLog(kolik);
     	}
     }
+    /**
+     * aktualizuje mnozstvi jidla v sidle
+     */
     public void actualizatedFood(){
     	actualFood = actualFood - (int)((Core.c.time - lastTime)/(24.0*60.0)*2*node.people);
     	lastTime = Core.c.time;
     }
+    /**
+     * metoda volana po vyberu z fronty
+     */
     public void goOn(){
     	actualizatedFood();
     	if (actualFood < 0) {
@@ -106,6 +123,13 @@ public class Settle extends Process
 
     	
     }
+    /**
+     * posle vrtulnik
+     * @param kdy ma vrtulnik vyletet
+     * @param odkud
+     * @param kam
+     * @param kolik veze
+     */
     public void sendHelicop(int time,Node start, Node end, int kolik){
         Helicop ncar;
         if (garage.size() == 0) {
@@ -119,12 +143,23 @@ public class Settle extends Process
             Core.c.getQueue().add(ncar);
         }
     }
+    /**
+     * statistika pro dane sidlo
+     * @param vytvorit statistiku
+     */
     public String toString(boolean legend){
         return node.log.toString();
     }
+    /**
+     * prevede jidlo na cas (za jak dlouho sni urcite mnozstvi jidla)
+     * @param kolik jidla
+     */
     public int food2time(int kolik){
         return (int)((kolik/(2.0*node.people))*24.0*60.0);
     }
+    /**
+     * vrati prebytek jidla pri prijezdu dalsiho nakladniho auta (vrtulniku)
+     */
     public int getPrebytek(){
         if (node.isSimple) {
 

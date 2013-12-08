@@ -7,11 +7,28 @@ class Statistic{
 	//public int allFoodHelp = 0;
 	public String [] log = new String[8];
 	public int [] threeFood = new int[3];
-
+	/**
+     * konstruktor
+     */
+	public Statistic(){
+		for (int i = 0;i<log.length ;i++ ) {
+			log[i] = "";
+		}
+		for (int i = 0;i<threeFood.length ;i++ ) {
+			threeFood[i] = 0;
+		}
+	}
+	/**
+     * pridani zaznamu
+     * @param kolik idla bylo provezeno
+     */
 	public void addLog(int kolik){
 		log[Core.c.time/1440] += "("+Core.c.time+" "+kolik+" kg)";
 		threeFood[Core.c.time/4320] += kolik;
 	}
+	/**
+     * vypise statistiku
+     */
 	public String toString(){
 		String out = "";
 		for (int i = 0;i<7 ;i++ ) {
@@ -21,7 +38,7 @@ class Statistic{
 		out = out + "\n";
 		int allFood = 0;
 		for (int j = 0;j<3 ;j++ ) {
-			out = out + +j+". trojden: "+threeFood[j]+" kg ";
+			out = out + j+". trojden: "+threeFood[j]+" kg ";
 			allFood += threeFood[j];
 		}
 		out = out + "\n";

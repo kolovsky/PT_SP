@@ -14,7 +14,13 @@ class Helicop extends Process{
     public int id;
     ArrayList<String> log = new ArrayList<String>();
     int startTime;
-
+    /**
+     * konstruktor
+     * @param kdy ma vrtulnik vyletet
+     * @param odkud
+     * @param kam
+     * @param kolik veze
+     */
     public Helicop(int time,Node start, Node end, int kolik)
     {
         super(time);
@@ -26,12 +32,16 @@ class Helicop extends Process{
         this.kolik = kolik;
         this.startTime = time;
     }
-    
+    /**
+     * zajistuje aktuali cislovani vrtulniku
+     */
     private void incrementID()
     {
         lastID++;
     }
-    
+    /**
+     * metoda volana po vybrani z fronty
+     */
     public void goOn(){
     	if (nextWork == 0) { //nakladani do vrtulniku
     		deal();
@@ -69,12 +79,20 @@ class Helicop extends Process{
     	
     	
     }
+    /**
+     * nakladat/vykladat
+     */
     public void deal(){
     	time = (int)((kolik/1000.0)*30.0) + Core.c.time;
 		Core.log("Vrtulnik id "+ id);
 		Core.log("Nakladam/vykladam do casu "+time);
 		Core.c.getQueue().add(this);
     }
+    /**
+     * posun vrtulniku
+     * @param odkud
+     * @param kam
+     */
     public void shift(Node from, Node to){
     	Edge edge = from.firstEdge;
 		while (edge != null) {
@@ -88,6 +106,13 @@ class Helicop extends Process{
 		Core.log("Budu tam v "+time);
 		Core.c.getQueue().add(this);
     }
+    /**
+     * prideluje novou praci pro vrtulnik (reciklace vrtulniku)
+     * @param kdy ma vrtulnik vyletet
+     * @param odkud
+     * @param kam
+     * @param kolik veze
+     */
     public void newWork(int time,Node start, Node end, int kolik){
         this.time = time;
         this.start = start;
@@ -96,6 +121,10 @@ class Helicop extends Process{
         this.kolik = kolik;
         this.startTime = time;
     }
+    /**
+     * statistrika k danemu vrtulniku
+     * @param true - vypise legendu
+     */
     public String toString(boolean legend){
         String out = "Id: "+id+"\n";
         //out += "Actual place: "+ path[nextWork-1].id;

@@ -28,7 +28,7 @@ public class Node
 
     // nalezi ke grafu
     public AirportNode suppliedFrom = null; //prislusnost k letisti
-    public int costToAir; //[min] jak dlouho trva cesta z letiste
+    public int costToAir; 
     public Node [] path;
     //zaznamy a statistiky 
     public Statistic log = new Statistic();

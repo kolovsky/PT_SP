@@ -327,6 +327,7 @@ public class Graph
      * vraci nekratsi cestu z vrcholu do vrcholu
      * @param od
      * @param do
+     * @param znova pojit graf?
      */
     public Node[] dijkstra(Node from, Node to,boolean build){
         if (build) {
@@ -619,6 +620,10 @@ public class Graph
         newNode.costToAir = min;
         
     }
+    /**
+     * doplni ke kazdemu vrcholu cestu k nejblizsimu letisti
+     * @param name jmeno vrcholu
+     */
     public void generatePath(){
         for (int i = 0;i<arrayAirport.length ;i++ ) {
             dijkstra(arrayAirport[i]);

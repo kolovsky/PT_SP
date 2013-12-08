@@ -14,12 +14,22 @@ abstract class Process{
 	//int actualFood;
 	
 	//== KONSTRUKTORY A TOVaRNi METODY =========================================
+	/**
+     * konstruktor
+     * @param na kdy ma byt proces nacasovan (jeho prvni akce)
+     */
 	public Process(int time){
 		this.time = time;
 	}
 	
 	//== ABSTRAKTNi METODY =====================================================
+	/**
+     * metoda volana po vyberu z fronty v kalendari
+     */
 	public abstract void goOn();
-	
+	/**
+     * metody pro vypis statistiky pro dany objekt
+     * @param vypsat legendu?
+     */
 	public abstract String toString(boolean legend);
 }

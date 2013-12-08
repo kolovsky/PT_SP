@@ -36,14 +36,9 @@ public class Calendar extends Thread
     private volatile boolean isRun = true;
     
     /**
-<<<<<<< HEAD
-     * konstruktor
-     * @param pouzity graf
-=======
      * Vytvori novy kalendar s prioritni frontou a spusti simulaci.
      * 
      * @param g Mapa uzemi, tj. graf, nad kterym probiha simulace.
->>>>>>> fd29446ff13999de82628216e17e982bad92acc8
      */
     public Calendar(Graph g)
     {

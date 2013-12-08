@@ -7,22 +7,15 @@
  */
 public class Supply
 {
-    //== KONSTANTNi ATRIBUTY TriDY =============================================
-    //== PROMeNNe ATRIBUTY TriDY ===============================================
-    //==  ====================
-    //== KONSTANTNi ATRIBUTY INSTANCi ==========================================
-    //== PROMeNNe ATRIBUTY INSTANCi ============================================
+    
     int quant; //mnozstvi surovin
     int expire; //trvanlivost do [min]
     
-    //== PriSTUPOVe METODY VLASTNOSTi TriDY ====================================
-    //== OSTATNi NESOUKROMe METODY TriDY =======================================
     
-    //##########################################################################
-    //== KONSTRUKTORY A TOVaRNi METODY =========================================
-
-    /***************************************************************************
-     *
+    /**
+     * konstruktor
+     * @param mnozstvi jidla
+     * @param spotrebovat do [min]
      */
     public Supply(int amount,int expiteTo)
     {
@@ -30,15 +23,6 @@ public class Supply
         this.quant = amount;
     }
 
-
-
-    //== ABSTRAKTNi METODY =====================================================
-    //== PriSTUPOVe METODY VLASTNOSTi INSTANCi =================================
-    //== OSTATNi NESOUKROMe METODY INSTANCi ====================================
-    //== SOUKROMe A POMOCNe METODY TriDY =======================================
-    //== SOUKROMe A POMOCNe METODY INSTANCi ====================================
-    //== INTERNi DATOVe TYPY ===================================================
-    //== TESTOVACi METODY A TriDY ==============================================
     //
     //     /********************************************************************
     //      * Testovaci metoda.
