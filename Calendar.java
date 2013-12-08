@@ -53,14 +53,16 @@ public class Calendar extends Thread
         start();
     }
     /**
-     * vrati graf
+     * Vrati mapu uzemi.
+     * @return Graf, nad kterym probiha simulace.
      */
     public Graph getGraph()
     {
         return this.g;
     }
     /**
-     * vrati frontu
+     * Vrati prioritni frontu objektu.
+     * @return Prioritni fronta objektu tridy {@code Process}.
      */
     public PriorityQueue<Process> getQueue()
     {
@@ -122,7 +124,7 @@ public class Calendar extends Thread
     }
     
     /**
-     * metoda ve ktre probiha simulace 
+     * metoda ve ktere probiha simulace 
      */
     public void simulate()
     {  
@@ -209,7 +211,8 @@ public class Calendar extends Thread
         }
     }
     /**
-     * vytvori statistiku k simulaci
+     * vytvori statistiku simulace
+     * @throws IOEXception Chyba zapisu do souboru.
      */
     public void createStatistics() throws IOException{
         FileWriter out1 = new FileWriter("zasobovano_z.txt");

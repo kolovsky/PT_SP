@@ -11,8 +11,8 @@ public class Edge
     public Edge next = null;
     /**
      * konstuktor
-     * @param kam hrana vede
-     * @param jak je dlouha
+     * @param node Cilovy vrchol hrany (kam hrana vede).
+     * @param cost Delka hrany.
      */
     public Edge(Node node,int cost)
     {

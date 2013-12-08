@@ -7,7 +7,6 @@ import java.util.PriorityQueue;
  * @author  jmacura
  * @version 1.00.000
  */
-
 class Airport extends Process{
 
     int allFood = 500000;
@@ -17,10 +16,11 @@ class Airport extends Process{
             return o1.expire - o2.expire;
         }});
     public LinkedList<Car> garage;
+    
     /**
      * konstruktor
-     * @param cas prvniho spusteni
-     * @param prislusnost k uzlu
+     * @param time Cas prvniho spusteni
+     * @param node Prislusnost k uzlu
      */
     public Airport(int time,Node node){
         super(time);
@@ -31,7 +31,7 @@ class Airport extends Process{
 
     }
     /**
-     * metoda volana pro vyberu z fronty.
+     * metoda volana po vyberu z fronty.
      */
     @Override
     public void goOn(){
@@ -45,7 +45,8 @@ class Airport extends Process{
     }
     /**
      * metoda pro zjisteni jestli je dostatek jidla na letisti
-     * @param mnozstvi
+     * @param kolik Mnozstvi
+     * @return {@code true}, je-li jidla dostatek; {@code false} jindy.
      */
     public boolean isFood(int kolik){
         if (pq.peek().expire < Core.c.time) {
@@ -62,7 +63,8 @@ class Airport extends Process{
     }
     /**
      * vybira jidlo z letiste
-     * @param mnozstvi
+     * @param quant Mnozstvi
+     * @return Mnozstvi
      */
     public int getFood(int quant){
         //pq.peek().quant -= quant;
@@ -83,11 +85,11 @@ class Airport extends Process{
     }
     /**
      * posila nakladni auto na cestu
-     * @param kdy
-     * @param kudy
+     * @param time Kdy
+     * @param path Kudy
      * @param kolik
-     * @param koncovy vrchol pro sidlo bez silnice jinak null
-     * @param doplnit nakladak?
+     * @param helicop Koncovy vrchol pro sidlo bez silnice jinak null
+     * @param isFull Doplnit nakladak?
      */
     public void sendCar(int time,Node [] path,int kolik,Node helicop,boolean isFull){
         Car ncar;
@@ -104,6 +106,7 @@ class Airport extends Process{
     }
     /**
      * vypis
+     * @return ID letiste
      */
     @Override
     public String toString(boolean legend)

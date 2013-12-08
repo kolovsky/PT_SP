@@ -29,13 +29,7 @@ public class Settle extends Process
         }
 
     }
-    /**
-     * zajistuje cislovani 
-     */
-    private void incrementID()
-    {
-        lastID++;
-    }
+    
     /**
      * pridat jidlo do sidla
      * @param kolik jidla
@@ -169,5 +163,10 @@ public class Settle extends Process
             return (int)((food2time(actualFood) - (int)((node.costToAir/500.0)+(12000*30*2)/1000))/(int)(24.0*60.0))*2*node.people;
         }
         
+    }
+    
+    private void incrementID()
+    {
+        lastID++;
     }
 }

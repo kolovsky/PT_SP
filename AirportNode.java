@@ -6,9 +6,9 @@
 class AirportNode extends Node
 {   /**
      * konstruktor
-     * @param id
-     * @param souradnice x
-     * @param souradnice y
+     * @param id ID letiste
+     * @param x Souradnice x
+     * @param y Souradnice y
      */
 	public AirportNode(int id,int x, int y)
 	{

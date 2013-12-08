@@ -15,21 +15,23 @@ abstract class Process{
 	
 	//== KONSTRUKTORY A TOVaRNi METODY =========================================
 	/**
-     * konstruktor
-     * @param na kdy ma byt proces nacasovan (jeho prvni akce)
-     */
+	 * Vytvori novy proces.
+	 * @param time Simulacni cas dalsi akce.
+	 */
 	public Process(int time){
 		this.time = time;
 	}
 	
 	//== ABSTRAKTNi METODY =====================================================
 	/**
-     * metoda volana po vyberu z fronty v kalendari
-     */
+	 * Provede s procesem akci.
+	 */
 	public abstract void goOn();
+	
 	/**
-     * metody pro vypis statistiky pro dany objekt
-     * @param vypsat legendu?
-     */
+	 * Vypise udaje o procesu.
+	 * @param legend Chcete legendu informaci?
+	 * @return Statisticka data.
+	 */
 	public abstract String toString(boolean legend);
 }

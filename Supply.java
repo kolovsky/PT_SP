@@ -7,15 +7,23 @@
  */
 public class Supply
 {
-    
-    int quant; //mnozstvi surovin
-    int expire; //trvanlivost do [min]
-    
+
+    //== PROMeNNe ATRIBUTY INSTANCi ============================================
+    /**
+     * Mnozstvi surovin.
+     */
+    int quant;
     
     /**
-     * konstruktor
-     * @param mnozstvi jidla
-     * @param spotrebovat do [min]
+     * Trvanlivost do.. [min]
+     */
+    int expire;
+    
+    //== KONSTRUKTORY A TOVaRNi METODY =========================================
+    /**
+     * Vytvori dany pocet zasob.
+     * @param amount Pocet potravin.
+     * @param expireTo Doba trvanlivosti.
      */
     public Supply(int amount,int expiteTo)
     {
@@ -23,14 +31,4 @@ public class Supply
         this.quant = amount;
     }
 
-    //
-    //     /********************************************************************
-    //      * Testovaci metoda.
-    //      */
-    //     public static void test()
-    //     {
-    //         Supply instance = new Supply();
-    //     }
-    //     /** @param args Parametry prikazoveho radku - nepouzivane. */
-    //     public static void main(String[] args)  {  test();  }
 }
