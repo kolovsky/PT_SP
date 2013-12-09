@@ -321,9 +321,14 @@ public class Graph
          int ppp = 0; // <----------------------------------- HERE''''''!
          while(node != null) {
             if (node instanceof SettleNode){
+                
                  if (node.people < 2000 && ppp%3 == 0) { // <----------------------- ALSO HERE!!!!!!
                      node.isSimple = true;
+                     
                      p++;
+                     
+                 }
+                 if (node.people < 2000) {
                      ppp++; // <------------------------------AND HERE !!!!
                  }
                  if (node.people < 2000 && p >= pp*0.3) {
