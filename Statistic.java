@@ -11,7 +11,7 @@ class Statistic{
 	public String [] log = new String[8];
 	
 	/**
-	 * Pole o s poctem surovin, dovezenym za 3 dny.
+	 * Pole s poctem surovin, dovezenym za 3 dny.
 	 */
 	public int [] threeFood = new int[3];
 	/**
